@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint" 
+    "lint": "next lint"
   },
   "dependencies": {
+    "@types/eslint": "^8.56.10",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.5",
+    "react-kakao-maps-sdk": "^1.1.27",
     "recoil": "^0.7.7",
     "sass": "^1.77.4"
   },
