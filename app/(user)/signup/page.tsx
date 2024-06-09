@@ -1,34 +1,28 @@
 "use client";
 
-import { FormEvent } from "react";
+import { createClient } from "@supabase/supabase-js";
+import { useState } from "react";
 
-export default function page() {
-  let email = "";
-  let password = "";
+const Signup = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    const emailInput = document.getElementById("email") as HTMLInputElement;
-    const passwordInput = document.getElementById("password") as HTMLInputElement;
-
-    const email = emailInput.value;
-    const password = passwordInput.value;
+  const handleSignup = async () => {
+    const supabaseUrl = "https://jyrfxniwlrpwpcdjivbe.supabase.co";
+    const supabaseKey =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5cmZ4bml3bHJwd3BjZGppdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc0MTc3MTcsImV4cCI6MjAzMjk5MzcxN30.Z_tGSYleW1nANDdys23jsCCUkEh888R6GniRPNMofzM";
+    const supabase = createClient(supabaseUrl, supabaseKey);
 
     try {
-      const response = await fetch("./api/signup.ts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
+      const { user, error } = await supabase.auth.signUp({
+        email,
+        password,
       });
-
-      if (!response.ok) {
-        throw new Error("회원가입 실패");
+      if (error) {
+        throw error;
       }
-
-      console.log("성공");
+      console.log("Signup successful", user);
     } catch (error) {
       let message;
       if (error instanceof Error) message = error.message;
@@ -39,18 +33,12 @@ export default function page() {
 
   return (
     <div>
-      <h1>회원가입</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">이메일</label>
-          <input type="email" id="email" required />
-        </div>
-        <div>
-          <label htmlFor="password">비밀번호</label>
-          <input type="password" id="password" required />
-        </div>
-        <button type="submit">회원가입</button>
-      </form>
+      <input type="text" placeholder="이름" value={username} onChange={(e) => setUsername(e.target.value)} />
+      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <button onClick={handleSignup}>회원가입</button>
     </div>
   );
-}
+};
+
+export default Signup;
