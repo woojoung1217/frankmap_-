@@ -1,0 +1,53 @@
+// Calendar.scss
+
+.calendar {
+  
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 200px;
+
+  .calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: #333;
+
+      &:hover {
+        color: #555;
+      }
+    }
+  }
+
+  .calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    border-top: 1px solid #ccc;
+
+    .calendarCell {
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &.calendarheader {
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      &.selected {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+  }
+}
