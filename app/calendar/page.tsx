@@ -7,7 +7,7 @@ const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date()); // 현재 날짜
 
   const handleDateClick = (date: Date) => {
-    setSelectedDate(date);
+    setSelectedDate(date)
   };
 
  const getCurrentMonthYear = (): string => {
