@@ -1,0 +1,53 @@
+// Calendar.scss
+
+.calendar {
+  width: 100%; /* 컨테이너가 부모 요소의 너비를 따라 확장됩니다. */
+  max-width: 500px; /* 최대 너비를 설정하여 컨테이너가 너무 커지지 않도록 합니다. */
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 200px;
+
+  .calendarHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: #333;
+
+      &:hover {
+        color: #555;
+      }
+    }
+  }
+
+  .calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+    .calendarCell {
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &.calendarheader {
+        font-weight: bold;
+      }
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      &.selected {
+        background-color: #ccc;
+        color: white;
+      }
+    }
+  }
+}
