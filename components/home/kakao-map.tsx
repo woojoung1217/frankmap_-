@@ -3,10 +3,12 @@ import Script from "next/script";
 import { Map } from "react-kakao-maps-sdk";
 import { Pin } from "./get-markers";
 import EventMarkerContainer from "./handle-marker";
+import { useState } from "react";
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
 
 const KakaoMap = ({ data }: { data: Pin[] }) => {
+  const [bounds, setBounds] = useState();
   const positions = data.map((marker) => ({
     content: marker.content,
     latlng: {
@@ -15,6 +17,7 @@ const KakaoMap = ({ data }: { data: Pin[] }) => {
     },
     created_at: marker.created_at,
   }));
+  // console.log(bounds);
 
   return (
     <>
@@ -24,8 +27,18 @@ const KakaoMap = ({ data }: { data: Pin[] }) => {
         style={{ width: "100vw", height: "100vh" }}
         onBoundsChanged={(map) => {
           const bounds = map.getBounds();
-          console.log("남서", bounds.getSouthWest().toString());
-          console.log("북동", bounds.getNorthEast().toString());
+          var swLatLng = bounds.getSouthWest();
+          // 영역의 북동쪽 좌표를 얻어옵니다
+          var neLatLng = bounds.getNorthEast();
+
+          setBounds(bounds);
+          const { ha: leftLat, qa: leftLng, oa: rightLat, pa: rightLng } = map.getBounds();
+          // positions.map((item) =>
+          // console.log(
+          //   item.latlng.lat
+          // ),
+          // );
+          // console.log(item.latlng.lat, item.latlng.lng)
         }}
       >
         {positions.map((marker) => (
@@ -33,6 +46,7 @@ const KakaoMap = ({ data }: { data: Pin[] }) => {
             key={`EventMarkerContainer-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
             position={marker.latlng}
             content={marker.content}
+            bounds={bounds}
           />
         ))}
       </Map>
