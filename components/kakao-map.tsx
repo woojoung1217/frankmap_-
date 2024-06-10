@@ -1,18 +1,7 @@
 import Script from "next/script";
 import { Map } from "react-kakao-maps-sdk";
 import EventMarkerContainer from "./marker-click";
-
-type Pin = {
-  emotion: number;
-  content: string;
-  gps: {
-    lat: number;
-    lng: number;
-  };
-  date: string;
-  location: string;
-  image: string;
-};
+import { Pin } from "@/app/(home)/page";
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_APP_JS_KEY}&autoload=false`;
 
@@ -23,6 +12,7 @@ const KakaoMap = ({ data }: { data: Pin[] }) => {
       lat: marker.gps.lat,
       lng: marker.gps.lng,
     },
+    created_at: marker.created_at,
   }));
 
   return (
@@ -31,7 +21,7 @@ const KakaoMap = ({ data }: { data: Pin[] }) => {
       <Map center={{ lat: 37.51112, lng: 127.095973 }} style={{ width: "100vw", height: "50vh" }}>
         {positions.map((marker) => (
           <EventMarkerContainer
-            key={`EventMarkerContainer-${marker.latlng.lat}-${marker.latlng.lng}`}
+            key={`EventMarkerContainer-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
             position={marker.latlng}
             content={marker.content}
           />
