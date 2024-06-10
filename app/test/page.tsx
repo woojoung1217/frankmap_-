@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/button";
-import "@/components/button.scss";
 
 const Test = () => {
   const handleClick = () => {
@@ -10,7 +9,10 @@ const Test = () => {
 
   return (
     <div>
-      <Button handleClick={handleClick}>버튼 테스트</Button>
+      <Button size="normal" color="secondary" handleClick={handleClick}>
+        {/* <img src="/icon-image.svg" /> */}
+        로그인 / 회원가입
+      </Button>
     </div>
   );
 };
