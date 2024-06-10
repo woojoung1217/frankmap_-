@@ -1,7 +1,7 @@
 import KakaoMap from "@/components/kakao-map";
 import { supabase } from "@/components/supabase";
 
-type Pin = {
+export type Pin = {
   emotion: number;
   content: string;
   gps: {
