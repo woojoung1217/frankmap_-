@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/button";
+import Input from "@/components/input";
 
 const Test = () => {
   const handleClick = () => {
@@ -9,10 +10,12 @@ const Test = () => {
 
   return (
     <div>
-      <Button size="normal" color="secondary" handleClick={handleClick}>
-        {/* <img src="/icon-image.svg" /> */}
+      <Button size="normal" color="primary" handleClick={handleClick} imgUrl="/icon-image.svg">
         로그인 / 회원가입
       </Button>
+
+      <label htmlFor="email">이메일</label>
+      <Input id="email" type="email" placeholder="이메일을 입력하세요" size="full" />
     </div>
   );
 };
