@@ -6,8 +6,17 @@ type Position = {
   lng: number;
 };
 
-const EventMarkerContainer = ({ position, content }: { position: Position; content: string }) => {
+const EventMarkerContainer = ({
+  position,
+  content,
+  bounds,
+}: {
+  position: Position;
+  content: string;
+  bounds: object;
+}) => {
   const map = useMap();
+  console.log(bounds);
   const onClick = (marker: any) => {
     map.panTo(marker.getPosition());
     console.log(position);
