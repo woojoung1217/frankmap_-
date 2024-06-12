@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/button";
-import "@/components/button.scss";
+import Input from "@/components/input";
 
 const Test = () => {
   const handleClick = () => {
@@ -10,7 +10,12 @@ const Test = () => {
 
   return (
     <div>
-      <Button handleClick={handleClick}>버튼 테스트</Button>
+      <Button size="normal" color="primary" handleClick={handleClick} imgUrl="/icon-image.svg">
+        로그인 / 회원가입
+      </Button>
+
+      <label htmlFor="email">이메일</label>
+      <Input id="email" type="email" placeholder="이메일을 입력하세요" size="full" />
     </div>
   );
 };
