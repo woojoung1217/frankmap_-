@@ -8,7 +8,7 @@ const fetchData = async (): Promise<any[]> => {
     }
     return data;
   } catch (error: any) {
-    console.error("Error fetching data:", error.message);
+    console.error("Error fetch data:", error.message);
     return [];
   }
 };

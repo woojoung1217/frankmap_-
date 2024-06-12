@@ -5,6 +5,7 @@ import "./calendar.scss";
 import { useEffect, useState } from "react";
 
 /** 받아온 User의 인터페이스 구축  */
+
 interface EmotionData {
   post_id: number;
   user_id: number;
@@ -20,7 +21,7 @@ const Calendar = () => {
     const getData = async () => {
       const fetchedData = await fetchData();
       setData(fetchedData);
-      console.log("데이터 패칭", data);
+      console.log("데이터", data);
     };
     getData();
   }, []);
