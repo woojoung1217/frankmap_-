@@ -1,44 +1,33 @@
 "use client";
 
-import { createClient } from "@supabase/supabase-js";
 import { useState } from "react";
+import { supabase } from "@/components/supabase";
 
-const Signup = () => {
-  const [username, setUsername] = useState("");
+export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
 
-  const handleSignup = async () => {
-    const supabaseUrl = "https://jyrfxniwlrpwpcdjivbe.supabase.co";
-    const supabaseKey =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp5cmZ4bml3bHJwd3BjZGppdmJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTc0MTc3MTcsImV4cCI6MjAzMjk5MzcxN30.Z_tGSYleW1nANDdys23jsCCUkEh888R6GniRPNMofzM";
-    const supabase = createClient(supabaseUrl, supabaseKey);
-
+  async function handleSignUp() {
     try {
       const { user, error } = await supabase.auth.signUp({
         email,
         password,
       });
-      if (error) {
-        throw error;
-      }
-      console.log("Signup successful", user);
-    } catch (error) {
-      let message;
-      if (error instanceof Error) message = error.message;
-      else message = String(error);
-      console.log(message);
+      if (error) throw error;
+      alert("회원가입이 완료되었습니다!");
+    } catch (error: any) {
+      alert(error.message);
     }
-  };
+  }
 
   return (
     <div>
-      <input type="text" placeholder="이름" value={username} onChange={(e) => setUsername(e.target.value)} />
-      <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button onClick={handleSignup}>회원가입</button>
+      <h1>회원가입</h1>
+      <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="닉네임" />
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" />
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호" />
+      <button onClick={handleSignUp}>가입하기</button>
     </div>
   );
-};
-
-export default Signup;
+}
