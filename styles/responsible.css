@@ -1,0 +1,62 @@
+@media (min-width: 1025px) and (max-width: 1680px) {
+  :root {
+    font-size: 60%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  :root {
+    font-size: 54%;
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --layout-padding: 1.5rem;
+
+    --title-big: 2.4rem;
+    --title-medium: 1.8rem;
+    --title-small: 1.4rem;
+  }
+
+  body {
+    font-size: 1.3rem;
+  }
+
+  input[type="email"],
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="button"] {
+    height: 4rem;
+    line-height: 3.8rem;
+    border-radius: 1rem;
+    text-indent: 1rem;
+  }
+
+  .pc {
+    display: none;
+  }
+
+  .mo {
+    display: inline-block;
+  }
+}
+
+@media (min-width: 501px) and (max-width: 767px) {
+  :root {
+    font-size: 64%;
+  }
+}
+
+@media (min-width: 351px) and (max-width: 500px) {
+  :root {
+    font-size: 62.5%;
+  }
+}
+
+@media (max-width: 350px) {
+  :root {
+    font-size: 57%;
+  }
+}
