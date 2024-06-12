@@ -1,5 +1,13 @@
-const Calendar = () => {
-  return <div>Calendar page</div>;
+import AboutMyEmotion from "./(About)/About";
+import Calendar from "./Calendar";
+
+const Page = () => {
+  return (
+    <>
+      <Calendar />
+      <AboutMyEmotion />
+    </>
+  );
 };
 
-export default Calendar;
+export default Page;
