@@ -10,11 +10,17 @@ export default function SignUp() {
 
   async function handleSignUp() {
     try {
-      const { user, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            nickname,
+          },
+        },
       });
       if (error) throw error;
+      console.log(data);
       alert("회원가입이 완료되었습니다!");
     } catch (error: any) {
       alert(error.message);
