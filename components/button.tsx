@@ -3,14 +3,14 @@
 import { ReactNode } from "react";
 import "@/components/button.scss";
 
-type ButtonType = {
+interface ButtonType {
   children: ReactNode;
   type?: "button" | "submit";
   size?: "normal" | "large" | "full";
   color?: "primary" | "secondary";
   imgUrl?: string;
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;
-};
+}
 
 const Button = ({
   children,
