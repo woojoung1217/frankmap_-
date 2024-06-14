@@ -1,6 +1,13 @@
 import { supabase } from "@/components/supabase";
 
-const fetchData = async (): Promise<any[]> => {
+interface EmotionData {
+  post_id: number;
+  user_id: number;
+  emotion: number;
+  date: string;
+}
+
+const fetchData = async (): Promise<EmotionData[]> => {
   try {
     const { data, error } = await supabase.from("record").select("*");
     if (error) {
