@@ -27,7 +27,11 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="" />
       </head>
-      <body className={noto_Sans_KR.variable}>{children}</body>
+      <body className={noto_Sans_KR.variable}>
+        <header></header>
+        <main className="containerLayout">{children}</main>
+        <footer></footer>
+      </body>
     </html>
   );
 }
