@@ -1,13 +1,12 @@
 "use client";
 import Script from "next/script";
 import { Map } from "react-kakao-maps-sdk";
-import { Pin } from "./get-markers";
 import EventMarkerContainer from "./handle-marker";
 import { useState } from "react";
 
 const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
 
-const KakaoMap = ({ data }: { data: Pin[] }) => {
+const KakaoMap = ({ data }: { data: RecordType[] }) => {
   const [bounds, setBounds] = useState();
   const positions = data.map((marker) => ({
     content: marker.content,

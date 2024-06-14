@@ -5,11 +5,14 @@
   --color-warning: #;
   --color-error: #;
 
-  --color-black: #000000;
+  --color-black: #2e2e2e;
 
+  --color-gray-10: #cbcbcb;
   --color-gray-30: #a9a9a9;
   --color-gray-50: #a6a6a6;
   --color-gray-70: #666666;
 
   --color-white: #ffffff;
+
+  --layout-padding: 2rem;
 }
