@@ -1,11 +1,12 @@
 "use client";
 
-import fetchData from "./FetchData";
 import "./calendar.scss";
+import Image from "next/image";
+import fetchData from "./FetchData";
 import { useEffect, useState } from "react";
+import AboutMyEmotion from "./(About)/About";
 
-/** 받아온 User의 인터페이스 구축  */
-
+/** 타입 인터페이스 설정 */
 interface EmotionData {
   post_id: number;
   user_id: number;
@@ -21,7 +22,6 @@ const Calendar = () => {
     const getData = async () => {
       const fetchedData = await fetchData();
       setData(fetchedData);
-      console.log("데이터", data);
     };
     getData();
   }, []);
@@ -43,14 +43,12 @@ const Calendar = () => {
   /** 이전 달로 넘어가는 함수 */
   const goToPreviousMonth = (): void => {
     const previousMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1, selectedDate.getDate());
-    console.log("<< go to previous month");
     setSelectedDate(previousMonth);
   };
 
   /** 다음 달로 넘어가는 함수 */
   const goToNextMonth = (): void => {
     const nextMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, selectedDate.getDate());
-    console.log("go to next month >> ");
     setSelectedDate(nextMonth);
   };
 
@@ -112,7 +110,7 @@ const Calendar = () => {
               className={`calendarCell ${day === selectedDate.getDate() ? "selected" : ""}`}
               onClick={() => handleDateClick(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day))}
             >
-              {emoji ? <img src={emoji} alt="emoji" style={{ width: "20px", height: "20px" }}></img> : day}
+              {emoji ? <Image src={emoji} alt="emoji" width={30} height={30}></Image> : day}
             </div>
           );
         })}
@@ -120,16 +118,41 @@ const Calendar = () => {
     );
   };
 
+  /** 특정 월의 데이터를 필터링 하고 통계 데이터를 계산하는 함수 */
+  /** 특정 월의 데이터를 필터링 하고 통계 데이터를 계산하는 함수 */
+  const getMonthlyStats = (year: number, month: number): { [key: number]: number } => {
+    const monthlyData = data.filter((item) => {
+      const itemDate = new Date(item.date);
+      return itemDate.getFullYear() === year && itemDate.getMonth() === month;
+    });
+
+    const emotionCounts = monthlyData.reduce(
+      (counts: { [key: number]: number }, item: EmotionData) => {
+        counts[item.emotion] = (counts[item.emotion] || 0) + 1;
+        return counts;
+      },
+      { 1: 0, 2: 0, 3: 0 }, // 초기값 설정
+    );
+
+    return emotionCounts;
+  };
+
+  /** 선택된 달의 통계 데이터를 가져오기 */
+  const monthlyStats = getMonthlyStats(selectedDate.getFullYear(), selectedDate.getMonth());
+
   return (
     <>
-      <div className="calendar">
-        <div className="calendarHeader">
-          <button onClick={goToPreviousMonth}>&lt;</button>
-          <span>{getCurrentMonthYear()}</span>
-          <button onClick={goToNextMonth}>&gt;</button>
+      <div className="calendar-container">
+        <div className="calendar">
+          <div className="calendarHeader">
+            <button onClick={goToPreviousMonth}>&lt;</button>
+            <span>{getCurrentMonthYear()}</span>
+            <button onClick={goToNextMonth}>&gt;</button>
+          </div>
+          {renderCalendarGrid()}
         </div>
-        {renderCalendarGrid()}
       </div>
+      <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
     </>
   );
 };

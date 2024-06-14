@@ -9,14 +9,16 @@ export default function Login() {
 
   async function handleLogin() {
     try {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
       if (error) throw error;
       alert("로그인 성공!");
+      console.log(data);
     } catch (error) {
-      let message;
-      if (error instanceof Error) message = error.message;
-      else message = String(error);
-
-      console.log(message);
+      console.log(error);
     }
   }
 

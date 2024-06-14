@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import "@/components/button.scss";
+import "@/components/button/button.scss";
 
 interface ButtonType {
   children: ReactNode;
