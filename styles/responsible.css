@@ -12,26 +12,15 @@
 
 @media (max-width: 767px) {
   :root {
-    --layout-padding: 1.5rem;
+    /* --layout-padding: 1.5rem;
 
     --title-big: 2.4rem;
     --title-medium: 1.8rem;
-    --title-small: 1.4rem;
+    --title-small: 1.4rem; */
   }
 
   body {
     font-size: 1.3rem;
-  }
-
-  input[type="email"],
-  input[type="text"],
-  input[type="password"],
-  input[type="email"],
-  input[type="button"] {
-    height: 4rem;
-    line-height: 3.8rem;
-    border-radius: 1rem;
-    text-indent: 1rem;
   }
 
   .pc {

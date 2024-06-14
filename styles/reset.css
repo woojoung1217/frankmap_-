@@ -89,6 +89,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,
@@ -105,7 +106,6 @@ section {
   display: block;
 }
 body {
-  line-height: 1;
   font-family: var(--font-noto), sans-serif;
   font-size: 1.4rem;
 }
@@ -127,4 +127,12 @@ q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+/* Custom Reset */
+button,
+input {
+  all: unset;
+  border-radius: 1.2rem;
+  border-color: var(--color-gray-10);
 }
