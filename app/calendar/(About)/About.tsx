@@ -11,8 +11,14 @@ const AboutMyEmotion: React.FC<AboutMyEmotionProps> = ({ monthlyStats, getCurren
   // 감정 데이터 생성 매핑
   const emotionData = [
     { type: "행복", count: monthlyStats[1], color: "#000", imgSrc: "/emotion1.svg" },
-    { type: "분노", count: monthlyStats[2], color: "#000", imgSrc: "/emotion2.svg" },
-    { type: "슬픔", count: monthlyStats[3], color: "#000", imgSrc: "/emotion3.svg" },
+    { type: "즐거움", count: monthlyStats[2], color: "#000", imgSrc: "/emotion2.svg" },
+    { type: "설렘", count: monthlyStats[3], color: "#000", imgSrc: "/emotion3.svg" },
+    { type: "슬픔", count: monthlyStats[4], color: "#000", imgSrc: "/emotion4.svg" },
+    { type: "분노", count: monthlyStats[5], color: "#000", imgSrc: "/emotion5.svg" },
+    { type: "걱정", count: monthlyStats[6], color: "#000", imgSrc: "/emotion6.svg" },
+    { type: "놀라옴", count: monthlyStats[7], color: "#000", imgSrc: "/emotion7.svg" },
+    { type: "창피함", count: monthlyStats[8], color: "#000", imgSrc: "/emotion8.svg" },
+    { type: "무력감", count: monthlyStats[9], color: "#000", imgSrc: "/emotion9.svg" },
   ].sort((a, b) => b.count - a.count);
 
   // 가장 큰 감정 개수 찾기
