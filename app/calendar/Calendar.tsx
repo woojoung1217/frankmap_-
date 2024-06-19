@@ -75,6 +75,18 @@ const Calendar = () => {
         return "/emotion2.svg";
       case 3:
         return "/emotion3.svg";
+      case 4:
+        return "/emotion4.svg";
+      case 5:
+        return "/emotion5.svg";
+      case 6:
+        return "/emotion6.svg";
+      case 7:
+        return "/emotion7.svg";
+      case 8:
+        return "/emotion8.svg";
+      case 9:
+        return "/emotion9.svg";
       default:
         return "";
     }
@@ -136,7 +148,7 @@ const Calendar = () => {
         counts[item.emotion] = (counts[item.emotion] || 0) + 1;
         return counts;
       },
-      { 1: 0, 2: 0, 3: 0 }, // 초기값 설정
+      { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0, 9: 0 }, // 초기값 설정
     );
 
     return emotionCounts;
