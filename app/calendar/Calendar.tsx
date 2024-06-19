@@ -1,7 +1,7 @@
 "use client";
 
-import "./calendar.scss";
 import Image from "next/image";
+import "./calendar.scss";
 import fetchData from "./FetchData";
 import { useEffect, useState } from "react";
 import AboutMyEmotion from "./(About)/About";
@@ -20,8 +20,8 @@ const Calendar = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const fetchedData = await fetchData();
-      setData(fetchedData);
+      const resultData = await fetchData();
+      setData(resultData);
     };
     getData();
   }, []);
@@ -103,6 +103,7 @@ const Calendar = () => {
           const formattedDate = currentDate.toISOString().split("T")[0]; // YYYY-MM-DD 형식으로 변환
           const dailyData: any = data.find((item: EmotionData) => item.date === formattedDate); // 해당 날짜의 데이터 가져오기
           const emoji = dailyData ? getEmojiByEmotion(dailyData.emotion) : ""; // 해당 날짜의 이모지 가져오기
+          const noneEmoji = "/nonEmotion.svg";
 
           return (
             <div
@@ -110,7 +111,12 @@ const Calendar = () => {
               className={`calendarCell ${day === selectedDate.getDate() ? "selected" : ""}`}
               onClick={() => handleDateClick(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day))}
             >
-              {emoji ? <Image src={emoji} alt="emoji" width={30} height={30}></Image> : day}
+              {day}
+              {emoji ? (
+                <Image src={emoji} alt="emoji" width={30} height={30}></Image>
+              ) : (
+                <Image src={noneEmoji} alt="non-emoji" width={30} height={30}></Image>
+              )}
             </div>
           );
         })}
@@ -118,7 +124,6 @@ const Calendar = () => {
     );
   };
 
-  /** 특정 월의 데이터를 필터링 하고 통계 데이터를 계산하는 함수 */
   /** 특정 월의 데이터를 필터링 하고 통계 데이터를 계산하는 함수 */
   const getMonthlyStats = (year: number, month: number): { [key: number]: number } => {
     const monthlyData = data.filter((item) => {
