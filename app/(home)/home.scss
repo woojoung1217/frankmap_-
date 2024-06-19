@@ -1,3 +1,10 @@
+.map {
+  width: calc(100% + calc(var(--layout-padding) * 2));
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .emotionLists {
   display: flex;
   flex-direction: column;

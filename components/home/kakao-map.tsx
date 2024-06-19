@@ -1,51 +1,54 @@
 "use client";
-import Script from "next/script";
 import { Map } from "react-kakao-maps-sdk";
+import useKakaoLoader from "../useKakaoLoader";
 import EventMarkerContainer from "./handle-marker";
-import { useState } from "react";
-
-const KAKAO_SDK_URL = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_APP_JS_KEY}&autoload=false`;
+import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { FilteredData } from "./filtered-data";
 
 const KakaoMap = ({ data }: { data: RecordType[] }) => {
-  const [bounds, setBounds] = useState();
-  const positions = data.map((marker) => ({
-    content: marker.content,
-    latlng: {
-      lat: marker.gps.lat,
-      lng: marker.gps.lng,
-    },
-    created_at: marker.created_at,
-  }));
-  // console.log(bounds);
+  useKakaoLoader();
+  const [bounds, setBounds] = useState<{ sw: string; ne: string }>();
+  const [filteredData, setFilteredData] = useRecoilState(FilteredData);
+
+  useEffect(() => {
+    if (bounds?.sw && bounds?.ne) {
+      const swLatLng = bounds.sw.slice(1, -1).split(", ").map(Number);
+      const neLatLng = bounds.ne.slice(1, -1).split(", ").map(Number);
+
+      const swLat = swLatLng[0];
+      const swLng = swLatLng[1];
+      const neLat = neLatLng[0];
+      const neLng = neLatLng[1];
+
+      const newFilteredData = data.filter((marker) => {
+        const lat = marker.latlng.lat;
+        const lng = marker.latlng.lng;
+        return lat >= swLat && lat <= neLat && lng >= swLng && lng <= neLng;
+      });
+
+      setFilteredData(newFilteredData);
+    }
+  }, [bounds]);
 
   return (
     <>
-      <Script src={KAKAO_SDK_URL} strategy="beforeInteractive" />
       <Map
         center={{ lat: 37.51112, lng: 127.095973 }}
-        style={{ width: "100vw", height: "100vh" }}
+        style={{ width: "100%", height: "100vh" }}
         onBoundsChanged={(map) => {
           const bounds = map.getBounds();
-          var swLatLng = bounds.getSouthWest();
-          // 영역의 북동쪽 좌표를 얻어옵니다
-          var neLatLng = bounds.getNorthEast();
-
-          setBounds(bounds);
-          const { ha: leftLat, qa: leftLng, oa: rightLat, pa: rightLng } = map.getBounds();
-          // positions.map((item) =>
-          // console.log(
-          //   item.latlng.lat
-          // ),
-          // );
-          // console.log(item.latlng.lat, item.latlng.lng)
+          setBounds({
+            sw: bounds.getSouthWest().toString(),
+            ne: bounds.getNorthEast().toString(),
+          });
         }}
       >
-        {positions.map((marker) => (
+        {filteredData.map((marker) => (
           <EventMarkerContainer
             key={`EventMarkerContainer-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
             position={marker.latlng}
             content={marker.content}
-            bounds={bounds}
           />
         ))}
       </Map>
@@ -54,13 +57,3 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
 };
 
 export default KakaoMap;
-
-/**
- * 
-남서 (37.54647193403319, 127.08087529385593)
-북동 (37.549861932026396, 127.0902150592132)
-
-범위 내 O : {"lat": "37.549139", "lng": "127.081857"}
-범위 내 X : {"lat": "37.511082", "lng": "127.093967"}
- * 
- */

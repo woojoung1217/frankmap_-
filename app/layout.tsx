@@ -1,9 +1,10 @@
+import RecoilRootWrapper from "@/components/recoil-wrapper";
+import type { Metadata } from "next";
+import { Noto_Sans_KR } from "next/font/google";
 import "@/styles/reset.css";
 import "@/styles/variable.css";
 import "@/styles/common.css";
 import "@/styles/responsible.css";
-import { Noto_Sans_KR } from "next/font/google";
-import type { Metadata } from "next";
 
 export const noto_Sans_KR = Noto_Sans_KR({
   display: "swap",
@@ -28,9 +29,11 @@ export default function RootLayout({
         <link rel="stylesheet" href="" />
       </head>
       <body className={noto_Sans_KR.variable}>
-        <header></header>
-        <main className="containerLayout">{children}</main>
-        <footer></footer>
+        <RecoilRootWrapper>
+          <header></header>
+          <main className="containerLayout">{children}</main>
+          <footer></footer>
+        </RecoilRootWrapper>
       </body>
     </html>
   );

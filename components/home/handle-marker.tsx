@@ -1,20 +1,10 @@
 "use client";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
 
-const EventMarkerContainer = ({
-  position,
-  content,
-  bounds,
-}: {
-  position: { lat: number; lng: number };
-  content: string;
-  bounds: object;
-}) => {
+const EventMarkerContainer = ({ position, content }: { position: { lat: number; lng: number }; content: string }) => {
   const map = useMap();
-  // console.log(bounds);
-  const onClick = (marker: any) => {
+  const onClick = (marker) => {
     map.panTo(marker.getPosition());
-    console.log(position, bounds);
   };
   return (
     <MapMarker
