@@ -2,8 +2,8 @@ import { supabase } from "@/components/supabase";
 
 interface EmotionData {
   post_id: number;
-  user_id: number;
   emotion: number;
+  user_id: number;
   date: string;
 }
 
