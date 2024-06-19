@@ -1,4 +1,4 @@
-import { supabase } from "../supabase";
+import { supabase } from "../../libs/supabase";
 
 const getMarkers = async (): Promise<RecordType[]> => {
   const { data } = await supabase.from("record").select("*");

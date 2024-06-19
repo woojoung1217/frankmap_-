@@ -1,10 +1,10 @@
 "use client";
 import { Map } from "react-kakao-maps-sdk";
-import useKakaoLoader from "../useKakaoLoader";
+import useKakaoLoader from "../../hooks/useKakaoLoader";
 import EventMarkerContainer from "./handle-marker";
 import { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { FilteredData } from "./filtered-data";
+import { FilteredData } from "../../atoms/atoms";
 
 const KakaoMap = ({ data }: { data: RecordType[] }) => {
   useKakaoLoader();
