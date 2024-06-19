@@ -1,5 +1,5 @@
 "use client";
-import "@/components/bottomSheet/bottomSheet.scss";
+import "@/components/bottom-sheet/bottom-sheet.scss";
 import { useRef, useEffect } from "react";
 
 interface BottomSheetMetrics {

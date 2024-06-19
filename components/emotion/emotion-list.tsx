@@ -1,6 +1,6 @@
 "use client";
 import { useRecoilValue } from "recoil";
-import { FilteredData } from "./filtered-data";
+import { FilteredData } from "../../atoms/atoms";
 
 const EmotionList = () => {
   const handleClick = (post: RecordType) => {

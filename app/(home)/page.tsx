@@ -1,7 +1,7 @@
-import getMarkers from "@/components/home/get-markers";
-import KakaoMap from "@/components/home/kakao-map";
-import BottomSheet from "@/components/bottomSheet/bottomSheet";
-import EmotionList from "@/components/home/emotion-list";
+import getMarkers from "@/components/kakao/get-markers";
+import KakaoMap from "@/components/kakao/kakao-map";
+import BottomSheet from "@/components/bottom-sheet/bottom-sheet";
+import BottomSheetCont from "@/components/bottom-sheet/bottom-sheet-cont";
 import "@/app/(home)/home.scss";
 
 const Home = async () => {
@@ -10,7 +10,7 @@ const Home = async () => {
     <div className="map">
       <KakaoMap data={data} />
       <BottomSheet>
-        <EmotionList />
+        <BottomSheetCont />
       </BottomSheet>
     </div>
   );
