@@ -6,3 +6,12 @@ export const FilteredData = atom({
   key: "filteredData",
   default: getMarkers(),
 });
+
+export const emotionState = atom({
+  key: "emotion",
+});
+
+export const addStepState = atom({
+  key: "addStep",
+  default: "step1",
+});
