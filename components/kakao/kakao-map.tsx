@@ -48,7 +48,7 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
           <EventMarkerContainer
             key={`EventMarkerContainer-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
             position={marker.latlng}
-            content={marker.content}
+            emotion={marker.emotion}
           />
         ))}
       </Map>

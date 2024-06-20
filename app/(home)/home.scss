@@ -1,5 +1,6 @@
 .map {
   width: calc(100% + calc(var(--layout-padding) * 2));
+  width: 100vw;
   position: relative;
   left: 50%;
   transform: translateX(-50%);

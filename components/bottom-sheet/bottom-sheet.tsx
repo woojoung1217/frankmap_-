@@ -1,6 +1,6 @@
 "use client";
 import "@/components/bottom-sheet/bottom-sheet.scss";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -109,9 +109,15 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
     content.current!.addEventListener("touchstart", handleTouchStart);
   }, []);
 
+  const [isClicked, setIsClicked] = useState(false);
+  const handleClick = (e: React.MouseEvent) => {
+    if (e.type !== "click") return;
+    setIsClicked(!isClicked);
+  };
+
   return (
-    <div className="bottomSheet" style={{ height: BOTTOM_SHEET_HEIGHT }} ref={sheet}>
-      <div className="handlebar">
+    <div className={`bottomSheet ${isClicked ? "is-clicked" : ""}`} style={{ height: BOTTOM_SHEET_HEIGHT }} ref={sheet}>
+      <div className="handlebar" onClick={(e) => handleClick(e)}>
         <span className="hidden">핸들바</span>
       </div>
       <div className="contents" ref={content}>
