@@ -4,6 +4,26 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+
+  .searchWr {
+    position: fixed;
+    width: 100%;
+    z-index: 9;
+
+    #search {
+      max-width: 24rem;
+      background: #fff url(/icon-search.svg) no-repeat center right 0.5rem;
+    }
+  }
+
+  .markerContent {
+    padding: 0.6rem 1.2rem;
+    background: #fff;
+    border-radius: 2rem;
+    box-shadow: var(--box-shadow);
+    font-size: 1.3rem;
+    margin-top: -5.5rem;
+  }
 }
 
 .emotionLists {
@@ -47,5 +67,12 @@
         }
       }
     }
+  }
+}
+
+@media (min-width: 1024px) {
+  .markerContent {
+    margin-top: -4.4rem;
+    font-size: 1.4rem;
   }
 }
