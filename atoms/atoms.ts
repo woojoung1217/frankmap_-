@@ -11,6 +11,11 @@ export const emotionState = atom({
   key: "emotion",
 });
 
+export const addModeState = atom({
+  key: "addMode",
+  default: true,
+});
+
 export const addStepState = atom({
   key: "addStep",
   default: "step1",

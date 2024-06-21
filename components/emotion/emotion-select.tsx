@@ -1,5 +1,3 @@
-"use client";
-
 import { addStepState, emotionState } from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-select.scss";
