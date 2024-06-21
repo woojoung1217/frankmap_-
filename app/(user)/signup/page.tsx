@@ -1,16 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { supabase } from "@/components/supabase";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { supabase } from "@/libs/supabase";
+
+interface SignUpFormInputs {
+  email: string;
+  password: string;
+  nickname: string;
+}
 
 export default function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [nickname, setNickname] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpFormInputs>();
 
-  async function handleSignUp() {
+  const handleSignUp: SubmitHandler<SignUpFormInputs> = async (data) => {
+    const { email, password, nickname } = data;
     try {
-      const { data, error } = await supabase.auth.signUp({
+      const { data: signUpData, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -20,20 +29,51 @@ export default function SignUp() {
         },
       });
       if (error) throw error;
-      console.log(data);
+      console.log(signUpData);
       alert("회원가입이 완료되었습니다!");
     } catch (error: any) {
       alert(error.message);
     }
-  }
+  };
 
   return (
     <div>
       <h1>회원가입</h1>
-      <input type="text" value={nickname} onChange={(e) => setNickname(e.target.value)} placeholder="닉네임" />
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" />
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호" />
-      <button onClick={handleSignUp}>가입하기</button>
+      <form onSubmit={handleSubmit(handleSignUp)}>
+        <div>
+          <input type="text" {...register("nickname", { required: "닉네임을 입력해주세요." })} placeholder="닉네임" />
+          {errors.nickname && <p>{errors.nickname.message}</p>}
+        </div>
+        <div>
+          <input
+            type="email"
+            {...register("email", {
+              required: "이메일을 입력해주세요.",
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "유효한 이메일 주소를 입력해주세요.",
+              },
+            })}
+            placeholder="이메일"
+          />
+          {errors.email && <p>{errors.email.message}</p>}
+        </div>
+        <div>
+          <input
+            type="password"
+            {...register("password", {
+              required: "비밀번호를 입력해주세요.",
+              pattern: {
+                value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{6,}$/,
+                message: "비밀번호는 6자 이상이어야 하며, 영문자와 특수문자를 포함해야 합니다.",
+              },
+            })}
+            placeholder="비밀번호"
+          />
+          {errors.password && <p>{errors.password.message}</p>}
+        </div>
+        <button type="submit">가입하기</button>
+      </form>
     </div>
   );
 }
