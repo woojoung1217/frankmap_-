@@ -17,6 +17,20 @@ export const FilteredData = atom({
   default: getMarkers(),
 });
 
+export const emotionState = atom({
+  key: "emotion",
+});
+
+export const addModeState = atom({
+  key: "addMode",
+  default: false,
+});
+
+export const addStepState = atom({
+  key: "addStep",
+  default: "step1",
+});
+
 export const modalState = atom<ModalType>({
   key: "modalState",
   default: {

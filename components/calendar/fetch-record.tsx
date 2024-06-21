@@ -1,4 +1,5 @@
-import { supabase } from "../../libs/supabase";
+import { supabase } from "@/libs/supabase";
+
 interface EmotionData {
   post_id: number;
   emotion: number;

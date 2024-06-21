@@ -1,7 +1,7 @@
 :root {
   font-size: 10px; /* 1rem = 10px */
   width: 100%;
-  overflow-x: auto;
+  overflow-x: clip;
 }
 
 /* Reset CSS */
@@ -134,30 +134,31 @@ table {
 }
 
 button,
-input,
+input[type="text"],
+input[type="date"],
 textarea {
   all: unset;
 }
 
-input {
+input[type="text"] {
   height: 4rem;
+  text-indent: 1rem;
 }
 
-input,
+input[type="text"],
 textarea {
   width: 100%;
   border-radius: 1.2rem;
   border: 1px solid var(--color-gray-10);
-  text-indent: 1rem;
 }
 
-input::placeholder,
+input[type="text"]::placeholder,
 textarea::placeholder {
   color: var(--color-gray-50);
   font-family: unset;
 }
 
-input:focus,
+input[type="text"]:focus,
 textarea:focus {
   border-color: var(--color-gray-70);
 }
