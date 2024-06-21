@@ -5,6 +5,7 @@ import EventMarkerContainer from "./handle-marker";
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
+import GetGeolocation from "./get-geolocation";
 
 const throttle = (callback: (arg: string) => void, delay: number) => {
   let timer: ReturnType<typeof setTimeout> | undefined;
@@ -19,13 +20,18 @@ const throttle = (callback: (arg: string) => void, delay: number) => {
 };
 
 const KakaoMap = ({ data }: { data: RecordType[] }) => {
-  useKakaoLoader();
   const [bounds, setBounds] = useState<{ sw: string; ne: string }>();
   const [filteredData, setFilteredData] = useRecoilState(FilteredData);
   const [map, setMap] = useState();
+  const [position, setPosition] = useState<{ lat: number; lng: number }>({
+    lat: 37.5546788388674,
+    lng: 126.970606917394,
+  });
+  useKakaoLoader();
+  GetGeolocation(setPosition);
 
   const [search, setSearch] = useState("");
-  const [searchedData, setSearchedData] = useState([]);
+  const [searchedData, setSearchedData] = useState<RecordType[]>([]);
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ps = new kakao.maps.services.Places();
@@ -39,7 +45,7 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
         for (var i = 0; i < data.length; i++) {
           // @ts-ignore
           markers.push({
-            position: {
+            latlng: {
               lat: data[i].y,
               lng: data[i].x,
             },
@@ -93,7 +99,7 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
       </form>
       <Map
         onCreate={setMap}
-        center={{ lat: 37.51112, lng: 127.095973 }}
+        center={{ lat: position.lat, lng: position.lng }}
         style={{ width: "100%", height: "100vh" }}
         onBoundsChanged={(map) => {
           const bounds = map.getBounds();
@@ -107,18 +113,18 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
           ? searchedData.map((marker) => (
               <>
                 <CustomOverlayMap
-                  key={`overlay-${marker.position.lat}-${marker.position.lng}-${marker["created_at"]}`}
+                  key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
                   position={{
-                    lat: marker.position.lat,
-                    lng: marker.position.lng,
+                    lat: marker.latlng.lat,
+                    lng: marker.latlng.lng,
                   }}
                 >
                   <p className="markerContent">{marker.content}</p>
                 </CustomOverlayMap>
                 <EventMarkerContainer
                   type="search"
-                  key={`marker-${marker.position.lat}-${marker.position.lng}-${marker["created_at"]}`}
-                  position={marker.position}
+                  key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
+                  position={marker.latlng}
                 />
               </>
             ))
