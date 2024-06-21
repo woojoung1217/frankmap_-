@@ -1,2 +1,53 @@
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--color-white);
+  border-radius: 1rem;
+  box-shadow: var(--box-shadow);
+  padding: var(--layout-padding) calc(var(--layout-padding) + 10px);
+  min-width: 250px; // 최소 width 설정
+  max-width: 55%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: var(--layout-padding);
+}
 
+.modal-close-button {
+  text-indent: -10000px;
+}
 
+.modal-title {
+  font-size: var(--title-large);
+  font-weight: 600;
+  color: var(--color-gray-70); 
+}
+
+.modal-content {
+  font-size: var(--title-medium);
+  color: var(--color-gray-50); 
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.modal-footer button {
+  font-weight: 400;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 2.4rem;
+  height: 2.4rem;
+  background-image: url('/icon-exit.svg');
+  background-size: cover;
+}
