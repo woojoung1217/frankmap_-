@@ -6,12 +6,12 @@ import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
 
-const throttle = (callback, delay) => {
-  let timer;
-  return function () {
+const throttle = (callback: (arg: string) => void, delay: number) => {
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  return function (...args: any[]): void {
     if (!timer) {
-      timer = setTimeout((_) => {
-        callback.apply(this, arguments);
+      timer = setTimeout(() => {
+        callback.apply(this, args);
         timer = undefined;
       }, delay);
     }
