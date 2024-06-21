@@ -29,7 +29,7 @@ const AboutMyEmotion: React.FC<AboutMyEmotionProps> = ({ monthlyStats, getCurren
     if (emotionCount === 0) {
       return "0%";
     }
-    return maxEmotionCount > 0 ? `${(emotionCount / maxEmotionCount) * 100 + 100}px` : "0%";
+    return maxEmotionCount > 0 ? `${(emotionCount / maxEmotionCount) * 100}%` : "0%";
   };
 
   return (

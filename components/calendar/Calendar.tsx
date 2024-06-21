@@ -1,10 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import "./calendar.scss";
-import fetchData from "./FetchData";
+import Image from "next/image";
+import fetchData from "./fetch-record";
 import { useEffect, useState } from "react";
-import AboutMyEmotion from "./(About)/About";
+import AboutMyEmotion from "../about/About";
 
 /** 타입 인터페이스 설정 */
 interface EmotionData {
