@@ -8,11 +8,21 @@
   .searchWr {
     position: fixed;
     width: 100%;
+    max-width: 20rem;
     z-index: 9;
 
     #search {
-      max-width: 24rem;
       background: #fff url(/icon-search.svg) no-repeat center right 0.5rem;
+      padding-right: 4rem;
+    }
+    button {
+      width: 4rem;
+      aspect-ratio: 1/1;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateX(100%);
+      cursor: pointer;
     }
   }
 
