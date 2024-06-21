@@ -20,18 +20,19 @@ const throttle = (callback: (arg: string) => void, delay: number) => {
 };
 
 const KakaoMap = ({ data }: { data: RecordType[] }) => {
+  // console.log(data);
   const [bounds, setBounds] = useState<{ sw: string; ne: string }>();
   const [filteredData, setFilteredData] = useRecoilState(FilteredData);
   const [map, setMap] = useState();
   const [position, setPosition] = useState<{ lat: number; lng: number }>({
+    // 위치 확인 허용하지 않은 경우 기본 위치(서울역) 설정
     lat: 37.5546788388674,
     lng: 126.970606917394,
   });
   useKakaoLoader();
   GetGeolocation(setPosition);
-
   const [search, setSearch] = useState("");
-  const [searchedData, setSearchedData] = useState<RecordType[]>([]);
+  const [searchedData, setSearchedData] = useState<{ content: string; latlng: { lat: string; lng: string } }[]>([]);
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const ps = new kakao.maps.services.Places();
@@ -43,7 +44,6 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
         let markers = [];
 
         for (var i = 0; i < data.length; i++) {
-          // @ts-ignore
           markers.push({
             latlng: {
               lat: data[i].y,
@@ -58,6 +58,11 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
         map.setBounds(bounds);
+      } else if (status === "ZERO_RESULT") {
+        // 검색 결과가 없는 경우
+        console.log(`${search} 검색 결과가 없습니다.`);
+        setSearchedData([]);
+        setSearch("");
       }
     });
   };
@@ -113,17 +118,17 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
           ? searchedData.map((marker) => (
               <>
                 <CustomOverlayMap
-                  key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
+                  key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}`}
                   position={{
-                    lat: marker.latlng.lat,
-                    lng: marker.latlng.lng,
+                    lat: Number(marker.latlng.lat),
+                    lng: Number(marker.latlng.lng),
                   }}
                 >
                   <p className="markerContent">{marker.content}</p>
                 </CustomOverlayMap>
                 <EventMarkerContainer
                   type="search"
-                  key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
+                  key={`marker-${marker.latlng.lat}-${marker.latlng.lng}`}
                   position={marker.latlng}
                 />
               </>
