@@ -18,13 +18,15 @@ export default function SignUp() {
 
   const handleSignUp: SubmitHandler<SignUpFormInputs> = async (data) => {
     const { email, password, nickname } = data;
+    console.log("x", data);
+
     try {
       const { data: signUpData, error } = await supabase.auth.signUp({
-        email,
-        password,
+        email: email,
+        password: password,
         options: {
           data: {
-            nickname,
+            nickname: nickname,
           },
         },
       });
@@ -63,10 +65,6 @@ export default function SignUp() {
             type="password"
             {...register("password", {
               required: "비밀번호를 입력해주세요.",
-              pattern: {
-                value: /^(?=.*[a-zA-Z])(?=.*[!@#$%^&*]).{6,}$/,
-                message: "비밀번호는 6자 이상이어야 하며, 영문자와 특수문자를 포함해야 합니다.",
-              },
             })}
             placeholder="비밀번호"
           />
