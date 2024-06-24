@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
 import GetGeolocation from "./get-geolocation";
+import { useModal } from "@/hooks/useModal";
 
 function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout>;
@@ -50,6 +51,7 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
     }
   };
 
+  const { openModal } = useModal();
   const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState<{ content: string; latlng: Latlng }[]>([]);
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -80,6 +82,12 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
       } else if (status === "ZERO_RESULT") {
         // 검색 결과가 없는 경우
         console.log(`${search} 검색 결과가 없습니다.`);
+
+        openModal({
+          title: "알림",
+          content: `'${search}' 검색 결과가 없습니다.`,
+          button: "닫기",
+        });
         setSearchedData([]);
         setSearch("");
       }

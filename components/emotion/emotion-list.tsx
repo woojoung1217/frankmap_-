@@ -1,7 +1,5 @@
 "use client";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import Modal from "@/components/modal/modal";
-
 import { FilteredData } from "../../atoms/atoms";
 import { useModal } from "@/hooks/useModal";
 
@@ -39,7 +37,6 @@ const EmotionList = () => {
   return (
     <>
       <ul className="emotionLists">{data.length ? emotionLists : <p>감정을 기록해보세요. :)</p>}</ul>
-      <Modal />
     </>
   );
 };
