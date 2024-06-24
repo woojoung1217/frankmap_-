@@ -21,6 +21,10 @@ export const emotionState = atom({
   key: "emotion",
 });
 
+export const latlngState = atom({
+  key: "latlng",
+});
+
 export const addModeState = atom({
   key: "addMode",
   default: false,
@@ -39,4 +43,9 @@ export const modalState = atom<ModalType>({
     content: "",
     button: "",
   },
+});
+
+export const isActBottomSheetState = atom({
+  key: "isActBottomSheet",
+  default: false,
 });
