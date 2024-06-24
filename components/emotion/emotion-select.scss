@@ -1,9 +1,3 @@
-@mixin center-xy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .emotion-select-container {
   .emotion-select-title {
     text-align: center;
@@ -45,6 +39,8 @@
   }
 
   .emotion-select-button {
-    @include center-xy();
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
   }
 }

@@ -19,16 +19,22 @@ export const FilteredData = atom({
 
 export const emotionState = atom({
   key: "emotion",
+  default: 0,
 });
 
 export const addModeState = atom({
   key: "addMode",
-  default: false,
+  default: true,
 });
 
 export const addStepState = atom({
   key: "addStep",
   default: "step1",
+});
+
+export const editStepState = atom({
+  key: "editStep",
+  default: "step2",
 });
 
 export const modalState = atom<ModalType>({
@@ -38,5 +44,5 @@ export const modalState = atom<ModalType>({
     title: "",
     content: "",
     button: "",
-  }
+  },
 });

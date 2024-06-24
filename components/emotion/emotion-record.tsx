@@ -5,32 +5,20 @@ import { supabase } from "@/libs/supabase";
 import { format } from "date-fns";
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
-
-interface FormTypes {
-  user_id: string;
-  emotion: number;
-  content: string;
-  latlng: {
-    lat: number;
-    lng: number;
-  };
-  date: string;
-  location: string;
-  image: string[];
-}
+import Input from "../input/input";
 
 const EmotionRecord = (): JSX.Element => {
   const setAddMode = useSetRecoilState(addModeState);
   const setAddStep = useSetRecoilState(addStepState);
-  const emotion = useRecoilValue(emotionState);
+  const [emotion, setEmotion] = useRecoilState(emotionState);
   const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormTypes>();
+  } = useForm<RecordType>();
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
 
@@ -73,17 +61,16 @@ const EmotionRecord = (): JSX.Element => {
     setSelectedDate(e.target.value);
   };
 
-  const onSubmit = async (formData: FormTypes) => {
+  const onSubmit = async (formData: RecordType) => {
     if (typeof emotion === "number") {
       formData.emotion = emotion;
     }
 
     formData.user_id = "832084cc-07ba-450c-8244-2cb42ce12c21";
     formData.latlng = {
-      lat: 37.513272317072,
-      lng: 127.09431687965,
+      lat: 37.123,
+      lng: 127.452367,
     };
-    formData.location = "잠실3사거리";
     formData.image = uploadedFileUrl;
 
     try {
@@ -109,6 +96,7 @@ const EmotionRecord = (): JSX.Element => {
 
       console.log(data);
       setAddMode(false);
+      setEmotion(0);
     } catch (e) {
       console.error(e);
     }
@@ -128,6 +116,11 @@ const EmotionRecord = (): JSX.Element => {
           </label>
           <input type="date" id="date" value={selectedDate} {...register("date")} onChange={handleChange} />
         </div>
+        <div className="emotion-location">
+          <Input id="location" placeholder="어떤 장소인가요?" {...register("location", { required: true })} />
+          {errors.location && <p className="empty-contents">장소를 입력해 주세요!</p>}
+        </div>
+
         <div className="emotion-contents">
           <textarea
             placeholder="오늘 느꼈던 나의 감정은?"
@@ -144,7 +137,7 @@ const EmotionRecord = (): JSX.Element => {
           ) : (
             <>
               <label className="emotion-image-add" htmlFor="image">
-                <img src="icon-add.svg" alt="사진 추가" />
+                <img src="/icon-add.svg" alt="사진 추가" />
                 <span>사진 추가</span>
               </label>
               <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
@@ -155,7 +148,7 @@ const EmotionRecord = (): JSX.Element => {
               <img src={img} alt={`${index}/10`} />
               <button type="button" onClick={() => handleDeleteImages(index)}>
                 <i className="hidden">제거</i>
-                <img src="icon-delete.svg" alt="제거" />
+                <img src="/icon-delete.svg" alt="제거" />
               </button>
             </div>
           ))}
