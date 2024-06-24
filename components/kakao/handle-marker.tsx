@@ -1,5 +1,5 @@
 "use client";
-import { addModeState, isActBottomSheetState, latlngState } from "@/atoms/atoms";
+import { addModeState, isActBottomSheetState, latlngState, modalState } from "@/atoms/atoms";
 import { Dispatch, SetStateAction } from "react";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
@@ -16,10 +16,8 @@ const EventMarkerContainer = ({
   setIsShowCenter: Dispatch<SetStateAction<boolean>>;
 }) => {
   const map = useMap();
-
-  const handleModal = (marker, position: Latlng) => {
+  const handleClick = (marker) => {
     map.panTo(marker.getPosition());
-    console.log(position);
     setIsShowCenter(false);
   };
 
@@ -58,7 +56,7 @@ const EventMarkerContainer = ({
         // 기본, 검색 시 마커
         <MapMarker
           position={position} // 마커를 표시할 위치
-          onClick={(marker) => handleModal(marker, position)}
+          onClick={(marker) => handleClick(marker)}
           image={{
             src: type === "default" ? `/emotion${emotion}.svg` : `/icon-marker.svg`,
             size: {
