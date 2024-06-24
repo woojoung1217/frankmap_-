@@ -81,8 +81,6 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
         map!.setBounds(bounds);
       } else if (status === "ZERO_RESULT") {
         // 검색 결과가 없는 경우
-        console.log(`${search} 검색 결과가 없습니다.`);
-
         openModal({
           title: "알림",
           content: `'${search}' 검색 결과가 없습니다.`,

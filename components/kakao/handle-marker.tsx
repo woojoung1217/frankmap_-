@@ -1,5 +1,5 @@
 "use client";
-import { addModeState, isActBottomSheetState, latlngState, modalState } from "@/atoms/atoms";
+import { addModeState, addStepState, isActBottomSheetState, latlngState, modalState } from "@/atoms/atoms";
 import { Dispatch, SetStateAction } from "react";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
@@ -22,12 +22,14 @@ const EventMarkerContainer = ({
   };
 
   const setAddMode = useSetRecoilState(addModeState);
+  const setAddModeStep = useSetRecoilState(addStepState);
   const setLatlng = useSetRecoilState(latlngState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const handleAdd = (position: Latlng) => {
     setAddMode(true);
     setLatlng(position);
     setIsActBottomSheet(false);
+    setAddModeStep("step1");
   };
 
   return (
