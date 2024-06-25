@@ -197,9 +197,12 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
               </>
             ))}
       </Map>
-      <button className="emotionAdd" onClick={handleEmotionAdd}>
-        <span className="hidden">감정 추가</span>
-      </button>
+      <div className="emotionAddWr">
+        <button className="emotionAdd" onClick={handleEmotionAdd}>
+          <span className="hidden">감정 추가</span>
+        </button>
+        {!data && <p className="noData">아직 등록한 감정이 없어요</p>}
+      </div>
       <form onSubmit={(e) => handleSearch(e)} className="searchWr">
         <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />
         <button>
