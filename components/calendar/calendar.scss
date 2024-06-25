@@ -28,6 +28,10 @@
         color: var(--color-gray-70);
       }
     }
+
+    .icon-reverse {
+      transform: rotate(180deg);
+    }
   }
 
   .calendarGrid {
@@ -55,4 +59,14 @@
       }
     }
   }
+}
+.NonData-message {
+  width: 90vw;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center !important;
+  font-size: 1.9rem !important;
 }

@@ -5,8 +5,9 @@ import Image from "next/image";
 import fetchData from "@/libs/fetch-record";
 import { useEffect, useState } from "react";
 import AboutMyEmotion from "../about/About";
-import { userState } from "@/atoms/userstate";
+import { useRouter } from "next/navigation";
 import { useRecoilValue } from "recoil";
+import { userState } from "@/atoms/userstate";
 
 /** 타입 인터페이스 설정 */
 interface EmotionData {
@@ -19,19 +20,38 @@ interface EmotionData {
 const Calendar = () => {
   /* -------------------- Data fetching -------------------- */
   const [data, setData] = useState<EmotionData[]>([]); // Supabase로부터 가져온 데이터를 저장할 상태
-  const loggedInUser = useRecoilValue(userState);
-  console.log("logindata", loggedInUser);
+  const loggedInUserId = useRecoilValue(userState);
+
+  // const loggedInUserPersist = localStorage.getItem("recoil-persist"); // Recoil 퍼시스트 값 가져오기
+  // const loggedInUserId = loggedInUserPersist ? JSON.parse(loggedInUserPersist).userState : null;
+
+  console.log("x", loggedInUserId);
+
+  const router = useRouter();
 
   useEffect(() => {
     const getData = async () => {
-      const resultData = await fetchData();
-      setData(resultData);
+      if (loggedInUserId) {
+        console.log("로그인된 uuid :", loggedInUserId);
+        try {
+          const resultData = await fetchData(loggedInUserId);
+          setData(resultData);
+          console.log("결과값", resultData);
+        } catch (error) {
+          console.error("데이터 가져오기 오류:", error);
+          setData([]);
+        }
+      } else {
+        // 사용자가 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+        // alert("캘린더를 사용하려면 로그인 부터 해주세요!");
+        // router.replace("/login");
+      }
     };
+
     getData();
-  }, []);
+  }, [loggedInUserId, router]);
 
   /* ----------------- calendar ----------------- */
-
   const [selectedDate, setSelectedDate] = useState<Date>(new Date()); /** 현재 날짜를 가져오는 state */
   /** 클릭 한 날짜로 데이터를 변경하는 함수 */
   const handleDateClick = (date: Date) => {
@@ -166,14 +186,25 @@ const Calendar = () => {
       <div className="calendar-container">
         <div className="calendar">
           <div className="calendarHeader">
-            <button onClick={goToPreviousMonth}>&lt;</button>
+            <button onClick={goToPreviousMonth}>
+              <Image src={"/icon-arrow.svg"} width={15} height={20} alt="x"></Image>
+            </button>
             <span>{getCurrentMonthYear()}</span>
-            <button onClick={goToNextMonth}>&gt;</button>
+            <button onClick={goToNextMonth}>
+              <Image src={"/icon-arrow.svg"} width={15} height={20} alt="y" className="icon-reverse"></Image>
+            </button>
           </div>
           {renderCalendarGrid()}
         </div>
       </div>
-      <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
+      {data.length >= 5 ? (
+        <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
+      ) : (
+        <div className="NonData-message">
+          <p>감정 부족</p>
+          <h2>감정을 기록하고 한달 통계를 확인 해 보세요!</h2>
+        </div>
+      )}
     </>
   );
 };
