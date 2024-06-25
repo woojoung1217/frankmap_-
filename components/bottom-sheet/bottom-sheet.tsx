@@ -1,6 +1,8 @@
 "use client";
+import { isActBottomSheetState } from "@/atoms/atoms";
 import "@/components/bottom-sheet/bottom-sheet.scss";
 import { useRef, useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 interface BottomSheetMetrics {
   touchStart: {
@@ -109,7 +111,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
     content.current!.addEventListener("touchstart", handleTouchStart);
   }, []);
 
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClicked, setIsClicked] = useRecoilState(isActBottomSheetState);
   const handleClick = (e: React.MouseEvent) => {
     if (e.type !== "click") return;
     setIsClicked(!isClicked);
