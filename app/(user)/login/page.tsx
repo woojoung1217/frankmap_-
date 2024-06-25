@@ -2,8 +2,8 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { supabase } from "@/libs/supabase";
-import { userState } from "@/atoms/userstate";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { userState } from "@/atoms/atoms";
+import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 
 interface LoginFormInputs {
@@ -12,9 +12,7 @@ interface LoginFormInputs {
 }
 
 export default function Login() {
-  const [, setUser] = useRecoilState(userState); // Recoil 상태 사용
-  const loggedInUser = useRecoilValue(userState);
-  console.log("atom,", loggedInUser);
+  const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
 
   const {
@@ -33,9 +31,15 @@ export default function Login() {
 
       if (error) throw error;
       alert("로그인 성공!");
+
+      console.log("loginData:", loginData); // loginData 전체 로그 출력
+
+      // 로그인된 사용자 정보를 userState에 저장
+      setUser(loginData.user.id);
+
       router.replace("/");
-      console.log(loginData);
     } catch (error: any) {
+      console.error("로그인 에러:", error);
       alert(error.message);
     }
   };
