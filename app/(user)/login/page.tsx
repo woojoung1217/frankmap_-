@@ -2,7 +2,7 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { supabase } from "@/libs/supabase";
-import { userState } from "@/atoms/atoms";
+import { userState } from "@/atoms/userstate";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 

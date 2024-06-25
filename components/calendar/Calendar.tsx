@@ -2,10 +2,10 @@
 
 import "./calendar.scss";
 import Image from "next/image";
-import fetchData from "./fetch-record";
+import fetchData from "@/libs/fetch-record";
 import { useEffect, useState } from "react";
 import AboutMyEmotion from "../about/About";
-import { userState } from "@/atoms/atoms";
+import { userState } from "@/atoms/userstate";
 import { useRecoilValue } from "recoil";
 
 /** 타입 인터페이스 설정 */
