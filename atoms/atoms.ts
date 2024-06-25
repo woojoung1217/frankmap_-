@@ -51,3 +51,7 @@ export const modalState = atom<ModalType>({
   },
 });
 
+export const isActBottomSheetState = atom({
+  key: "isActBottomSheet",
+  default: false,
+});
