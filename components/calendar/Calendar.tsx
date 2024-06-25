@@ -2,9 +2,11 @@
 
 import "./calendar.scss";
 import Image from "next/image";
-import fetchData from "./fetch-record";
+import fetchData from "@/libs/fetch-record";
 import { useEffect, useState } from "react";
 import AboutMyEmotion from "../about/About";
+import { userState } from "@/atoms/userstate";
+import { useRecoilValue } from "recoil";
 
 /** 타입 인터페이스 설정 */
 interface EmotionData {
@@ -17,6 +19,8 @@ interface EmotionData {
 const Calendar = () => {
   /* -------------------- Data fetching -------------------- */
   const [data, setData] = useState<EmotionData[]>([]); // Supabase로부터 가져온 데이터를 저장할 상태
+  const loggedInUser = useRecoilValue(userState);
+  console.log("logindata", loggedInUser);
 
   useEffect(() => {
     const getData = async () => {
