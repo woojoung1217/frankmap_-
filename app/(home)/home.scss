@@ -5,6 +5,29 @@
   left: 50%;
   transform: translateX(-50%);
 
+  .emotionAdd {
+    position: fixed;
+    right: var(--layout-padding);
+    bottom: calc(6rem + 2rem + var(--layout-padding));
+    z-index: 9;
+    background: url(/emotion1.svg) no-repeat center / cover;
+    width: 6rem;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(20%, -20%);
+      background: url(/icon-add-black.svg) no-repeat center / cover;
+      width: 3rem;
+      aspect-ratio: 1/1;
+    }
+  }
+
   .searchWr {
     position: fixed;
     width: 100%;
@@ -81,8 +104,14 @@
 }
 
 @media (min-width: 1024px) {
-  .markerContent {
-    margin-top: -4.4rem;
-    font-size: 1.4rem;
+  .map {
+    .markerContent {
+      font-size: 1.4rem;
+      margin-top: -6rem;
+    }
+
+    .emotionAdd {
+      bottom: var(--layout-padding);
+    }
   }
 }

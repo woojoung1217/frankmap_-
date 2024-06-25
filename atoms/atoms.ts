@@ -14,12 +14,16 @@ interface ModalType {
 
 export const FilteredData = atom({
   key: "filteredData",
-  default: getMarkers(),
+  default: [] as RecordType[],
 });
 
 export const emotionState = atom({
   key: "emotion",
   default: 0,
+});
+
+export const latlngState = atom({
+  key: "latlng",
 });
 
 export const addModeState = atom({
@@ -46,3 +50,4 @@ export const modalState = atom<ModalType>({
     button: "",
   },
 });
+
