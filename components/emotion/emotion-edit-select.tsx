@@ -1,13 +1,12 @@
-import { addModeState, addStepState, emotionState } from "@/atoms/atoms";
+import { addModeState, addStepState, editStepState, emotionState } from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-select.scss";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
-const EmotionSelect = (): JSX.Element => {
-  const setAddMode = useSetRecoilState(addModeState);
-  const setAddStep = useSetRecoilState(addStepState);
+const EmotionEditSelect = (): JSX.Element => {
   const setEmotion = useSetRecoilState(emotionState);
+  const setEditStep = useSetRecoilState(editStepState);
   const [currentEmotion, setCurrentEmotion] = useState<number>();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -20,14 +19,14 @@ const EmotionSelect = (): JSX.Element => {
     if (currentEmotion) {
       console.log(currentEmotion);
       setEmotion(currentEmotion);
-      setAddStep("step2");
+      setEditStep("step2");
     } else {
       alert("감정을 선택하세요!");
     }
   };
 
   const handleClose = (): void => {
-    setAddMode(false);
+    setEditStep("step2");
   };
 
   return (
@@ -90,4 +89,4 @@ const EmotionSelect = (): JSX.Element => {
   );
 };
 
-export default EmotionSelect;
+export default EmotionEditSelect;

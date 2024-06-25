@@ -1,3 +1,4 @@
+import React, { forwardRef } from "react";
 import "@/components/input/input.scss";
 
 interface InputType {
@@ -8,8 +9,10 @@ interface InputType {
   imageUrl?: string;
 }
 
-const Input = ({ id, type = "text", placeholder, size = "full", imageUrl, ...rest }: InputType): JSX.Element => {
-  return <input id={id} type={type} placeholder={placeholder} className={size} {...rest} />;
-};
+const Input = forwardRef<HTMLInputElement, InputType>(
+  ({ id, type = "text", placeholder, size = "full", imageUrl, ...rest }, ref) => {
+    return <input id={id} type={type} placeholder={placeholder} className={size} ref={ref} {...rest} />;
+  },
+);
 
 export default Input;
