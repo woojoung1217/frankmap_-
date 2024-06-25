@@ -28,7 +28,7 @@ export const latlngState = atom({
 
 export const addModeState = atom({
   key: "addMode",
-  default: true,
+  default: false,
 });
 
 export const addStepState = atom({
