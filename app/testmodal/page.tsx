@@ -12,7 +12,6 @@ const ModalTest = () => {
   const modalData = {
     title: '전희선',
     content: 'designh2sun@gmail.com',
-    button: '로그아웃',
     callback: () => {}, // 로그아웃 버튼 클릭 이벤트 작성
   };
 
