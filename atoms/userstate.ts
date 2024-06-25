@@ -4,10 +4,9 @@ import { atom } from "recoil";
 
 interface User {
   id: string;
-  // 필요한 다른 필드들 추가
 }
 
-export const userState = atom<User | string>({
+export const userState = atom({
   key: "userState",
-  default: "",
+  default: null,
 });
