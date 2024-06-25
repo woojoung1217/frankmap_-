@@ -1,22 +1,15 @@
 import { supabase } from "@/libs/supabase";
-// import { userState } from "@/atoms/userstate";
 
-interface EmotionData {
-  post_id: number;
-  emotion: number;
-  user_id: number;
-  date: string;
-}
-
-const fetchData = async (): Promise<EmotionData[]> => {
+const fetchData = async (userId: string): Promise<RecordType[]> => {
   try {
-    const { data, error } = await supabase.from("record").select("*");
+    const { data, error } = await supabase.from("record").select("*").eq("user_id", userId);
+
     if (error) {
       throw error;
     }
     return data;
   } catch (error: any) {
-    console.error("Error fetch data:", error.message);
+    console.error("Error fetching data:", error.message);
     return [];
   }
 };
