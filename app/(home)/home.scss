@@ -30,9 +30,12 @@
 
   .searchWr {
     position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100%;
     max-width: 20rem;
-    z-index: 9;
+    z-index: 1;
 
     #search {
       background: #fff url(/icon-search.svg) no-repeat center right 0.5rem;

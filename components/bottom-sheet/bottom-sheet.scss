@@ -55,22 +55,33 @@
     width: 50%;
     max-width: 50rem;
     max-height: none;
-    overflow-y: visible;
-    padding-top: var(--layout-padding);
-    border-radius: 2rem 0 0 2rem;
+    overflow-y: auto;
     height: 100% !important;
 
+    box-shadow: none;
+    background: none;
+    padding: 0;
+    flex-direction: row;
+    align-items: center;
+
+    .contents {
+      height: 100%;
+      padding: var(--layout-padding);
+      border-radius: 2rem 0 0 2rem;
+      background: #fff;
+      box-shadow: 0 -0.4rem 1rem 0 rgba(0, 0, 0, 0.2);
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
     .handlebar {
-      position: absolute;
-      inset: unset;
-      top: 50%;
-      left: 1px;
-      transform: translate(-100%, -50%);
+      transform: translate(-100%, 0);
+      flex-shrink: 0;
       width: 2.8rem;
       height: 6rem;
       background: #fff;
       z-index: 1;
-      box-shadow: -0.3rem 0 0.3rem 0 rgba(0, 0, 0, 0.2);
+      box-shadow: -0.2rem 0 0.3rem 0 rgba(0, 0, 0, 0.1);
       border-radius: 1rem 0 0 1rem;
       display: flex;
       justify-content: center;
@@ -89,7 +100,7 @@
     }
 
     &.is-clicked {
-      transform: translateX(100%);
+      transform: translateX(calc(100% - 2.8rem));
 
       .handlebar::after {
         transform: rotate(0);
