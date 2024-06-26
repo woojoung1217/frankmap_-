@@ -1,3 +1,4 @@
+
 :root {
   font-size: 10px; /* 1rem = 10px */
   width: 100%;
@@ -136,6 +137,7 @@ table {
 button,
 input[type="text"],
 input[type="date"],
+input[type="month"],
 textarea {
   all: unset;
 }
