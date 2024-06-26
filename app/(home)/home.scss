@@ -1,0 +1,120 @@
+.map {
+  width: calc(100% + calc(var(--layout-padding) * 2));
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .emotionAdd {
+    position: fixed;
+    right: var(--layout-padding);
+    bottom: calc(6rem + 2rem + var(--layout-padding));
+    z-index: 9;
+    background: url(/emotion1.svg) no-repeat center / cover;
+    width: 6rem;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(20%, -20%);
+      background: url(/icon-add-black.svg) no-repeat center / cover;
+      width: 3rem;
+      aspect-ratio: 1/1;
+    }
+  }
+
+  .searchWr {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 20rem;
+    z-index: 1;
+
+    #search {
+      background: #fff url(/icon-search.svg) no-repeat center right 0.5rem;
+      padding-right: 4rem;
+    }
+    button {
+      width: 4rem;
+      aspect-ratio: 1/1;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transform: translateX(100%);
+      cursor: pointer;
+    }
+  }
+
+  .markerContent {
+    padding: 0.6rem 1.2rem;
+    background: #fff;
+    border-radius: 2rem;
+    box-shadow: var(--box-shadow);
+    font-size: 1.3rem;
+    margin-top: -5.5rem;
+  }
+}
+
+.emotionLists {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+  li {
+    display: flex;
+    gap: 2rem;
+
+    img {
+      width: 4.6rem;
+    }
+
+    .r-wr {
+      flex-grow: 1;
+
+      .t-wr {
+        color: var(--color-gray-50);
+        font-size: 1.4rem;
+        display: flex;
+        justify-content: space-between;
+
+        .date {
+          font-size: 1.2rem;
+        }
+      }
+      .b-wr {
+        margin-top: 0.5rem;
+        font-size: 1.6rem;
+
+        .content {
+          display: -webkit-box;
+          word-wrap: break-word;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-height: 3em;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .map {
+    .markerContent {
+      font-size: 1.4rem;
+      margin-top: -6rem;
+    }
+
+    .emotionAdd {
+      bottom: var(--layout-padding);
+    }
+  }
+}

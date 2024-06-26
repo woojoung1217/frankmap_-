@@ -1,0 +1,26 @@
+.containerLayout {
+  max-width: var(--layout-pc);
+  padding: 0 var(--layout-padding);
+  margin: 0 auto;
+}
+
+.hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+}
+
+.errorMsg {
+  color: var(--color-error);
+  margin-top: 0.6rem;
+}
+
+.mo {
+  display: block;
+}
+
+.pc {
+  display: none;
+}

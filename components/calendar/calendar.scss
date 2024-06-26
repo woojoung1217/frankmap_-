@@ -1,0 +1,72 @@
+.calendar-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar {
+  width: 80vw;
+  border-radius: 0.4rem;
+  // max-width: 50rem;
+
+  .calendarHeader {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem;
+    color: var(--color-black);
+    font-size: var(--title-extra);
+    margin-top: 1.5rem;
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      color: var(--color-black);
+      &:hover {
+        color: var(--color-gray-70);
+      }
+    }
+
+    .icon-reverse {
+      transform: rotate(180deg);
+    }
+  }
+
+  .calendarGrid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    min-height: 40rem;
+
+    .calendarCell {
+      display: flex;
+      padding: 1rem 0;
+      font-size: 1.2rem;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: var(--transition-duration);
+
+      &:hover {
+        background-color: var(--color-white);
+      }
+
+      &.selected {
+        border: 0.1rem solid var(--color-gray-50);
+        color: var(--color-black);
+      }
+    }
+  }
+}
+.NonData-message {
+  width: 90vw;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center !important;
+  font-size: 1.9rem !important;
+}

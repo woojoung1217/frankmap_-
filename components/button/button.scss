@@ -1,0 +1,101 @@
+// button.scss
+@mixin center-xy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin base-button {
+  @include center-xy();
+  gap: 1rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+  border: unset;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  outline: none;
+
+  img {
+    width: 3rem;
+  }
+}
+
+@mixin normal {
+  @include base-button();
+  width: 17.5rem;
+  height: 4rem;
+}
+
+@mixin large {
+  @include base-button();
+  width: 30rem;
+  height: 4rem;
+}
+
+@mixin full {
+  @include base-button();
+  width: 100%;
+  height: 4rem;
+}
+
+@mixin primary {
+  background-color: var(--color-white);
+  color: var(--color-gray-50);
+
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.2);
+
+  &:focus {
+    border: 0.1rem solid var(--color-gray-30);
+  }
+
+  &:hover {
+    border: 0.1rem solid var(--color-gray-30);
+  }
+}
+
+@mixin secondary {
+  background-color: var(--color-gray-30);
+  color: var(--color-white);
+
+  border: 1px solid #cbcbcb;
+  box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.2);
+
+  &:focus {
+    border: 0.1rem solid var(--color-white);
+  }
+
+  &:hover {
+    border: 0.1rem solid var(--color-white);
+  }
+}
+
+.normal-primary {
+  @include normal();
+  @include primary();
+}
+
+.normal-secondary {
+  @include normal();
+  @include secondary();
+}
+
+.large-primary {
+  @include large();
+  @include primary();
+}
+
+.large-secondary {
+  @include large();
+  @include secondary();
+}
+
+.full-primary {
+  @include full();
+  @include primary();
+}
+
+.full-secondary {
+  @include full();
+  @include secondary();
+}
