@@ -1,6 +1,4 @@
-// src/recoil/atoms.mjs
-import { atom, atomFamily } from "recoil";
-import getMarkers from "../components/kakao/get-markers";
+import { atom } from "recoil";
 
 interface ModalType {
   isOpen: Boolean;
@@ -12,6 +10,11 @@ interface ModalType {
   image?: string;
   callBack?: () => any;
 }
+
+export const dataState = atom({
+  key: "dataState",
+  default: [] as RecordType[],
+});
 
 export const FilteredData = atom({
   key: "filteredData",
@@ -25,7 +28,10 @@ export const emotionState = atom({
 
 export const latlngState = atom({
   key: "latlng",
-  default: {},
+  default: {
+    lat: 0,
+    lng: 0,
+  },
 });
 
 export const addModeState = atom({
@@ -56,4 +62,28 @@ export const modalState = atom<ModalType>({
 export const isActBottomSheetState = atom({
   key: "isActBottomSheet",
   default: false,
+});
+
+export const transformState = atom({
+  key: "transformState",
+  default: 0,
+});
+
+export const heightState = atom({
+  key: "heightState",
+  default: 0,
+});
+
+export const emotionAddMarker = atom({
+  key: "emotionAddMarker",
+  default: false,
+});
+
+export const locationState = atom({
+  key: "locationState",
+  default: {
+    // 위치 확인 허용하지 않은 경우 기본 위치(서울역) 설정
+    lat: 37.5546788388674,
+    lng: 126.970606917394,
+  },
 });
