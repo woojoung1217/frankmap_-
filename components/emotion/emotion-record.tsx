@@ -1,17 +1,21 @@
-import { addModeState, addStepState, emotionState } from "@/atoms/atoms";
+import { addModeState, addStepState, emotionState, latlngState } from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-record.scss";
 import { supabase } from "@/libs/supabase";
 import { format } from "date-fns";
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Input from "../input/input";
+import { userState } from "@/atoms/userstate";
 
 const EmotionRecord = (): JSX.Element => {
   const setAddMode = useSetRecoilState(addModeState);
   const setAddStep = useSetRecoilState(addStepState);
+  const latlng = useRecoilValue(latlngState);
+  const user = useRecoilValue(userState);
+
   const [emotion, setEmotion] = useRecoilState(emotionState);
   const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy-MM-dd"));
   const {
@@ -66,11 +70,8 @@ const EmotionRecord = (): JSX.Element => {
       formData.emotion = emotion;
     }
 
-    formData.user_id = "832084cc-07ba-450c-8244-2cb42ce12c21";
-    formData.latlng = {
-      lat: 37.123,
-      lng: 127.452367,
-    };
+    formData.user_id = user;
+    formData.latlng = latlng;
     formData.image = uploadedFileUrl;
 
     try {
