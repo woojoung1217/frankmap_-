@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import AboutMyEmotion from "../about/About";
 import { userState } from "@/atoms/userstate";
 import { useRecoilValue } from "recoil";
+import ListHeader from "../list/emotion-header";
 
 /** 타입 인터페이스 설정 */
 interface EmotionData {

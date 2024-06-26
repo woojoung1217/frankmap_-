@@ -1,0 +1,43 @@
+
+
+
+.emotion-card { // 추후 반응형 css 보강 필요
+  box-shadow: var(--box-shadow);
+  border-radius: 1rem;
+  margin: 2rem auto;
+  padding: 3rem;
+  text-align: center;
+  color: var(--color-gray-50);
+  
+  & div {
+    margin-top: 1rem;
+  }
+}
+
+.emotion-date, .emotion-location  {
+  font-weight: 500;
+}
+
+
+.emotion-content {
+  line-height: 1.7;
+}
+
+.card-emotion {
+  aspect-ratio: 1;
+  width: 6.5rem;
+}
+
+.card-image {
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+  max-width: 100%;
+  border-radius: 1rem;
+  height: 16rem;
+}
+
+/* swiper 커스텀 */
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  display: none;
+}

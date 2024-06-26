@@ -1,0 +1,54 @@
+
+
+.emotion-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+}
+
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 100%;
+  flex-wrap: nowrap;
+}
+
+
+.button-back {
+  background-image: url(/icon-arrow.svg);
+}
+
+
+.button-userInfo {
+  background-image: url(/icon-user.svg);
+}
+
+.button-back, .button-userInfo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 4rem;  // 적절한 크기로 조정
+  height: 2.4rem; // 적절한 크기로 조정
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="month"] {
+  font-weight: 700;
+  appearance: none;
+  font-size: 1.6rem;
+  color: var(--color-black);
+
+  &::-webkit-calendar-picker-indicator {
+    background-image: url("/icon-more.svg");
+    background-size: 1.8rem;
+    background-repeat: no-repeat;
+    background-position: center 0.4rem;
+    cursor: pointer;
+  }
+}
