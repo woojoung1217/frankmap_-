@@ -1,20 +1,25 @@
 "use client";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
 import { useModal } from "@/hooks/useModal";
+import { useRouter } from "next/navigation";
 
 const EmotionList = () => {
   const { openModal } = useModal();
+  const router = useRouter();
 
   const handleClick = (post: RecordType) => {
     const modalData = {
-      title: `<img src={/emotion${post.emotion}.svg} alt={${post.emotion}} />`,
       content: `
-        <p>${post.date}</p>
-        <img src={${post.image}} alt={${post.emotion}} />
+        <div className="recordModal">
+          <img className="emotion" src="/emotion${post.emotion}.svg" alt="${post.emotion}" />
+          <span className="date">${post.date}</span>
+          ${post.image?.length ? `<img className="image" src="${post.image[0]}" alt={${post.image}} />` : ""}
+          <p className="content">${post.content}</p>
+        </div>
       `,
       button: "상세보기",
-      callback: () => {}, // 로그아웃 버튼 클릭 이벤트 작성
+      callback: () => router.push(`/emotion/7`),
     };
     openModal(modalData);
   };

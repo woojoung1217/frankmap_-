@@ -2,11 +2,12 @@
 import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 import useKakaoLoader from "../../hooks/useKakaoLoader";
 import EventMarkerContainer from "./handle-marker";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
 import GetGeolocation from "./get-geolocation";
 import { useModal } from "@/hooks/useModal";
+import GetUser from "./get-user";
 
 function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout>;
@@ -16,8 +17,9 @@ function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500):
   };
 }
 
-const KakaoMap = ({ data }: { data: RecordType[] }) => {
+const KakaoMap = () => {
   useKakaoLoader();
+  const [data, setData] = useState<RecordType[]>(null);
   const mapRef = useRef<kakao.maps.Map>(null);
   const [map, setMap] = useState(mapRef.current);
 
@@ -123,89 +125,97 @@ const KakaoMap = ({ data }: { data: RecordType[] }) => {
 
   return (
     <>
-      <Map
-        key={`kakaoMap`}
-        center={{ lat: position.lat, lng: position.lng }}
-        style={{ width: "100%", height: "100vh" }}
-        ref={mapRef}
-        onCreate={(map) => setMap(map)}
-        onBoundsChanged={(map) => {
-          const bounds = map.getBounds();
-          setBounds({
-            sw: bounds.getSouthWest().toString(),
-            ne: bounds.getNorthEast().toString(),
-          });
-          debounce(() => {}, 500);
-        }}
-        onDragEnd={(map) => {
-          // @ts-ignore
-          const { Ma: lat, La: lng } = map.getCenter();
-          setCenterMarker({ lat, lng });
-        }}
-        onClick={(_, mouseEvent) => {
-          // @ts-ignore
-          const { Ma: lat, La: lng } = mouseEvent.latLng;
-          setCenterMarker({ lat, lng });
-          map!.setCenter(new kakao.maps.LatLng(lat, lng));
-        }}
-      >
-        {/* 지도 중심 마커가 표시되는 경우 */}
-        {isShowCenter && (
-          <>
-            <CustomOverlayMap key={`overlay-center`} position={centerMarker}>
-              <p className="markerContent">감정 추가</p>
-            </CustomOverlayMap>
-            <EventMarkerContainer
-              type="center"
-              key={`중심마커`}
-              position={centerMarker}
-              setIsShowCenter={setIsShowCenter}
-            />
-          </>
-        )}
-        {search
-          ? searchedData.map((marker) => (
-              // 검색된 결과가 있는 경우
+      <GetUser onUserDataFetched={setData} />
+      {data && (
+        <>
+          <Map
+            key={`kakaoMap`}
+            center={{ lat: position.lat, lng: position.lng }}
+            style={{ width: "100%", height: "100vh" }}
+            ref={mapRef}
+            onCreate={(map) => setMap(map)}
+            onBoundsChanged={(map) => {
+              const bounds = map.getBounds();
+              setBounds({
+                sw: bounds.getSouthWest().toString(),
+                ne: bounds.getNorthEast().toString(),
+              });
+              debounce(() => {}, 500);
+            }}
+            onDragEnd={(map) => {
+              // @ts-ignore
+              const { Ma: lat, La: lng } = map.getCenter();
+              setCenterMarker({ lat, lng });
+            }}
+            onClick={(_, mouseEvent) => {
+              // @ts-ignore
+              const { Ma: lat, La: lng } = mouseEvent.latLng;
+              setCenterMarker({ lat, lng });
+              map!.setCenter(new kakao.maps.LatLng(lat, lng));
+            }}
+          >
+            {/* 지도 중심 마커가 표시되는 경우 */}
+            {isShowCenter && (
               <>
-                <CustomOverlayMap
-                  key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}`}
-                  position={{
-                    lat: +marker.latlng.lat,
-                    lng: +marker.latlng.lng,
-                  }}
-                >
-                  <p className="markerContent">{marker.content}</p>
+                <CustomOverlayMap key={`overlay-center`} position={centerMarker}>
+                  <p className="markerContent">감정 추가</p>
                 </CustomOverlayMap>
                 <EventMarkerContainer
-                  type="search"
-                  key={`marker-${marker.latlng.lat}-${marker.latlng.lng}`}
-                  position={marker.latlng}
+                  type="center"
+                  key={`중심마커`}
+                  position={centerMarker}
                   setIsShowCenter={setIsShowCenter}
                 />
               </>
-            ))
-          : filteredData.map((marker: RecordType) => (
-              // 등록된 감정 데이터가 있는 경우
-              <>
-                <EventMarkerContainer
-                  type="default"
-                  key={`${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
-                  position={marker.latlng}
-                  emotion={marker.emotion}
-                  setIsShowCenter={setIsShowCenter}
-                />
-              </>
-            ))}
-      </Map>
-      <button className="emotionAdd" onClick={handleEmotionAdd}>
-        <span className="hidden">감정 추가</span>
-      </button>
-      <form onSubmit={(e) => handleSearch(e)} className="searchWr">
-        <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />
-        <button>
-          <span className="hidden">검색</span>
-        </button>
-      </form>
+            )}
+            {search
+              ? searchedData.map((marker) => (
+                  // 검색된 결과가 있는 경우
+                  <>
+                    <CustomOverlayMap
+                      key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}`}
+                      position={{
+                        lat: +marker.latlng.lat,
+                        lng: +marker.latlng.lng,
+                      }}
+                    >
+                      <p className="markerContent">{marker.content}</p>
+                    </CustomOverlayMap>
+                    <EventMarkerContainer
+                      type="search"
+                      key={`marker-${marker.latlng.lat}-${marker.latlng.lng}`}
+                      position={marker.latlng}
+                      setIsShowCenter={setIsShowCenter}
+                    />
+                  </>
+                ))
+              : filteredData.map((marker: RecordType) => (
+                  // 등록된 감정 데이터가 있는 경우
+                  <>
+                    <EventMarkerContainer
+                      type="default"
+                      key={`${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
+                      position={marker.latlng}
+                      emotion={marker.emotion}
+                      setIsShowCenter={setIsShowCenter}
+                    />
+                  </>
+                ))}
+          </Map>
+          <div className="emotionAddWr">
+            <button className="emotionAdd" onClick={handleEmotionAdd}>
+              <span className="hidden">감정 추가</span>
+            </button>
+            {!data && <p className="noData">아직 등록한 감정이 없어요</p>}
+          </div>
+          <form onSubmit={(e) => handleSearch(e)} className="searchWr">
+            <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />
+            <button>
+              <span className="hidden">검색</span>
+            </button>
+          </form>
+        </>
+      )}
     </>
   );
 };
