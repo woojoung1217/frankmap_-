@@ -7,7 +7,7 @@ import "@/styles/common.css";
 import "@/styles/responsible.css";
 import Header from "@/components/header/header";
 
-export const noto_Sans_KR = Noto_Sans_KR({
+const noto_Sans_KR = Noto_Sans_KR({
   display: "swap",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -25,11 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={noto_Sans_KR.variable}>
       <head>
         <link rel="stylesheet" href="" />
       </head>
-      <body className={noto_Sans_KR.variable}>
+      <body>
         <RecoilRootWrapper>
           <Header />
           <main className="containerLayout">{children}</main>
