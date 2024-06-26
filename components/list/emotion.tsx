@@ -4,6 +4,7 @@ import EmotionHeader from '@/components/list/emotion-header';
 import EmotionItem from '@/components/list/emotion-item';
 import { supabase } from '@/libs/supabase';
 import { useEffect, useState } from 'react';
+import GetUser from '../kakao/get-user';
 
 const Emotion = () => {
   
@@ -45,20 +46,24 @@ const Emotion = () => {
 
 
   return (
-    <div className="emotion-container">
-      <EmotionHeader onMonthChange={handleMonthChange}/>
-      {records === undefined ? (
-        <div>loading</div> // 추후 suspense로 교체할 예정
-      ) : records.length > 0 ? (
-        <div>
-          {filteredRecords?.map((record) => (
-            <EmotionItem key={record.record_id} record={record} />
-          ))}
-        </div>
-      ) : (
-        <div>기록이 없습니다.</div>
-      )}
-    </div>
+    <>
+      <GetUser onUserDataFetched={setRecords} />
+      <div className="emotion-container">
+        <EmotionHeader onMonthChange={handleMonthChange}/>
+        {records === undefined ? (
+          <div>loading</div> // 추후 suspense로 교체할 예정
+        ) : records.length > 0 ? (
+          <div>
+            {filteredRecords?.map((record) => (
+              <EmotionItem key={record.record_id} record={record} />
+            ))}
+          </div>
+        ) : (
+          <div>기록이 없습니다.</div>
+        )}
+      </div>
+    </>
+
   );
 };
 
