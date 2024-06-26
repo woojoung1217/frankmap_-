@@ -183,7 +183,7 @@ const Calendar = () => {
 
   return (
     <>
-      <div class="page-container">
+      <div className="page-container">
         <div className="calendar-container">
           <div className="calendar">
             <div className="calendarHeader">
