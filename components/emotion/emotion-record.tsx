@@ -1,4 +1,13 @@
-import { addModeState, addStepState, emotionState, latlngState } from "@/atoms/atoms";
+import {
+  addModeState,
+  addStepState,
+  dataState,
+  emotionAddMarker,
+  emotionState,
+  isActBottomSheetState,
+  latlngState,
+  transformState,
+} from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-record.scss";
 import { supabase } from "@/libs/supabase";
@@ -13,6 +22,11 @@ import { userState } from "@/atoms/userstate";
 const EmotionRecord = (): JSX.Element => {
   const setAddMode = useSetRecoilState(addModeState);
   const setAddStep = useSetRecoilState(addStepState);
+  const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
+  const setIsEmotionAddMarker = useSetRecoilState(emotionAddMarker);
+  const setTransform = useSetRecoilState(transformState);
+
+  const [dataList, setDataList] = useRecoilState(dataState);
   const latlng = useRecoilValue(latlngState);
   const user = useRecoilValue(userState);
 
@@ -98,6 +112,10 @@ const EmotionRecord = (): JSX.Element => {
       console.log(data);
       setAddMode(false);
       setEmotion(0);
+      setDataList([...dataList, data[0]]);
+      setIsActBottomSheet(false);
+      setIsEmotionAddMarker(false);
+      if (window.innerWidth < 1024) setTransform(0);
     } catch (e) {
       console.error(e);
     }
