@@ -5,7 +5,7 @@ import getMarkers from "../components/kakao/get-markers";
 interface ModalType {
   isOpen: Boolean;
   title?: string;
-  emoticon?: JSX.Element | string
+  emoticon?: JSX.Element | string;
   content?: JSX.Element | string;
   button?: string;
   data?: string;
@@ -25,6 +25,7 @@ export const emotionState = atom({
 
 export const latlngState = atom({
   key: "latlng",
+  default: {},
 });
 
 export const addModeState = atom({
