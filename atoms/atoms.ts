@@ -1,6 +1,4 @@
-// src/recoil/atoms.mjs
-import { atom, atomFamily } from "recoil";
-import getMarkers from "../components/kakao/get-markers";
+import { atom } from "recoil";
 
 interface ModalType {
   isOpen: Boolean;
@@ -25,7 +23,10 @@ export const emotionState = atom({
 
 export const latlngState = atom({
   key: "latlng",
-  default: {},
+  default: {
+    lat: 0,
+    lng: 0,
+  },
 });
 
 export const addModeState = atom({

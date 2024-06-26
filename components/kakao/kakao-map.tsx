@@ -19,7 +19,7 @@ function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500):
 
 const KakaoMap = () => {
   useKakaoLoader();
-  const [data, setData] = useState<RecordType[]>(null);
+  const [data, setData] = useState<RecordType[]>([]);
   const mapRef = useRef<kakao.maps.Map>(null);
   const [map, setMap] = useState(mapRef.current);
 
@@ -44,7 +44,7 @@ const KakaoMap = () => {
       const neLat = neLatLng[0];
       const neLng = neLatLng[1];
 
-      const newFilteredData = data.filter((marker) => {
+      const newFilteredData = data!.filter((marker) => {
         const lat = marker.latlng.lat;
         const lng = marker.latlng.lng;
         return lat >= swLat && lat <= neLat && lng >= swLng && lng <= neLng;
@@ -126,7 +126,7 @@ const KakaoMap = () => {
   return (
     <>
       <GetUser onUserDataFetched={setData} />
-      {data && (
+      {data ? (
         <>
           <Map
             key={`kakaoMap`}
@@ -194,7 +194,7 @@ const KakaoMap = () => {
                   <>
                     <EventMarkerContainer
                       type="default"
-                      key={`${marker.latlng.lat}-${marker.latlng.lng}-${marker["created_at"]}`}
+                      key={`${marker.latlng.lat}-${marker.latlng.lng}-${marker["record_id"]}`}
                       position={marker.latlng}
                       emotion={marker.emotion}
                       setIsShowCenter={setIsShowCenter}
@@ -215,6 +215,8 @@ const KakaoMap = () => {
             </button>
           </form>
         </>
+      ) : (
+        <p>로딩중</p>
       )}
     </>
   );
