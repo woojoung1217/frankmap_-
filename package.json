@@ -23,6 +23,7 @@
     "recoil-persist": "^5.1.0",
     "sass": "^1.77.4",
     "supabase": "^1.172.2",
+    "swiper": "^11.1.4",
     "uuid": "^10.0.0"
   },
   "devDependencies": {
