@@ -16,15 +16,17 @@ const EventMarkerContainer = ({
   setIsShowCenter: Dispatch<SetStateAction<boolean>>;
 }) => {
   const map = useMap();
-  const handleClick = (marker) => {
-    map.panTo(marker.getPosition());
-    setIsShowCenter(false);
-  };
-
   const setAddMode = useSetRecoilState(addModeState);
   const setAddModeStep = useSetRecoilState(addStepState);
   const setLatlng = useSetRecoilState(latlngState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
+
+  const handleClick = (marker) => {
+    map.panTo(marker.getPosition());
+    setIsShowCenter(false);
+    setIsActBottomSheet(false);
+  };
+
   const handleAdd = (position: Latlng) => {
     setAddMode(true);
     setLatlng(position);
