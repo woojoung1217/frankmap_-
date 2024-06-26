@@ -5,6 +5,7 @@ import getMarkers from "../components/kakao/get-markers";
 interface ModalType {
   isOpen: Boolean;
   title?: string;
+  emoticon?: JSX.Element | string
   content?: JSX.Element | string;
   button?: string;
   data?: string;

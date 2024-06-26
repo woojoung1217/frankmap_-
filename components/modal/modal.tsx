@@ -5,16 +5,21 @@ import parse from 'html-react-parser';
 
 const Modal = () => {
   const { modalDataState, closeModal } = useModal();
-  const { title, content, button, callBack, isOpen } = modalDataState;
+  const { title, content, button, callBack, isOpen, emoticon } = modalDataState;
 
   return (
     <>
       { isOpen && (
         <div className="modal-container">
           <button className="modal-close-button" onClick={closeModal}>닫기</button>
-          <div className="modal-title">
-            <h1>{title}</h1>
-          </div>
+          { (title || emoticon) && (
+            <div className="modal-title">
+              {title && <h1>{title}</h1>}
+              {emoticon && 
+                <div>{typeof emoticon === 'string' ? parse(emoticon) : emoticon}</div>
+              }
+            </div>
+          )}
           <div className="modal-content">
             <div>{typeof content === 'string' ? parse(content) : content}</div>
           </div>

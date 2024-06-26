@@ -9,7 +9,7 @@ type OpenModalType = {
   button?: string;
   data?: string;
   image?: string;
-  emoticon?: number;
+  emoticon?: JSX.Element | string;
   callBack?: () => any;
 }
 
