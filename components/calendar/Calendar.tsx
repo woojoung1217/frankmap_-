@@ -183,28 +183,32 @@ const Calendar = () => {
 
   return (
     <>
-      <div className="calendar-container">
-        <div className="calendar">
-          <div className="calendarHeader">
-            <button onClick={goToPreviousMonth}>
-              <Image src={"/icon-arrow.svg"} width={15} height={20} alt="x"></Image>
-            </button>
-            <span>{getCurrentMonthYear()}</span>
-            <button onClick={goToNextMonth}>
-              <Image src={"/icon-arrow.svg"} width={15} height={20} alt="y" className="icon-reverse"></Image>
-            </button>
+      <div className="page-container">
+        <div className="calendar-container">
+          <div className="calendar">
+            <div className="calendarHeader">
+              <button onClick={goToPreviousMonth}>
+                <Image src={"/icon-arrow.svg"} width={15} height={20} alt="x"></Image>
+              </button>
+              <span>{getCurrentMonthYear()}</span>
+              <button onClick={goToNextMonth}>
+                <Image src={"/icon-arrow.svg"} width={15} height={20} alt="y" className="icon-reverse"></Image>
+              </button>
+            </div>
+            {renderCalendarGrid()}
           </div>
-          {renderCalendarGrid()}
+        </div>
+        <div className="about-container">
+          {data.length >= 5 ? (
+            <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
+          ) : (
+            <div className="NonData-message">
+              <p>나는 요즘 어떤 기분일까?</p>
+              <h2>감정을 기록하고 한달 통계를 확인 해 보세요!</h2>
+            </div>
+          )}
         </div>
       </div>
-      {data.length >= 5 ? (
-        <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
-      ) : (
-        <div className="NonData-message">
-          <p>감정 부족</p>
-          <h2>감정을 기록하고 한달 통계를 확인 해 보세요!</h2>
-        </div>
-      )}
     </>
   );
 };

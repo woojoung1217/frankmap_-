@@ -1,5 +1,5 @@
 "use client";
-import { isActBottomSheetState } from "@/atoms/atoms";
+import { heightState, isActBottomSheetState, transformState } from "@/atoms/atoms";
 import "@/components/bottom-sheet/bottom-sheet.scss";
 import { useRef, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -17,9 +17,12 @@ interface BottomSheetMetrics {
 }
 
 const BottomSheet = ({ children }: { children: React.ReactNode }) => {
+  const [isAct, setIsAct] = useRecoilState(isActBottomSheetState);
+  const [transform, setTransform] = useRecoilState(transformState);
+  const [height, setHeight] = useRecoilState(heightState);
   const MIN_Y = 60;
-  const MAX_Y = window.innerHeight - 160;
-  const BOTTOM_SHEET_HEIGHT = window.innerHeight - MIN_Y;
+  const MAX_Y = window.innerHeight - 250;
+  const docHeight = 80;
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const metrics = useRef<BottomSheetMetrics>({
@@ -52,6 +55,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
     const handleTouchMove = (e: TouchEvent) => {
       const { touchStart, touchMove } = metrics.current;
       const currentTouch = e.touches[0];
+      const height = content.current!.clientHeight;
 
       if (touchMove.prevTouchY === undefined) touchMove.prevTouchY = touchStart.touchY;
       // 맨 처음 앱 시작하고 시작시
@@ -65,27 +69,31 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
         let nextSheetY = touchStart.sheetY + touchOffset;
         if (nextSheetY <= MIN_Y) nextSheetY = MIN_Y;
         if (nextSheetY >= MAX_Y) nextSheetY = MAX_Y;
-        sheet.current!.style.setProperty("transform", `translateY(${nextSheetY - MAX_Y}px)`); //바닥 만큼은 빼야한다
-      } else {
-        document.body.style.overflowY = "hidden";
+        setTransform(nextSheetY - MAX_Y);
+        setHeight(height);
+        setIsAct(true);
       }
     };
 
     const handleTouchEnd = (e: TouchEvent) => {
-      document.body.style.overflowY = "auto"; //스크롤 설정
       const { touchMove } = metrics.current;
       const currentSheetY = sheet.current!.getBoundingClientRect().y;
+      const height = content.current!.clientHeight + docHeight + 20;
 
       if (currentSheetY !== MIN_Y) {
         if (touchMove.movingDirection === "down") {
-          sheet.current!.style.setProperty("transform", "translateY(0)");
+          setTransform(0);
+          setHeight(height);
+          setIsAct(false);
         }
         if (touchMove.movingDirection === "up") {
-          sheet.current!.style.setProperty("transform", `translateY(${MIN_Y - MAX_Y}px)`);
+          setTransform(Math.max(-height, -window.innerHeight * 0.8) + docHeight);
+          setHeight(Math.min(height, window.innerHeight * 0.8));
+          setIsAct(true);
         }
       }
 
-      // metrics 초기화.
+      // metrics 초기화
       metrics.current = {
         touchStart: {
           sheetY: 0,
@@ -111,14 +119,17 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
     content.current!.addEventListener("touchstart", handleTouchStart);
   }, []);
 
-  const [isClicked, setIsClicked] = useRecoilState(isActBottomSheetState);
   const handleClick = (e: React.MouseEvent) => {
     if (e.type !== "click") return;
-    setIsClicked(!isClicked);
+    setIsAct(!isAct);
   };
 
   return (
-    <div className={`bottomSheet ${isClicked ? "is-clicked" : ""}`} style={{ height: BOTTOM_SHEET_HEIGHT }} ref={sheet}>
+    <div
+      className={`bottomSheet ${isAct ? "is-act" : ""}`}
+      ref={sheet}
+      style={{ transform: `translateY(${transform}px)`, height: `${height}px` }}
+    >
       <div className="handlebar" onClick={(e) => handleClick(e)}>
         <span className="hidden">핸들바</span>
       </div>

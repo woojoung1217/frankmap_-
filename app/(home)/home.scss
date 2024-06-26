@@ -1,6 +1,7 @@
 .map {
-  width: calc(100% + calc(var(--layout-padding) * 2));
   width: 100vw;
+  height: 100vh;
+  overflow: hidden;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -10,6 +11,12 @@
     right: var(--layout-padding);
     bottom: calc(6rem + 2rem + var(--layout-padding));
     z-index: 9;
+    transition: all var(--transition-duration);
+
+    &.dis-no {
+      opacity: 0;
+      visibility: hidden;
+    }
 
     .emotionAdd {
       background: url(/emotion1.svg) no-repeat center / cover;
@@ -80,6 +87,7 @@
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  font-size: var(--title-large);
 
   li {
     cursor: pointer;
@@ -95,17 +103,16 @@
 
       .t-wr {
         color: var(--color-gray-50);
-        font-size: 1.4rem;
+        font-size: var(--title-medium);
         display: flex;
         justify-content: space-between;
 
         .date {
-          font-size: 1.2rem;
+          font-size: var(--title-small);
         }
       }
       .b-wr {
         margin-top: 0.5rem;
-        font-size: 1.6rem;
 
         .content {
           display: -webkit-box;

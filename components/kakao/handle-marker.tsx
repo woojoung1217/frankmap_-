@@ -1,37 +1,49 @@
 "use client";
-import { addModeState, addStepState, isActBottomSheetState, latlngState, modalState } from "@/atoms/atoms";
-import { Dispatch, SetStateAction } from "react";
-import { MapMarker, useMap } from "react-kakao-maps-sdk";
+import {
+  addModeState,
+  addStepState,
+  emotionAddMarker,
+  heightState,
+  isActBottomSheetState,
+  latlngState,
+  transformState,
+} from "@/atoms/atoms";
+import { MapMarker } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 
-const EventMarkerContainer = ({
-  type,
-  position,
-  emotion,
-  setIsShowCenter,
-}: {
-  type: string;
-  position: Latlng;
-  emotion?: number;
-  setIsShowCenter: Dispatch<SetStateAction<boolean>>;
-}) => {
-  const map = useMap();
+const EventMarkerContainer = ({ type, position, emotion }: { type: string; position: Latlng; emotion?: number }) => {
   const setAddMode = useSetRecoilState(addModeState);
   const setAddModeStep = useSetRecoilState(addStepState);
   const setLatlng = useSetRecoilState(latlngState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
+  const setTransform = useSetRecoilState(transformState);
+  const setHeight = useSetRecoilState(heightState);
+  const setIsEmotionAddMarker = useSetRecoilState(emotionAddMarker);
 
-  const handleClick = (marker) => {
-    map.panTo(marker.getPosition());
-    setIsShowCenter(false);
-    setIsActBottomSheet(false);
+  const setBottomSheet = () => {
+    const contentElement = document.querySelector(".bottomSheet .contents");
+    const sheetHeight = contentElement?.clientHeight ?? 0;
+    setTransform(Math.max(-sheetHeight - 100, -window.innerHeight * 0.8) + 80);
+    setHeight(Math.min(sheetHeight + 100, window.innerHeight * 0.8));
+  };
+
+  const handleClick = (type: string) => {
+    setAddMode(false);
+    if (type !== "search") {
+      setIsEmotionAddMarker(false);
+      setIsActBottomSheet(true);
+    } else {
+      console.log("xxx");
+    }
+    if (window.innerWidth < 1024) setBottomSheet();
   };
 
   const handleAdd = (position: Latlng) => {
     setAddMode(true);
-    setLatlng(position);
-    setIsActBottomSheet(false);
     setAddModeStep("step1");
+    setLatlng(position);
+    setIsActBottomSheet(true);
+    if (window.innerWidth < 1024) setBottomSheet();
   };
 
   return (
@@ -60,7 +72,7 @@ const EventMarkerContainer = ({
         // 기본, 검색 시 마커
         <MapMarker
           position={position} // 마커를 표시할 위치
-          onClick={(marker) => handleClick(marker)}
+          onClick={() => handleClick(type)}
           image={{
             src: type === "default" ? `/emotion${emotion}.svg` : `/icon-marker.svg`,
             size: {

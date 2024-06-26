@@ -1,5 +1,14 @@
-const Emotion = () => {
-  return <div>Emotion</div>;
-};
+import Emotion from "@/components/list/emotion"
 
-export default Emotion;
+
+const EmotionPage = () => {
+
+  return (
+    <div>
+      <Emotion />
+    </div>
+  )
+}
+
+
+export default EmotionPage;

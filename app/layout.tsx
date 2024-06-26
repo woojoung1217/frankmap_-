@@ -5,6 +5,7 @@ import "@/styles/reset.css";
 import "@/styles/variable.css";
 import "@/styles/common.css";
 import "@/styles/responsible.css";
+import Header from "@/components/header/header";
 
 export const noto_Sans_KR = Noto_Sans_KR({
   display: "swap",
@@ -30,7 +31,7 @@ export default function RootLayout({
       </head>
       <body className={noto_Sans_KR.variable}>
         <RecoilRootWrapper>
-          <header></header>
+          <Header />
           <main className="containerLayout">{children}</main>
           <footer></footer>
         </RecoilRootWrapper>
