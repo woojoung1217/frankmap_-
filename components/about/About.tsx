@@ -1,5 +1,5 @@
 import React from "react";
-import "./About.scss";
+import "../calendar/calendar.scss";
 
 /** 프롭스 타입 정의 */
 interface AboutMyEmotionProps {
