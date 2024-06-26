@@ -20,6 +20,7 @@
     "react-hook-form": "^7.51.5",
     "react-kakao-maps-sdk": "^1.1.27",
     "recoil": "^0.7.7",
+    "recoil-persist": "^5.1.0",
     "sass": "^1.77.4",
     "supabase": "^1.172.2",
     "swiper": "^11.1.4",
