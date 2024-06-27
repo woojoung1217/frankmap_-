@@ -17,6 +17,9 @@ export const noto_Sans_KR = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: "솔직할지도",
   description: "지역 기반 감정 일기 by next",
+  icons: {
+    icon: "/emotion1.svg",
+  },
 };
 
 export default function RootLayout({

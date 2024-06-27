@@ -2,6 +2,7 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { supabase } from "@/libs/supabase";
+import "./signup.scss"
 
 interface SignUpFormInputs {
   email: string;
@@ -39,14 +40,14 @@ export default function SignUp() {
   };
 
   return (
-    <div>
+    <div className="signup-container">
       <h1>회원가입</h1>
-      <form onSubmit={handleSubmit(handleSignUp)}>
-        <div>
+      <form onSubmit={handleSubmit(handleSignUp)} className="signup-form">
+        <div className="form-group">
           <input type="text" {...register("nickname", { required: "닉네임을 입력해주세요." })} placeholder="닉네임" />
-          {errors.nickname && <p>{errors.nickname.message}</p>}
+          {errors.nickname && <p className="error-message">{errors.nickname.message}</p>}
         </div>
-        <div>
+        <div className="form-group">
           <input
             type="email"
             {...register("email", {
@@ -58,9 +59,9 @@ export default function SignUp() {
             })}
             placeholder="이메일"
           />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && <p className="error-message">{errors.email.message}</p>}
         </div>
-        <div>
+        <div className="form-group">
           <input
             type="password"
             {...register("password", {
@@ -68,9 +69,9 @@ export default function SignUp() {
             })}
             placeholder="비밀번호"
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
-        <button type="submit">가입하기</button>
+        <button type="submit" className="submit-button">가입하기</button>
       </form>
     </div>
   );
