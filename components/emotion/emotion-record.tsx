@@ -19,6 +19,21 @@ import { v4 as uuidv4 } from "uuid";
 import Input from "../input/input";
 import { userState } from "@/atoms/userstate";
 
+interface RecordType {
+  record_id: number;
+  emotion: number;
+  content: string;
+  latlng: {
+    lat: number;
+    lng: number;
+  };
+  date: string;
+  location: string;
+  image: string[];
+  user_id: string;
+  created_at: string;
+}
+
 const EmotionRecord = (): JSX.Element => {
   const setAddMode = useSetRecoilState(addModeState);
   const setAddStep = useSetRecoilState(addStepState);

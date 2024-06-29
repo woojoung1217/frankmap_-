@@ -12,6 +12,11 @@ import { useEffect, useState } from "react";
 import { MapMarker } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 
+interface Latlng {
+  lat: number;
+  lng: number;
+}
+
 const windowWidth = typeof window !== "undefined" ? window.innerWidth : undefined;
 const windowHeight = typeof window !== "undefined" ? window.innerHeight : undefined;
 

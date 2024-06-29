@@ -1,5 +1,20 @@
 import { atom } from "recoil";
 
+interface RecordType {
+  record_id: number;
+  emotion: number;
+  content: string;
+  latlng: {
+    lat: number;
+    lng: number;
+  };
+  date: string;
+  location: string;
+  image: string[];
+  user_id: string;
+  created_at: string;
+}
+
 interface ModalType {
   isOpen: Boolean;
   title?: string;
