@@ -19,7 +19,7 @@ const EmotionList = () => {
         </div>
       `,
       button: "상세보기",
-      callback: () => router.push(`/emotion/7`),
+      callback: () => router.push(`/emotion`),
     };
     openModal(modalData);
   };
