@@ -25,16 +25,16 @@
   display: none;
 }
 
-/* 모바일 환경 */
+/* 모바일 */
 @media (max-width: 767px) {
   .containerLayout {
-    padding: 0 var(--layout-padding) 12rem var(--layout-padding); /* 모바일에서는 padding-bottom을 60px로 설정 */
+    padding: 0 var(--layout-padding) 12rem var(--layout-padding);
   }
 }
 
-/* PC 환경 */
+/* PC */
 @media (min-width: 768px) {
   .containerLayout {
-    padding: 6rem var(--layout-padding) 0 var(--layout-padding); /* PC 환경에서는 padding-top을 60px로 설정 */
+    padding: 6rem var(--layout-padding) 0 var(--layout-padding);
   }
 }
