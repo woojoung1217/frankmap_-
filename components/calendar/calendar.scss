@@ -66,6 +66,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        min-width: 5rem;
         cursor: pointer;
         transition: var(--transition-duration);
 
