@@ -13,12 +13,12 @@ interface ModalType {
 
 export const dataState = atom({
   key: "dataState",
-  default: [] as RecordType[],
+  // default: [] as RecordType[],
 });
 
 export const FilteredData = atom({
   key: "filteredData",
-  default: [] as RecordType[],
+  // default: [] as RecordType[],
 });
 
 export const emotionState = atom({
