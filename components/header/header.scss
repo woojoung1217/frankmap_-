@@ -1,16 +1,7 @@
 .header {
-  gap: 2rem;
-  background-color: #fff;
   height: 11rem;
   padding: 2rem;
-  border-radius: 2rem 2rem 0 0;
-}
-
-.kategorie {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 6rem;
+  margin: unset;
 }
 
 .home,
@@ -23,7 +14,6 @@
 
   a {
     display: flex;
-    flex-direction: column;
     align-items: center;
     text-decoration: none;
     color: inherit;
@@ -32,12 +22,111 @@
   img {
     width: 3.5rem;
     height: 3.5rem;
-    margin-bottom: 0.5rem;
   }
 
   h1 {
     font-size: 1.4rem;
     color: #333;
     margin: 0;
+  }
+}
+
+.group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6rem;
+}
+
+// pc
+@media (min-width: 768px) {
+  .header {
+    height: 6rem;
+    padding: 0 8rem;
+    box-shadow: 0 0.2rem rgb(228, 228, 228, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(0.5rem);
+  }
+
+  .home,
+  .calendar,
+  .emotion {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    a {
+      display: flex;
+      color: inherit;
+      font-size: 0.8rem;
+      gap: 1rem;
+    }
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #a6a6a6;
+      margin: 0;
+    }
+  }
+
+  .home img {
+    content: url("/logo.svg");
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .home h1 {
+    display: none;
+  }
+}
+
+// 모바일
+@media (max-width: 767px) {
+  .header {
+    gap: 2rem;
+    height: 11rem;
+    padding: 2rem;
+    border-radius: 2rem 2rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6rem;
+  }
+
+  .home,
+  .calendar,
+  .emotion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #a6a6a6;
+    }
+
+    img {
+      width: 3.5rem;
+      height: 3.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: #a6a6a6;
+      margin: 0;
+    }
   }
 }

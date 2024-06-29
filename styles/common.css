@@ -1,6 +1,6 @@
 .containerLayout {
   max-width: var(--layout-pc);
-  padding: 0 var(--layout-padding);
+  padding: 60px var(--layout-padding) 0 var(--layout-padding); /* 기본 padding-top을 60px로 설정 */
   margin: 0 auto;
 }
 
@@ -23,4 +23,18 @@
 
 .pc {
   display: none;
+}
+
+/* 모바일 환경 */
+@media (max-width: 767px) {
+  .containerLayout {
+    padding: 0 var(--layout-padding) 12rem var(--layout-padding); /* 모바일에서는 padding-bottom을 60px로 설정 */
+  }
+}
+
+/* PC 환경 */
+@media (min-width: 768px) {
+  .containerLayout {
+    padding: 6rem var(--layout-padding) 0 var(--layout-padding); /* PC 환경에서는 padding-top을 60px로 설정 */
+  }
 }
