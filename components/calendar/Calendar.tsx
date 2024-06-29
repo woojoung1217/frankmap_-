@@ -11,8 +11,8 @@ import { userState } from "@/atoms/userstate";
 
 /** 타입 인터페이스 설정 */
 interface EmotionData {
-  post_id: number;
-  user_id: number;
+  record_id: number;
+  user_id: string;
   emotion: number;
   date: string;
 }
