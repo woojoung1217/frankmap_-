@@ -1,12 +1,9 @@
-
-
 .emotion-header {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 10rem;
 }
-
 
 .header-content {
   display: flex;
@@ -17,21 +14,20 @@
   flex-wrap: nowrap;
 }
 
-
 .button-back {
   background-image: url(/icon-arrow.svg);
 }
 
-
-.button-userInfo {
+.Button-userInfo {
   background-image: url(/icon-user.svg);
 }
 
-.button-back, .button-userInfo {
+.button-back,
+.Button-userInfo {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  width: 4rem;  // 적절한 크기로 조정
+  width: 4rem; // 적절한 크기로 조정
   height: 2.4rem; // 적절한 크기로 조정
   display: flex;
   align-items: center;
