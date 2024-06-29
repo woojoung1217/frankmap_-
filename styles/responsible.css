@@ -42,8 +42,28 @@
     display: block;
   }
 }
+
 @media (min-width: 1440px) {
   :root {
     font-size: 10px;
+  }
+}
+
+@media (max-width: 767px) {
+  .header {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+}
+
+/* PC 환경 */
+@media (min-width: 768px) {
+  .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
   }
 }
