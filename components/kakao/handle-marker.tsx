@@ -11,6 +11,11 @@ import {
 import { MapMarker } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
 
+interface Latlng {
+  lat: number;
+  lng: number;
+}
+
 const EventMarkerContainer = ({ type, position, emotion }: { type: string; position: Latlng; emotion?: number }) => {
   const setAddMode = useSetRecoilState(addModeState);
   const setAddModeStep = useSetRecoilState(addStepState);
