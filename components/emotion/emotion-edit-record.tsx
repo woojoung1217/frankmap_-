@@ -6,10 +6,11 @@ import { useForm } from "react-hook-form";
 import "@/components/emotion/emotion-edit-record.scss";
 import Button from "../button/button";
 import { v4 as uuidv4 } from "uuid";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { editStepState, emotionState } from "@/atoms/atoms";
 import { useRouter } from "next/navigation";
 import Input from "../input/input";
+import { userState } from "@/atoms/userstate";
 
 interface RecordData {
   emotion: number;
@@ -36,8 +37,9 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
   const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const setEditStep = useSetRecoilState(editStepState);
-  const [emotion, setEmotion] = useRecoilState(emotionState);
+  const [emotion] = useRecoilState(emotionState);
   const router = useRouter();
+  const user = useRecoilValue(userState);
 
   // 테스트용 임시 user id --> 추후 전역 상태에서 가져오기
   const userId = "832084cc-07ba-450c-8244-2cb42ce12c21";
@@ -73,12 +75,14 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
       const { data, error } = await supabase
         .from("record")
         .select("emotion, date, location, content, image")
-        .eq("user_id", userId)
+        .eq("user_id", user)
         .eq("record_id", id);
 
       if (error) {
         throw error;
       }
+
+      console.log(data[0]);
 
       setInitialEmotion(data[0].emotion);
       setSelectedDate(data[0].date);
@@ -107,7 +111,6 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
       }
 
       const res = supabase.storage.from("images").getPublicUrl(data.path);
-      console.log(res.data.publicUrl);
 
       setImgUrl((prev) => [...prev, res.data.publicUrl]);
       setFiles((prevFiles) => [file, ...prevFiles]);
@@ -141,7 +144,6 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
     } else {
       formData.emotion = initialEmotion;
     }
-    console.log(formData);
 
     try {
       const { data, error } = await supabase
@@ -153,7 +155,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
           content: formData.content,
           image: formData.image,
         })
-        .eq("user_id", userId)
+        .eq("user_id", user)
         .eq("record_id", id)
         .select();
 
