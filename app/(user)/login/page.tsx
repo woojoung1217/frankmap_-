@@ -120,5 +120,5 @@ export default function Login() {
         <button type="submit" className="submit-button">로그인</button>
       </form>
     </div>
-  );
+  ); 
 }

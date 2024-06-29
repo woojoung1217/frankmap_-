@@ -43,19 +43,25 @@
     }
 
     .submit-button {
-      width: 100%;
-      padding: 10px;
+      width: 18.8em;
+      padding: 1em;
       font-size: 1em;
       border: none;
       border-radius: 5px;
-      background-color: #1890ff;
+      background-color: gray;
       color: #fff;
       cursor: pointer;
       transition: background-color 0.3s;
 
       &:hover {
-        background-color: #40a9ff;
+        background-color: black;
       }
     }
+  }
+}
+
+@media (min-width: 1024px) {
+  .signup-form .submit-button {
+    width: 10em;
   }
 }

@@ -2,7 +2,8 @@
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { supabase } from "@/libs/supabase";
-import "./signup.scss"
+import "./signup.scss";
+import Button from "@/components/button/button";
 
 interface SignUpFormInputs {
   email: string;
@@ -71,7 +72,9 @@ export default function SignUp() {
           />
           {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
-        <button type="submit" className="submit-button">가입하기</button>
+        <button type="submit" className="submit-button">
+          가입하기
+        </button>
       </form>
     </div>
   );
