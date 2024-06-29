@@ -28,6 +28,7 @@ const KakaoMap = () => {
   const [isEmotionAddMarker, setIsEmotionAddMarker] = useRecoilState(emotionAddMarker);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
+  const [selectedMarker, setSeleteMarker] = useState();
 
   const { openModal } = useModal();
   const [search, setSearch] = useState("");
@@ -161,11 +162,11 @@ const KakaoMap = () => {
               </>
             )}
             {search
-              ? searchedData.map((marker) => (
+              ? searchedData.map((marker, idx) => (
                   // 검색된 결과가 있는 경우
                   <>
                     <CustomOverlayMap
-                      key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}`}
+                      key={`overlay-${marker.latlng.lat}-${marker.latlng.lng}-${idx}`}
                       position={{
                         lat: +marker.latlng.lat,
                         lng: +marker.latlng.lng,
@@ -175,8 +176,9 @@ const KakaoMap = () => {
                     </CustomOverlayMap>
                     <EventMarkerContainer
                       type="search"
-                      key={`marker-${marker.latlng.lat}-${marker.latlng.lng}`}
+                      key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${idx}`}
                       position={marker.latlng}
+                      idx={idx}
                     />
                   </>
                 ))
