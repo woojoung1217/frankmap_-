@@ -6,6 +6,8 @@ import { userState } from "@/atoms/userstate";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import "./login.scss"
+import Button from "@/components/button/button";
 
 interface LoginFormInputs {
   email: string;
@@ -79,7 +81,7 @@ export default function Login() {
 
   if (isLoggedIn) {
     return (
-      <div>
+<div className="login-container">
         <p>이미 로그인된 상태입니다.</p>
         <button onClick={() => router.replace("/")}>메인 페이지로 이동</button>
         <button onClick={handleLogout}>로그아웃</button>
@@ -88,10 +90,10 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <div className="login-container">
       <h1>로그인</h1>
-      <form onSubmit={handleSubmit(handleLogin)}>
-        <div>
+      <form onSubmit={handleSubmit(handleLogin)} className="login-form">
+        <div className="form-group">
           <input
             type="email"
             {...register("email", {
@@ -103,9 +105,9 @@ export default function Login() {
             })}
             placeholder="이메일"
           />
-          {errors.email && <p>{errors.email.message}</p>}
+          {errors.email && <p className="error-message">{errors.email.message}</p>}
         </div>
-        <div>
+        <div className="form-group">
           <input
             type="password"
             {...register("password", {
@@ -113,10 +115,10 @@ export default function Login() {
             })}
             placeholder="비밀번호"
           />
-          {errors.password && <p>{errors.password.message}</p>}
+          {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
-        <button type="submit">로그인</button>
+        <button type="submit" className="submit-button">로그인</button>
       </form>
     </div>
-  );
+  ); 
 }
