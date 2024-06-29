@@ -31,7 +31,8 @@ const EmotionRecord = (): JSX.Element => {
   const user = useRecoilValue(userState);
 
   const [emotion, setEmotion] = useRecoilState(emotionState);
-  const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy-MM-dd"));
+  const currentDate = format(new Date(), "yyyy-MM-dd");
+  const [selectedDate, setSelectedDate] = useState(currentDate);
   const {
     register,
     handleSubmit,
@@ -51,7 +52,6 @@ const EmotionRecord = (): JSX.Element => {
       }
 
       const res = supabase.storage.from("images").getPublicUrl(data.path);
-      console.log(res.data.publicUrl);
 
       setUploadedFileUrl((prev) => [...prev, res.data.publicUrl]);
       setFiles((prevFiles) => [file, ...prevFiles]);
@@ -133,7 +133,14 @@ const EmotionRecord = (): JSX.Element => {
           <label className="emotion-calendar-label" htmlFor="date">
             <img src="/icon-calendar.svg" alt="날짜 선택" />
           </label>
-          <input type="date" id="date" value={selectedDate} {...register("date")} onChange={handleChange} />
+          <input
+            type="date"
+            id="date"
+            value={selectedDate}
+            {...register("date")}
+            onChange={handleChange}
+            max={currentDate}
+          />
         </div>
         <div className="emotion-location">
           <Input id="location" placeholder="어떤 장소인가요?" {...register("location", { required: true })} />
