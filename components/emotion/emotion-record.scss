@@ -131,3 +131,17 @@
     }
   }
 }
+
+@media (min-width: 1024px) {
+  .emotion-record-container {
+    .emotion-record-form {
+      .emotion-date {
+        margin-bottom: 7rem;
+      }
+
+      .emotion-images {
+        margin-bottom: 4rem;
+      }
+    }
+  }
+}

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 
   @media (min-width: 1024px) {
     flex-direction: row;
@@ -65,6 +66,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        min-width: 5rem;
         cursor: pointer;
         transition: var(--transition-duration);
 
@@ -73,8 +75,8 @@
         }
 
         &.selected {
-          border: 0.1rem solid var(--color-gray-50);
           color: var(--color-black);
+          transform: scale(1.25);
         }
       }
     }
@@ -109,6 +111,10 @@
   }
   h2 {
     font-size: 1.5rem;
+  }
+  @media (min-width: 1024px) {
+    width: 100%;
+    margin-top: 20rem;
   }
 }
 

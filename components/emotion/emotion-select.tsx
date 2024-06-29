@@ -18,7 +18,6 @@ const EmotionSelect = (): JSX.Element => {
 
   const handleSelect = (): void => {
     if (currentEmotion) {
-      console.log(currentEmotion);
       setEmotion(currentEmotion);
       setAddStep("step2");
     } else {
