@@ -22,11 +22,6 @@ const Calendar = () => {
   const [data, setData] = useState<EmotionData[]>([]); // Supabase로부터 가져온 데이터를 저장할 상태
   const loggedInUserId = useRecoilValue(userState);
 
-  // const loggedInUserPersist = localStorage.getItem("recoil-persist"); // Recoil 퍼시스트 값 가져오기
-  // const loggedInUserId = loggedInUserPersist ? JSON.parse(loggedInUserPersist).userState : null;
-
-  console.log("x", loggedInUserId);
-
   const router = useRouter();
 
   useEffect(() => {
@@ -160,13 +155,16 @@ const Calendar = () => {
     );
   };
 
-  /** 특정 월의 데이터를 필터링 하고 통계 데이터를 계산하는 함수 */
-  const getMonthlyStats = (year: number, month: number): { [key: number]: number } => {
-    const monthlyData = data.filter((item) => {
+  /** 특정 월의 데이터를 필터링 하는 함수 */
+  const getMonthlyData = (year: number, month: number): EmotionData[] => {
+    return data.filter((item) => {
       const itemDate = new Date(item.date);
       return itemDate.getFullYear() === year && itemDate.getMonth() === month;
     });
+  };
 
+  /** 특정 월의 통계 데이터를 계산하는 함수 */
+  const getMonthlyStats = (monthlyData: EmotionData[]): { [key: number]: number } => {
     const emotionCounts = monthlyData.reduce(
       (counts: { [key: number]: number }, item: EmotionData) => {
         counts[item.emotion] = (counts[item.emotion] || 0) + 1;
@@ -178,8 +176,11 @@ const Calendar = () => {
     return emotionCounts;
   };
 
+  /** 선택된 달의 데이터를 가져오기 */
+  const monthlyData = getMonthlyData(selectedDate.getFullYear(), selectedDate.getMonth());
+
   /** 선택된 달의 통계 데이터를 가져오기 */
-  const monthlyStats = getMonthlyStats(selectedDate.getFullYear(), selectedDate.getMonth());
+  const monthlyStats = getMonthlyStats(monthlyData);
 
   return (
     <>
@@ -199,12 +200,13 @@ const Calendar = () => {
           </div>
         </div>
         <div className="about-container">
-          {data.length >= 5 ? (
+          {monthlyData.length >= 3 ? (
             <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
           ) : (
             <div className="NonData-message">
               <p>나는 요즘 어떤 기분일까?</p>
               <h2>감정을 기록하고 한달 통계를 확인 해 보세요!</h2>
+              <p>최소 3개 이상 입력 된 후 통계가 나옵니다.</p>
             </div>
           )}
         </div>

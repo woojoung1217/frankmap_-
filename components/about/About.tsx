@@ -19,10 +19,13 @@ const AboutMyEmotion: React.FC<AboutMyEmotionProps> = ({ monthlyStats, getCurren
     { type: "놀라옴", count: monthlyStats[7], color: "#000", imgSrc: "/emotion7.svg" },
     { type: "창피함", count: monthlyStats[8], color: "#000", imgSrc: "/emotion8.svg" },
     { type: "무력감", count: monthlyStats[9], color: "#000", imgSrc: "/emotion9.svg" },
-  ].sort((a, b) => b.count - a.count);
+  ]
+    .filter((emotion) => emotion.count > 0) // 0개인 감정 필터링
+    .sort((a, b) => b.count - a.count);
 
   // 가장 큰 감정 개수 찾기
   const maxEmotionCount = Math.max(...emotionData.map((emotion) => emotion.count));
+  const totalEmotionCount = emotionData.reduce((sum, emotion) => sum + emotion.count, 0);
 
   // 프로그레스 바 너비 계산
   const getProgressBarWidth = (emotionCount: number) => {
@@ -39,6 +42,7 @@ const AboutMyEmotion: React.FC<AboutMyEmotionProps> = ({ monthlyStats, getCurren
           <h1 className="emotiontext_h1">나는 요즘 어떤 기분일까?</h1>
           <p className="emotiontext_p">감정을 기록하고 한달 통계를 확인 해보세요!</p>
           <h3>{getCurrentMonthYear()} 감정 통계</h3>
+          <p>이번 달 입력한 감정 갯수 : {totalEmotionCount}</p>
         </div>
         <div className="emotions_sum">
           {emotionData.map((emotion, index) => (
