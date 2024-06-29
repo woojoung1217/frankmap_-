@@ -1,7 +1,3 @@
-:root {
-  background-color: var(--color-gray-10);
-}
-
 .error-wrapper {
   display: flex;
   justify-content: center;
