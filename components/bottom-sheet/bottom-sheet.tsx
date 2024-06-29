@@ -15,13 +15,14 @@ interface BottomSheetMetrics {
   };
   isContentAreaTouched: boolean;
 }
+const windowHeight = typeof window !== "undefined" ? window.innerHeight : undefined;
 
 const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   const [isAct, setIsAct] = useRecoilState(isActBottomSheetState);
   const [transform, setTransform] = useRecoilState(transformState);
   const [height, setHeight] = useRecoilState(heightState);
   const MIN_Y = 60;
-  const MAX_Y = window.innerHeight - 250;
+  const MAX_Y = windowHeight - 250;
   const docHeight = 80;
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
@@ -87,8 +88,8 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
           setIsAct(false);
         }
         if (touchMove.movingDirection === "up") {
-          setTransform(Math.max(-height, -window.innerHeight * 0.8) + docHeight);
-          setHeight(Math.min(height, window.innerHeight * 0.8));
+          setTransform(Math.max(-height, -windowHeight * 0.8) + docHeight);
+          setHeight(Math.min(height, windowHeight * 0.8));
           setIsAct(true);
         }
       }

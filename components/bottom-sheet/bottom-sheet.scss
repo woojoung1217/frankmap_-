@@ -42,13 +42,14 @@
 @media (min-width: 1024px) {
   .bottomSheet {
     inset: unset;
-    top: 0;
+    top: 11rem;
     right: 0;
     width: 50%;
     max-width: 50rem;
     max-height: none;
     overflow-y: auto;
-    height: 100% !important;
+    height: calc(100% - 11rem) !important;
+    border-radius: 0;
 
     box-shadow: none;
     background: none;
@@ -68,7 +69,7 @@
     }
 
     .handlebar {
-      transform: translate(-100%, 0);
+      inset: unset;
       flex-shrink: 0;
       width: 2.8rem;
       height: 6rem;
