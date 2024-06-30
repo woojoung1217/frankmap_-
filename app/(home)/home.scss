@@ -5,6 +5,7 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  margin-top: -6rem;
 
   .emotionAddWr {
     position: fixed;
@@ -51,7 +52,7 @@
 
   .searchWr {
     position: fixed;
-    top: 0;
+    top: 7rem;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -162,7 +163,7 @@
     }
 
     .searchWr {
-      top: 12rem;
+      top: 8rem;
     }
   }
 }
