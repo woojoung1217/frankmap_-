@@ -1,16 +1,18 @@
 "use client";
 
+import Loading from "@/app/loading";
+import { editStepState, emotionState } from "@/atoms/atoms";
+import { userState } from "@/atoms/userstate";
+import "@/components/emotion/emotion-edit-record.scss";
+import { useModal } from "@/hooks/useModal";
 import { supabase } from "@/libs/supabase";
+import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import "@/components/emotion/emotion-edit-record.scss";
-import Button from "../button/button";
-import { v4 as uuidv4 } from "uuid";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { editStepState, emotionState } from "@/atoms/atoms";
-import { useRouter } from "next/navigation";
+import { v4 as uuidv4 } from "uuid";
+import Button from "../button/button";
 import Input from "../input/input";
-import { userState } from "@/atoms/userstate";
 
 interface RecordData {
   emotion: number;
@@ -40,9 +42,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
   const [emotion] = useRecoilState(emotionState);
   const router = useRouter();
   const user = useRecoilValue(userState);
-
-  // 테스트용 임시 user id --> 추후 전역 상태에서 가져오기
-  const userId = "832084cc-07ba-450c-8244-2cb42ce12c21";
+  const { openModal, closeModal } = useModal();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,7 +164,13 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
         return;
       }
 
-      console.log(data);
+      openModal({
+        title: "감정 수정 완료",
+        content: `감정을 수정하였습니다!`,
+        button: "확인",
+        callBack: () => closeModal(),
+      });
+
       router.push("/emotion");
     } catch (e) {
       console.error(e);
@@ -241,7 +247,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
           </div>
         </form>
       ) : (
-        <p>감정 기록을 불러올 수 없습니다!</p>
+        <Loading />
       )}
     </div>
   );

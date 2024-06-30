@@ -8,6 +8,7 @@ import {
   latlngState,
   transformState,
 } from "@/atoms/atoms";
+import { userState } from "@/atoms/userstate";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-record.scss";
 import { supabase } from "@/libs/supabase";
@@ -17,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Input from "../input/input";
-import { userState } from "@/atoms/userstate";
+import { useModal } from "@/hooks/useModal";
 
 const EmotionRecord = (): JSX.Element => {
   const setAddMode = useSetRecoilState(addModeState);
@@ -40,6 +41,7 @@ const EmotionRecord = (): JSX.Element => {
   } = useForm<RecordType>();
   const [uploadedFileUrl, setUploadedFileUrl] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
+  const { openModal, closeModal } = useModal();
 
   const handleAddImages = async (file: File) => {
     try {
@@ -109,7 +111,13 @@ const EmotionRecord = (): JSX.Element => {
         return;
       }
 
-      console.log(data);
+      openModal({
+        title: "감정 기록 완료",
+        content: `감정을 기록하였습니다!`,
+        button: "확인",
+        callBack: () => closeModal(),
+      });
+
       setAddMode(false);
       setEmotion(0);
       setDataList([...dataList, data[0]]);
