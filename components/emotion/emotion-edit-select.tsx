@@ -82,7 +82,7 @@ const EmotionEditSelect = (): JSX.Element => {
       <div className="emotion-select-button">
         <Button handleClick={handleClose}>취소</Button>
         <Button color="secondary" handleClick={handleSelect}>
-          감정 선택
+          감정 변경
         </Button>
       </div>
     </div>
