@@ -28,7 +28,6 @@ const KakaoMap = () => {
   const [isEmotionAddMarker, setIsEmotionAddMarker] = useRecoilState(emotionAddMarker);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
-  const [selectedMarker, setSeleteMarker] = useState();
 
   const { openModal } = useModal();
   const [search, setSearch] = useState("");
@@ -155,10 +154,12 @@ const KakaoMap = () => {
             {/* 지도 중심 마커가 표시되는 경우 */}
             {isEmotionAddMarker && (
               <>
-                <CustomOverlayMap key={`overlay-center`} position={centerMarker}>
-                  <p className="markerContent">감정 추가</p>
-                </CustomOverlayMap>
-                <EventMarkerContainer type="center" key={`중심마커`} position={centerMarker} />
+                <EventMarkerContainer
+                  type="center"
+                  key={`중심마커`}
+                  position={centerMarker}
+                  setPosition={setCenterMarker}
+                />
               </>
             )}
             {search
@@ -178,7 +179,6 @@ const KakaoMap = () => {
                       type="search"
                       key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${idx}`}
                       position={marker.latlng}
-                      idx={idx}
                     />
                   </>
                 ))
