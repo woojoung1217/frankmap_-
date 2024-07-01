@@ -1,3 +1,8 @@
+.modal-wrap {
+  position: fixed;
+  z-index: 9999;
+}
+
 .modal-container {
   position: fixed;
   top: 50%;
@@ -15,19 +20,27 @@
   gap: var(--layout-padding);
 }
 
+.modal-bg {
+  position: fixed;
+  background: rgb(51 51 51 / 10%);
+  inset: 0;
+  backdrop-filter: blur(0.2rem);
+}
+
 .modal-close-button {
   text-indent: -10000px;
+  display: none;
 }
 
 .modal-title {
   font-size: var(--title-large);
   font-weight: 600;
-  color: var(--color-gray-70); 
+  color: var(--color-gray-70);
 }
 
 .modal-content {
   font-size: var(--title-medium);
-  color: var(--color-gray-50); 
+  color: var(--color-gray-50);
 }
 
 .modal-footer {
@@ -48,6 +61,6 @@
   cursor: pointer;
   width: 2.4rem;
   height: 2.4rem;
-  background-image: url('/icon-exit.svg');
+  background-image: url("/icon-exit.svg");
   background-size: cover;
 }
