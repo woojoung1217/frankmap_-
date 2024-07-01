@@ -19,6 +19,18 @@
       visibility: hidden;
     }
 
+    &::before {
+      content: "";
+      display: block;
+      position: fixed;
+      width: 200vw;
+      height: 200vh;
+      z-index: -1;
+      transform: translate(-50%, -50%);
+      background: rgb(51 51 51 / 10%);
+      backdrop-filter: blur(0.2rem);
+    }
+
     .emotionAdd {
       background: url(/emotion1.svg) no-repeat center / cover;
       width: 6rem;
@@ -43,10 +55,10 @@
       left: 0;
       width: max-content;
       background: url(/img-bubble.svg) no-repeat center / cover;
-      font-size: 1.8rem;
-      padding: 2.3rem 4.6rem 4.5rem;
+      font-size: 1.6rem;
+      padding: 1.3em 2.7em 2.5em;
       border-radius: 1rem;
-      transform: translate(-98%, -70%);
+      transform: translate(-95%, -90%);
     }
   }
 
@@ -160,6 +172,10 @@
 
     .emotionAddWr {
       bottom: var(--layout-padding);
+
+      .noData {
+        font-size: 1.8rem;
+      }
     }
 
     .searchWr {
