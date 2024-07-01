@@ -1,5 +1,6 @@
 "use client";
 
+import Loading from "@/app/loading";
 import { userState } from "@/atoms/userstate";
 import EmotionHeader from "@/components/list/emotion-header";
 import EmotionItem from "@/components/list/emotion-item";
@@ -53,8 +54,9 @@ const Emotion = () => {
       <div className="emotion-container">
         <EmotionHeader onMonthChange={handleMonthChange} />
         {records === undefined ? (
-          <div>loading</div> // 추후 suspense로 교체할 예정
-        ) : records.length > 0 ? (
+          <Loading />
+        ) : // <div>loading</div> --> 추후 suspense로 교체할 예정
+        records.length > 0 ? (
           <div>{filteredRecords?.map((record) => <EmotionItem key={record.record_id} record={record} />)}</div>
         ) : (
           <div>기록이 없습니다.</div>
