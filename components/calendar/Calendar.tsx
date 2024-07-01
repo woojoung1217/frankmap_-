@@ -189,11 +189,11 @@ const Calendar = () => {
           <div className="calendar">
             <div className="calendarHeader">
               <button onClick={goToPreviousMonth}>
-                <Image src={"/icon-arrow.svg"} width={15} height={20} alt="x"></Image>
+                <Image src={"/icon-arrow.svg"} className="icon-arrowSize" width={5} height={5} alt="x"></Image>
               </button>
               <span>{getCurrentMonthYear()}</span>
               <button onClick={goToNextMonth}>
-                <Image src={"/icon-arrow.svg"} width={15} height={20} alt="y" className="icon-reverse"></Image>
+                <Image src={"/icon-arrow.svg"} width={5} height={5} alt="y" className="icon-reverse"></Image>
               </button>
             </div>
             {renderCalendarGrid()}
