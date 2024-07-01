@@ -42,13 +42,13 @@
 @media (min-width: 1024px) {
   .bottomSheet {
     inset: unset;
-    top: 11rem;
+    top: 6rem;
     right: 0;
     width: 50%;
     max-width: 50rem;
     max-height: none;
     overflow-y: auto;
-    height: calc(100% - 11rem) !important;
+    height: calc(100% - 6rem) !important;
     border-radius: 0;
 
     box-shadow: none;
