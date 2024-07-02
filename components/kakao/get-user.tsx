@@ -3,6 +3,7 @@ import { dataState } from "@/atoms/atoms";
 import { userState } from "@/atoms/userstate";
 import { useModal } from "@/hooks/useModal";
 import fetchData from "@/libs/fetch-record";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -10,6 +11,7 @@ const GetUser = () => {
   const loggedInUserId = useRecoilValue(userState);
   const setData = useSetRecoilState(dataState);
   const { openModal } = useModal();
+  const router = useRouter();
 
   useEffect(() => {
     const getData = async () => {
@@ -32,6 +34,7 @@ const GetUser = () => {
             </div>
           `,
           button: "회원가입 / 로그인",
+          callBack: () => router.push(`/login`),
         });
       }
     };
