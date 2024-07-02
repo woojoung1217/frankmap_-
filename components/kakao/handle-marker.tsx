@@ -18,12 +18,12 @@ const EventMarkerContainer = ({
   type,
   position,
   emotion,
-  setPosition,
+  setCenterMarker,
 }: {
   type: string;
   position: Latlng;
   emotion?: number;
-  setPosition?: React.Dispatch<React.SetStateAction<LatLng>>;
+  setCenterMarker?: React.Dispatch<React.SetStateAction<Latlng>>;
 }) => {
   const map = useMap();
   const setAddMode = useSetRecoilState(addModeState);
@@ -49,9 +49,10 @@ const EventMarkerContainer = ({
       if (windowWidth < 1024) setBottomSheet();
     } else {
       // @ts-ignore
-      const { Ma: lat, La: lng } = map.getCenter();
+      const { Ma: lat, La: lng } = marker.getPosition();
       map.panTo(marker.getPosition());
-      if (setPosition) setPosition({ lat, lng });
+      setIsEmotionAddMarker(true);
+      if (setCenterMarker) setCenterMarker({ lat, lng });
     }
   };
 

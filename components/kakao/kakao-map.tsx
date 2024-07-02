@@ -156,12 +156,7 @@ const KakaoMap = () => {
             {/* 지도 중심 마커가 표시되는 경우 */}
             {isEmotionAddMarker && (
               <>
-                <EventMarkerContainer
-                  type="center"
-                  key={`중심마커`}
-                  position={centerMarker}
-                  setPosition={setCenterMarker}
-                />
+                <EventMarkerContainer type="center" key={`중심마커`} position={centerMarker} />
               </>
             )}
             {search
@@ -181,6 +176,7 @@ const KakaoMap = () => {
                       type="search"
                       key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${idx}`}
                       position={marker.latlng}
+                      setCenterMarker={setCenterMarker}
                     />
                   </>
                 ))
