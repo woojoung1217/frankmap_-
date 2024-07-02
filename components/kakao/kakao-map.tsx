@@ -28,6 +28,7 @@ const KakaoMap = () => {
   const [isEmotionAddMarker, setIsEmotionAddMarker] = useRecoilState(emotionAddMarker);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
+  const [isNoData, setIsNoData] = useState<boolean>(false);
 
   const { openModal } = useModal();
   const [search, setSearch] = useState("");
@@ -108,6 +109,7 @@ const KakaoMap = () => {
   useEffect(() => {
     // debounce(() => filterDataFn(), 500);
     filterDataFn();
+    data.length ? setIsNoData(false) : setIsNoData(true);
   }, [bounds, data, position]);
 
   // 현재 위치의 bounds 설정
@@ -194,11 +196,11 @@ const KakaoMap = () => {
                   </>
                 ))}
           </Map>
-          <div className={`emotionAddWr ${isAct ? "dis-no" : ""}`}>
+          <div className={`emotionAddWr ${isAct ? "dis-no" : ""} ${isNoData ? "noData" : ""}`}>
             <button className="emotionAdd" onClick={handleEmotionAdd}>
               <span className="hidden">감정 추가</span>
             </button>
-            {!data.length && <p className="noData">아직 등록한 감정이 없어요</p>}
+            <p className="noData">아직 등록한 감정이 없어요</p>
           </div>
           <form onSubmit={(e) => handleSearch(e)} className="searchWr">
             <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />
