@@ -3,7 +3,7 @@ import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 import useKakaoLoader from "../../hooks/useKakaoLoader";
 import EventMarkerContainer from "./handle-marker";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { FilteredData, dataState, emotionAddMarker, isActBottomSheetState, locationState } from "../../atoms/atoms";
 import GetGeolocation from "./get-geolocation";
 import { useModal } from "@/hooks/useModal";
@@ -26,6 +26,7 @@ const KakaoMap = () => {
   const [bounds, setBounds] = useState<{ sw: string; ne: string }>({ sw: "", ne: "" });
   const [filteredData, setFilteredData] = useRecoilState(FilteredData);
   const [isEmotionAddMarker, setIsEmotionAddMarker] = useRecoilState(emotionAddMarker);
+  const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
 
@@ -56,6 +57,7 @@ const KakaoMap = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsEmotionAddMarker(false);
+    setIsActBottomSheet(false);
     const ps = new kakao.maps.services.Places();
 
     // 키워드 검색 및 지도 반경 이동
