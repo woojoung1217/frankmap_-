@@ -10,9 +10,10 @@ import { useModal } from "@/hooks/useModal";
 
 interface EmotionItemProps {
   record: RecordType;
+  fetchRecords: () => Promise<void>; // 타입 정의 추가
 }
 
-const ListItem: React.FC<EmotionItemProps> = ({ record }) => {
+const ListItem: React.FC<EmotionItemProps> = ({ record, fetchRecords }) => {
   const router = useRouter();
   const { openModal, closeModal } = useModal();
 
@@ -35,6 +36,7 @@ const ListItem: React.FC<EmotionItemProps> = ({ record }) => {
       }
 
       console.log("삭제 완료");
+      fetchRecords();
     } catch (e) {
       console.error(e);
     }
@@ -63,7 +65,7 @@ const ListItem: React.FC<EmotionItemProps> = ({ record }) => {
               callBack: () => {
                 deleteRecord(record.record_id);
                 closeModal();
-              }, // 삭제 후 새로고침 필요,
+              },
             });
           }}
         >

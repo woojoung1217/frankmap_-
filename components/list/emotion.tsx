@@ -7,7 +7,6 @@ import EmotionItem from "@/components/list/emotion-item";
 import { supabase } from "@/libs/supabase";
 import { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-// import GetUser from '../kakao/get-user';
 
 const Emotion = () => {
   const user = useRecoilValue(userState);
@@ -16,24 +15,8 @@ const Emotion = () => {
   const [selectedMonth, setSelectedMonth] = useState("");
 
   useEffect(() => {
-    const fetchRecords = async () => {
-      try {
-        const { data: record, error } = await supabase
-          .from("record")
-          .select("*")
-          .eq("user_id", user)
-          .order("date", { ascending: true });
-
-        setRecords(record as RecordType[]);
-      } catch (error) {
-        console.log("Error: fetching data");
-      }
-    };
-
     fetchRecords();
   }, []);
-
-  console.log(records);
 
   useEffect(() => {
     if (selectedMonth) {
@@ -43,6 +26,20 @@ const Emotion = () => {
       setFilteredRecords(records);
     }
   }, [selectedMonth, records]);
+
+  const fetchRecords = async () => {
+    try {
+      const { data: record } = await supabase
+        .from("record")
+        .select("*")
+        .eq("user_id", user)
+        .order("date", { ascending: true });
+
+      setRecords(record as RecordType[]);
+    } catch (error) {
+      console.log("Error: fetching data");
+    }
+  };
 
   const handleMonthChange = (month: string) => {
     setSelectedMonth(month);
@@ -57,7 +54,11 @@ const Emotion = () => {
           <Loading />
         ) : // <div>loading</div> --> 추후 suspense로 교체할 예정
         records.length > 0 ? (
-          <div>{filteredRecords?.map((record) => <EmotionItem key={record.record_id} record={record} />)}</div>
+          <div>
+            {filteredRecords?.map((record) => (
+              <EmotionItem key={record.record_id} record={record} fetchRecords={fetchRecords} />
+            ))}
+          </div>
         ) : (
           <div>기록이 없습니다.</div>
         )}
