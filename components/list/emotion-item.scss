@@ -1,23 +1,48 @@
-
-
-
-.emotion-card { // 추후 반응형 css 보강 필요
+.emotion-card {
+  // 추후 반응형 css 보강 필요
   box-shadow: var(--box-shadow);
   border-radius: 1rem;
   margin: 2rem auto;
   padding: 3rem;
   text-align: center;
   color: var(--color-gray-50);
-  
-  & div {
+
+  &div {
     margin-top: 1rem;
   }
 }
 
-.emotion-date, .emotion-location  {
-  font-weight: 500;
+.emotion-card-button-container {
+  display: flex;
+  gap: 0.5rem;
+
+  & button {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.5rem;
+    box-sizing: border-box;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:first-child {
+      margin-left: auto;
+    }
+
+    & img {
+      width: 100%;
+    }
+
+    &:hover {
+      box-shadow: inset 0 0 0 0.1rem var(--color-black);
+    }
+  }
 }
 
+.emotion-date,
+.emotion-location {
+  font-weight: 500;
+}
 
 .emotion-content {
   line-height: 1.7;
