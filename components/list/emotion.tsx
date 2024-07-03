@@ -51,7 +51,7 @@ const Emotion = () => {
     <>
       {/* <GetUser /> */}
       <div className="emotion-container">
-        <EmotionHeader onMonthChange={handleMonthChange} />
+        {/* <EmotionHeader onMonthChange={handleMonthChange} /> */}
         {records === undefined ? (
           <div>loading</div> // 추후 suspense로 교체할 예정
         ) : records.length > 0 ? (
