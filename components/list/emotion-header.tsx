@@ -27,7 +27,7 @@ const EmotionHeader: React.FC<EmotionHeaderProp> = ({ onMonthChange }) => {
   const modalData = {
     title: "전희선",
     content: "designh2sun@gmail.com",
-    callback: () => {}, // 로그아웃 버튼 클릭 이벤트 작성
+    callBack: () => {}, // 로그아웃 버튼 클릭 이벤트 작성
   };
 
   return (
