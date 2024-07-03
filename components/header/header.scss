@@ -1,14 +1,12 @@
 .header {
-  height: 11rem;
-  padding: 2rem;
-  margin: unset;
   background-color: #fff;
+  gap: 7rem;
+  min-width: 266px;
 }
 
 .home,
 .calendar,
 .emotion {
-  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -27,19 +25,117 @@
 
   h1 {
     font-size: 1.4rem;
-    color: #333;
+    color: black;
     margin: 0;
   }
 }
 
 .group {
-  display: flex;
   justify-content: center;
   align-items: center;
   gap: 6rem;
+  display: flex;
 }
 
 // pc
+@media (min-width: 1024px) {
+  .header {
+    height: 6rem;
+    padding: 0 8rem;
+    box-shadow: 0 0.2rem rgb(228, 228, 228, 0.5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(0.5rem);
+  }
+
+  .home,
+  .calendar,
+  .emotion {
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    a {
+      display: flex;
+      color: inherit;
+      font-size: 0.8rem;
+      gap: 1rem;
+    }
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: black;
+      margin: 0;
+    }
+  }
+
+  .home img {
+    content: url("/logo.svg");
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .home h1 {
+    display: none;
+  }
+}
+
+// 모바일
+@media (max-width: 767px) {
+  .header {
+    gap: 2rem;
+    height: 9rem;
+    padding: 2rem;
+    border-radius: 2rem 2rem 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7rem;
+    box-shadow: 0 0 10px 1px;
+  }
+
+  .home,
+  .calendar,
+  .emotion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: black;
+    }
+
+    img {
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      color: black;
+      margin: 0;
+    }
+  }
+
+  .calendar img {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
 @media (min-width: 768px) {
   .header {
     height: 6rem;
@@ -73,7 +169,7 @@
 
     h1 {
       font-size: 1.4rem;
-      color: #a6a6a6;
+      color: black;
       margin: 0;
     }
   }
@@ -89,45 +185,11 @@
   }
 }
 
-// 모바일
-@media (max-width: 767px) {
-  .header {
-    gap: 2rem;
-    height: 11rem;
-    padding: 2rem;
-    border-radius: 2rem 2rem 0 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 6rem;
-  }
-
-  .home,
-  .calendar,
-  .emotion {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-decoration: none;
-      color: #a6a6a6;
-    }
-
-    img {
-      width: 3.5rem;
-      height: 3.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    h1 {
-      font-size: 1.4rem;
-      color: #a6a6a6;
-      margin: 0;
-    }
-  }
-}
+/* 
+- 349 : 작은 모바일
+- 350 - 375 : 기본 css
+- 500 - 767 : 모바일
+- 768 - 1023 : 태블릿
+- 1024 - 1439 : 노트북 (여기부터 PC버전)
+- 1440 - : pc
+*/
