@@ -6,6 +6,10 @@ import parse from "html-react-parser";
 const Modal = () => {
   const { modalDataState, closeModal } = useModal();
   const { title, content, button, callBack, isOpen, emoticon } = modalDataState;
+  const handleModalClose = () => {
+    if (callBack) callBack();
+    closeModal();
+  };
 
   return (
     <>
@@ -27,7 +31,7 @@ const Modal = () => {
             </div>
             {button && (
               <div className="modal-footer">
-                <Button handleClick={callBack} size="normal" color="secondary">
+                <Button handleClick={handleModalClose} size="normal" color="secondary">
                   {button}
                 </Button>
               </div>

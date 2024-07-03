@@ -3,6 +3,7 @@ import { dataState } from "@/atoms/atoms";
 import { userState } from "@/atoms/userstate";
 import { useModal } from "@/hooks/useModal";
 import fetchData from "@/libs/fetch-record";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
@@ -10,6 +11,7 @@ const GetUser = () => {
   const loggedInUserId = useRecoilValue(userState);
   const setData = useSetRecoilState(dataState);
   const { openModal } = useModal();
+  const router = useRouter();
 
   useEffect(() => {
     const getData = async () => {
@@ -25,12 +27,14 @@ const GetUser = () => {
         // 사용자가 로그인되지 않은 경우 처리
         openModal({
           content: `
-            <div className="recordModal">
+            <div className="recordModal"> 
+              <div className="closePrevention"></div>
               <img className="emotion" src="/emotion7-folded.svg" alt="로그인 안됨" />
               <p className="content">감정기록을 할 수 없어요! <br> 회원가입 후 이용 해 주세요</p>
             </div>
           `,
           button: "회원가입 / 로그인",
+          callBack: () => router.push(`/login`),
         });
       }
     };

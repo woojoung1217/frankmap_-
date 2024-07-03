@@ -19,16 +19,16 @@
       visibility: hidden;
     }
 
-    &::before {
+    &::after {
       content: "";
       display: block;
-      position: fixed;
-      width: 200vw;
-      height: 200vh;
-      z-index: -1;
-      transform: translate(-50%, -50%);
-      background: rgb(51 51 51 / 10%);
-      backdrop-filter: blur(0.2rem);
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(20%, -20%);
+      background: url(/icon-add-black.svg) no-repeat center / cover;
+      width: 3rem;
+      aspect-ratio: 1/1;
     }
 
     .emotionAdd {
@@ -36,29 +36,25 @@
       width: 6rem;
       aspect-ratio: 1/1;
       cursor: pointer;
+    }
 
-      &::after {
-        content: "";
+    .noData {
+      display: none;
+    }
+
+    &.noData {
+      .noData {
         display: block;
         position: absolute;
         top: 0;
-        right: 0;
-        transform: translate(20%, -20%);
-        background: url(/icon-add-black.svg) no-repeat center / cover;
-        width: 3rem;
-        aspect-ratio: 1/1;
+        left: 0;
+        width: max-content;
+        background: url(/img-bubble.svg) no-repeat center / cover;
+        font-size: 1.6rem;
+        padding: 1.3em 2.7em 2.5em;
+        border-radius: 1rem;
+        transform: translate(-95%, -90%);
       }
-    }
-    .noData {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: max-content;
-      background: url(/img-bubble.svg) no-repeat center / cover;
-      font-size: 1.6rem;
-      padding: 1.3em 2.7em 2.5em;
-      border-radius: 1rem;
-      transform: translate(-95%, -90%);
     }
   }
 
@@ -160,6 +156,14 @@
     border-radius: 1.2rem;
     aspect-ratio: 300/160;
     object-fit: cover;
+  }
+  .closePrevention {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2.4rem;
+    height: 2.4rem;
+    background: #fff;
   }
 }
 

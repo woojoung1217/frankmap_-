@@ -3,7 +3,7 @@ import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 import useKakaoLoader from "../../hooks/useKakaoLoader";
 import EventMarkerContainer from "./handle-marker";
 import { useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { FilteredData, dataState, emotionAddMarker, isActBottomSheetState, locationState } from "../../atoms/atoms";
 import GetGeolocation from "./get-geolocation";
 import { useModal } from "@/hooks/useModal";
@@ -26,6 +26,7 @@ const KakaoMap = () => {
   const [bounds, setBounds] = useState<{ sw: string; ne: string }>({ sw: "", ne: "" });
   const [filteredData, setFilteredData] = useRecoilState(FilteredData);
   const [isEmotionAddMarker, setIsEmotionAddMarker] = useRecoilState(emotionAddMarker);
+  const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
 
@@ -56,6 +57,7 @@ const KakaoMap = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsEmotionAddMarker(false);
+    setIsActBottomSheet(false);
     const ps = new kakao.maps.services.Places();
 
     // 키워드 검색 및 지도 반경 이동
@@ -154,12 +156,7 @@ const KakaoMap = () => {
             {/* 지도 중심 마커가 표시되는 경우 */}
             {isEmotionAddMarker && (
               <>
-                <EventMarkerContainer
-                  type="center"
-                  key={`중심마커`}
-                  position={centerMarker}
-                  setPosition={setCenterMarker}
-                />
+                <EventMarkerContainer type="center" key={`중심마커`} position={centerMarker} />
               </>
             )}
             {search
@@ -179,6 +176,7 @@ const KakaoMap = () => {
                       type="search"
                       key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${idx}`}
                       position={marker.latlng}
+                      setCenterMarker={setCenterMarker}
                     />
                   </>
                 ))
@@ -194,11 +192,11 @@ const KakaoMap = () => {
                   </>
                 ))}
           </Map>
-          <div className={`emotionAddWr ${isAct ? "dis-no" : ""}`}>
+          <div className={`emotionAddWr ${isAct ? "dis-no" : ""} ${!data.length ? "noData" : ""}`}>
             <button className="emotionAdd" onClick={handleEmotionAdd}>
               <span className="hidden">감정 추가</span>
             </button>
-            {!data.length && <p className="noData">아직 등록한 감정이 없어요</p>}
+            <p className="noData">아직 등록한 감정이 없어요</p>
           </div>
           <form onSubmit={(e) => handleSearch(e)} className="searchWr">
             <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />
