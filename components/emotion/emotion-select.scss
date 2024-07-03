@@ -1,4 +1,14 @@
 .emotion-select-container {
+  .emotion-edit-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    font-size: var(--title-extra);
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
   .emotion-select-title {
     text-align: center;
     font-size: var(--title-big);

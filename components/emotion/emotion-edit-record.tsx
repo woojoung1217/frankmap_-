@@ -41,7 +41,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
   const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const setEditStep = useSetRecoilState(editStepState);
-  const [emotion] = useRecoilState(emotionState);
+  const [emotion, setEmotion] = useRecoilState(emotionState);
   const router = useRouter();
   const user = useRecoilValue(userState);
   const { openModal, closeModal } = useModal();
@@ -175,6 +175,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
         callBack: () => closeModal(),
       });
 
+      setEmotion(0);
       router.push("/emotion");
     } catch (e) {
       console.error(e);
@@ -184,8 +185,9 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
   return (
     <>
       {notFound ? (
-        <div className="emotion-edit-container">
-          {data ? (
+        data ? (
+          <div className="emotion-edit-container">
+            <div className="emotion-edit-header">감정 수정</div>
             <form onSubmit={handleSubmit(onSubmit)} className="emotion-edit-form">
               <div className="emotion-date">
                 <button type="button" onClick={handleClick}>
@@ -259,10 +261,10 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
                 </Button>
               </div>
             </form>
-          ) : (
-            <Loading />
-          )}
-        </div>
+          </div>
+        ) : (
+          <Loading />
+        )
       ) : (
         <NotFound />
       )}
