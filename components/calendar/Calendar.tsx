@@ -144,7 +144,13 @@ const Calendar = () => {
             >
               {day}
               {emoji ? (
-                <Image src={emoji} alt="emoji" width={30} height={30}></Image>
+                <button
+                  onClick={() => {
+                    router.push("/emotion");
+                  }}
+                >
+                  <Image src={emoji} alt="emoji" width={30} height={30}></Image>
+                </button>
               ) : (
                 <Image src={noneEmoji} alt="non-emoji" width={30} height={30}></Image>
               )}
