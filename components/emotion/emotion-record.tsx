@@ -123,6 +123,7 @@ const EmotionRecord = (): JSX.Element => {
       setDataList([...dataList, data[0]]);
       setIsActBottomSheet(false);
       setIsEmotionAddMarker(false);
+      setAddStep("step1");
       if (window.innerWidth < 1024) setTransform(0);
     } catch (e) {
       console.error(e);
@@ -174,7 +175,14 @@ const EmotionRecord = (): JSX.Element => {
                 <img src="/icon-add.svg" alt="사진 추가" />
                 <span>사진 추가</span>
               </label>
-              <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
+              <input
+                type="file"
+                className="hidden"
+                id="image"
+                accept=".png, .jpeg, .jpg"
+                multiple
+                onChange={handleFiles}
+              />
             </>
           )}
           {uploadedFileUrl.map((img: string, index: number) => (

@@ -38,7 +38,8 @@ const Emotion = () => {
         .from("record")
         .select("*")
         .eq("user_id", user)
-        .order("date", { ascending: true });
+        .order("date", { ascending: true })
+        .order("created_at", { ascending: true });
 
       setRecords(record as RecordType[]);
     } catch (error) {
@@ -54,13 +55,12 @@ const Emotion = () => {
     <>
       {/* <GetUser /> */}
 
-
       {records === undefined ? (
         <Loading />
       ) : (
         <div className="emotion-list-container">
           <EmotionHeader onMonthChange={handleMonthChange} />
-          {records.length > 0 ? (
+          {records?.length > 0 ? (
             <div>
               {filteredRecords?.map((record) => (
                 <EmotionItem key={record.record_id} record={record} fetchRecords={fetchRecords} />
@@ -71,7 +71,6 @@ const Emotion = () => {
           )}
         </div>
       )}
-
     </>
   );
 };
