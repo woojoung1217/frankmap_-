@@ -36,20 +36,16 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
-      <div className="home">
-        <Link href={"/"}>
-          <img src={pathname === "/" ? "/home_blue.svg" : "/home_black.svg"} alt="홈" />
-          <h1>홈</h1>
-        </Link>
-        {/* 모바일에서만 보이는 프로필 */}
-        <Link href={"/"}>
-          <img src={pathname === "/" ? "/home_blue.svg" : "/home_black.svg"} alt="홈" />
-          <h1>홈</h1>
-        </Link>
-      </div>
-
-      <div className="group">
+    <>
+      {/* 홈, 캘린더, 감정기록, 프로필 묶기 - pc용 mobile용 따로 css 주기, pc버전에서는 프로필 hidden처리
+      mobile에서만 보이는 로고,프로필 - pc에서는 숨기기 */}
+      <header className="header_PC">
+        <div className="home_PC">
+          <Link href={"/"}>
+            <img src={pathname === "/" ? "/home_blue.svg" : "/home_black.svg"} alt="홈" />
+            <h1>홈홈ㅎ모홈</h1>
+          </Link>
+        </div>
         <div className="calendar">
           <Link href={"/calendar"}>
             <img src={pathname === "/calendar" ? "/calendar_blue.svg" : "/calendar_black.svg"} alt="캘린더" />
@@ -62,12 +58,23 @@ const Header = () => {
             <h1>감정기록</h1>
           </Link>
         </div>
-        {/* pc에서만 보이는 프로필 */}
-        <button onClick={() => openModal(modalData)} className="Button-userInfo">
-          <span className="hidden">회원정보</span>
+        <button className="profile_PC">
+          <img src="icon-user.svg" onClick={() => openModal(modalData)} alt="프로필" />
         </button>
-      </div>
-    </header>
+      </header>
+      {/* ------------모바일에만 보이는 header / 로고 이미지 & 유저 프로필 / pc버전에서 사라져야함--------------- */}
+      <header className="header_MO">
+        <div className="home_MO">
+          <Link href={"/"}>
+            <img src="emotion1-folded.svg" alt="홈" />
+          </Link>
+        </div>
+
+        <button className="profile_MO">
+          <img src="icon-user.svg" onClick={() => openModal(modalData)} alt="프로필" />
+        </button>
+      </header>
+    </>
   );
 };
 

@@ -54,6 +54,7 @@ const Emotion = () => {
     <>
       {/* <GetUser /> */}
 
+
       {records === undefined ? (
         <Loading />
       ) : (
@@ -70,6 +71,7 @@ const Emotion = () => {
           )}
         </div>
       )}
+
     </>
   );
 };
