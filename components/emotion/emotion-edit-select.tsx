@@ -1,6 +1,7 @@
 import { addModeState, addStepState, editStepState, emotionState } from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-select.scss";
+import { useModal } from "@/hooks/useModal";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -8,6 +9,7 @@ const EmotionEditSelect = (): JSX.Element => {
   const setEmotion = useSetRecoilState(emotionState);
   const setEditStep = useSetRecoilState(editStepState);
   const [currentEmotion, setCurrentEmotion] = useState<number>();
+  const { openModal, closeModal } = useModal();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     document.querySelectorAll(".emotion-button").forEach((item) => item.classList.remove("selected"));
@@ -17,11 +19,18 @@ const EmotionEditSelect = (): JSX.Element => {
 
   const handleSelect = (): void => {
     if (currentEmotion) {
-      console.log(currentEmotion);
       setEmotion(currentEmotion);
       setEditStep("step2");
     } else {
-      alert("감정을 선택하세요!");
+      openModal({
+        title: "감정 선택",
+        content: `변경할 감정을 선택하지 않았습니다. 감정을 유지할까요?`,
+        button: "확인",
+        callBack: () => {
+          closeModal();
+          setEditStep("step2");
+        },
+      });
     }
   };
 
@@ -31,6 +40,7 @@ const EmotionEditSelect = (): JSX.Element => {
 
   return (
     <div className="emotion-select-container">
+      <div className="emotion-edit-header">감정 수정</div>
       <h3 className="emotion-select-title">오늘은 어떤 기분이었나요?</h3>
       <div className="emotion-button-container">
         <button className="emotion-button" type="button" value={1} onClick={handleClick}>

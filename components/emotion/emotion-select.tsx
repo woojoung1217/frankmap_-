@@ -1,6 +1,7 @@
 import { addModeState, addStepState, emotionState } from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-select.scss";
+import { useModal } from "@/hooks/useModal";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 
@@ -9,6 +10,7 @@ const EmotionSelect = (): JSX.Element => {
   const setAddStep = useSetRecoilState(addStepState);
   const setEmotion = useSetRecoilState(emotionState);
   const [currentEmotion, setCurrentEmotion] = useState<number>();
+  const { openModal, closeModal } = useModal();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     document.querySelectorAll(".emotion-button").forEach((item) => item.classList.remove("selected"));
@@ -21,7 +23,14 @@ const EmotionSelect = (): JSX.Element => {
       setEmotion(currentEmotion);
       setAddStep("step2");
     } else {
-      alert("감정을 선택하세요!");
+      openModal({
+        title: "감정 선택",
+        content: "감정을 먼저 선택해주세요!",
+        button: "확인",
+        callBack: () => {
+          closeModal();
+        },
+      });
     }
   };
 
