@@ -13,6 +13,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../button/button";
 import Input from "../input/input";
+import NotFound from "@/app/not-found";
 
 interface RecordData {
   emotion: number;
@@ -34,15 +35,17 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
   const [data, setData] = useState<RecordData>();
   const [initialEmotion, setInitialEmotion] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [currentDate, setCurrentDate] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [location, setLocation] = useState<string>("");
   const [imgUrl, setImgUrl] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const setEditStep = useSetRecoilState(editStepState);
-  const [emotion] = useRecoilState(emotionState);
+  const [emotion, setEmotion] = useRecoilState(emotionState);
   const router = useRouter();
   const user = useRecoilValue(userState);
   const { openModal, closeModal } = useModal();
+  const [notFound, setNotFound] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,6 +53,8 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
 
       if (record) {
         setData(record);
+      } else {
+        setNotFound(false);
       }
     };
 
@@ -82,10 +87,9 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
         throw error;
       }
 
-      console.log(data[0]);
-
       setInitialEmotion(data[0].emotion);
       setSelectedDate(data[0].date);
+      setCurrentDate(data[0].date);
       setContent(data[0].content);
       setLocation(data[0].location);
       setImgUrl(data[0].image);
@@ -146,7 +150,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
     }
 
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from("record")
         .update({
           emotion: formData.emotion,
@@ -171,6 +175,7 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
         callBack: () => closeModal(),
       });
 
+      setEmotion(0);
       router.push("/emotion");
     } catch (e) {
       console.error(e);
@@ -178,78 +183,92 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
   };
 
   return (
-    <div className="emotion-edit-container">
-      {data ? (
-        <form onSubmit={handleSubmit(onSubmit)} className="emotion-edit-form">
-          <div className="emotion-date">
-            <button type="button" onClick={handleClick}>
-              <i className="hidden">감정 변경</i>
-              {emotion ? (
-                <img className="emotion-emoji" src={`/emotion${emotion}-folded.svg`} alt={`감정코드: ${emotion}`} />
-              ) : (
-                <img
-                  className="emotion-emoji"
-                  src={`/emotion${initialEmotion}-folded.svg`}
-                  alt={`감정코드: ${initialEmotion}`}
-                />
-              )}
-            </button>
-
-            <label className="emotion-calendar-label" htmlFor="date">
-              <img src="/icon-calendar.svg" alt="날짜 선택" />
-            </label>
-            <input type="date" id="date" value={selectedDate} {...register("date")} onChange={handleChange} />
-          </div>
-
-          <div className="emotion-location">
-            <Input id="location" placeholder="어떤 장소인가요?" {...register("location", { required: true })} />
-            {errors.location && <p className="empty-contents">장소를 입력해 주세요!</p>}
-          </div>
-
-          <div className="emotion-contents">
-            <textarea
-              placeholder="오늘 느꼈던 나의 감정은?"
-              rows={10}
-              {...register("content", {
-                required: true,
-              })}
-            />
-            {errors.content && <p className="empty-contents">감정을 입력해 주세요!</p>}
-          </div>
-
-          <div className="emotion-images">
-            {imgUrl.length >= 10 ? (
-              ""
-            ) : (
-              <>
-                <label className="emotion-image-add" htmlFor="image">
-                  <img src="/icon-add.svg" alt="사진 추가" />
-                  <span>사진 추가</span>
-                </label>
-                <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
-              </>
-            )}
-            {imgUrl.map((img: string, index: number) => (
-              <div className="uploaded-images" key={index}>
-                <img src={img} alt={`${index}/10`} />
-                <button type="button" onClick={() => handleDeleteImages(index)}>
-                  <i className="hidden">제거</i>
-                  <img src="/icon-delete.svg" alt="제거" />
+    <>
+      {notFound ? (
+        data ? (
+          <div className="emotion-edit-container">
+            <div className="emotion-edit-header">감정 수정</div>
+            <form onSubmit={handleSubmit(onSubmit)} className="emotion-edit-form">
+              <div className="emotion-date">
+                <button type="button" onClick={handleClick}>
+                  <i className="hidden">감정 변경</i>
+                  {emotion ? (
+                    <img className="emotion-emoji" src={`/emotion${emotion}-folded.svg`} alt={`감정코드: ${emotion}`} />
+                  ) : (
+                    <img
+                      className="emotion-emoji"
+                      src={`/emotion${initialEmotion}-folded.svg`}
+                      alt={`감정코드: ${initialEmotion}`}
+                    />
+                  )}
                 </button>
-              </div>
-            ))}
-          </div>
 
-          <div className="emotion-edit-button">
-            <Button type="submit" color="secondary">
-              수정하기
-            </Button>
+                <label className="emotion-calendar-label" htmlFor="date">
+                  <img src="/icon-calendar.svg" alt="날짜 선택" />
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  value={selectedDate}
+                  {...register("date")}
+                  onChange={handleChange}
+                  max={currentDate}
+                />
+              </div>
+
+              <div className="emotion-location">
+                <Input id="location" placeholder="어떤 장소인가요?" {...register("location", { required: true })} />
+                {errors.location && <p className="empty-contents">장소를 입력해 주세요!</p>}
+              </div>
+
+              <div className="emotion-contents">
+                <textarea
+                  placeholder="오늘 느꼈던 나의 감정은?"
+                  rows={10}
+                  {...register("content", {
+                    required: true,
+                  })}
+                />
+                {errors.content && <p className="empty-contents">감정을 입력해 주세요!</p>}
+              </div>
+
+              <div className="emotion-images">
+                {imgUrl.length >= 10 ? (
+                  ""
+                ) : (
+                  <>
+                    <label className="emotion-image-add" htmlFor="image">
+                      <img src="/icon-add.svg" alt="사진 추가" />
+                      <span>사진 추가</span>
+                    </label>
+                    <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
+                  </>
+                )}
+                {imgUrl.map((img: string, index: number) => (
+                  <div className="uploaded-images" key={index}>
+                    <img src={img} alt={`${index}/10`} />
+                    <button type="button" onClick={() => handleDeleteImages(index)}>
+                      <i className="hidden">제거</i>
+                      <img src="/icon-delete.svg" alt="제거" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <div className="emotion-edit-button">
+                <Button type="submit" color="secondary">
+                  수정하기
+                </Button>
+              </div>
+            </form>
           </div>
-        </form>
+        ) : (
+          <Loading />
+        )
       ) : (
-        <Loading />
+        <NotFound />
       )}
-    </div>
+    </>
   );
 };
 
