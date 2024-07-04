@@ -1,3 +1,17 @@
+.emotion,
+.calendar,
+.home_PC {
+  // background-color: gray;
+  text-align: center;
+  min-width: 7rem;
+  max-width: 7rem;
+
+  img {
+    min-height: 3rem;
+    max-height: 3rem;
+  }
+}
+
 .header_PC {
   position: fixed;
   width: 100%;
@@ -26,19 +40,21 @@
     }
 
     a h1 {
-      display: none; // PC 버전에서는 h1 텍스트 숨기기
+      display: none;
     }
   }
 
   @media (max-width: 1023px) {
     background-color: #fff;
-    height: 9rem;
+    height: 8rem;
+    max-height: 8rem;
     border-radius: 2rem 2rem 0 0;
-    box-shadow: 0 0.2rem rgb(228, 228, 228, 0.5);
+    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
     top: auto;
     bottom: 0;
     display: flex;
-    min-width: 349px;
+    justify-content: center; // 중앙 정렬
+    gap: 2rem; // 요소 간 간격 설정
 
     .home_PC,
     .calendar,
@@ -47,23 +63,59 @@
       margin: 0;
     }
 
-    a h1 {
-      display: block; // 모바일 버전에서는 h1 텍스트 보이기
+    a {
+      text-decoration: none; // 모바일에서 a 태그의 밑줄 제거
+      color: inherit; // a 태그의 색상 변경 없음
+
+      &:hover,
+      &:focus,
+      &:active {
+        text-decoration: none; // 상호작용 시에도 밑줄 제거
+        color: inherit; // 상호작용 시에도 색상 변경 없음
+      }
+    }
+
+    .link-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 4rem; // 아이콘과 h1의 범위 고정
+      text-align: center;
+
+      h1 {
+        margin: 0.5rem 0 0; // 아이콘과 h1 사이 간격 조절
+      }
+
+      img {
+        margin-bottom: 0.5rem; // 아이콘과 h1 사이 간격 조절
+      }
     }
   }
 }
 
 .home_PC img {
-  content: url("/home_black.svg"); // 기본 이미지
+  // content: url("/home_yellow.svg"); // 기본 이미지
 
   @media (min-width: 1024px) {
     content: url("/emotion1-folded.svg"); // 1024px 이상일 때 이미지 변경
   }
 }
 
-.header_MO,
+.header_MO {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  /* background: red; */
+  padding: calc(var(--layout-padding) / 2) var(--layout-padding);
+}
+
+.home_MO,
 .profile_MO {
-  display: flex; // 기본값, 작은 화면에서 보이게 함
+  // 기본값, 작은 화면에서 보이게 함
 
   @media (min-width: 1024px) {
     display: none; // 1024px 이상일 때 숨기기

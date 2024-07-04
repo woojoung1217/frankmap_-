@@ -6,7 +6,7 @@ import { userState } from "@/atoms/userstate";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import "./login.scss"
+import "./login.scss";
 import Button from "@/components/button/button";
 
 interface LoginFormInputs {
@@ -71,6 +71,7 @@ export default function Login() {
       setUser(null);
       setIsLoggedIn(false);
       localStorage.removeItem("supabase.auth.token"); // 로컬 스토리지에서 토큰 제거
+      localStorage.removeItem("userState"); // userState 삭제
       alert("로그아웃 성공!");
       router.replace("/login"); // 로그아웃 후 로그인 페이지로 이동
     } catch (error: any) {
@@ -81,7 +82,7 @@ export default function Login() {
 
   if (isLoggedIn) {
     return (
-<div className="login-container">
+      <div className="login-container">
         <p>이미 로그인된 상태입니다.</p>
         <button onClick={() => router.replace("/")}>메인 페이지로 이동</button>
         <button onClick={handleLogout}>로그아웃</button>
@@ -117,8 +118,10 @@ export default function Login() {
           />
           {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
-        <button type="submit" className="submit-button">로그인</button>
+        <button type="submit" className="submit-button">
+          로그인
+        </button>
       </form>
     </div>
-  ); 
+  );
 }
