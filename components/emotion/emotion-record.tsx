@@ -174,7 +174,14 @@ const EmotionRecord = (): JSX.Element => {
                 <img src="/icon-add.svg" alt="사진 추가" />
                 <span>사진 추가</span>
               </label>
-              <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
+              <input
+                type="file"
+                className="hidden"
+                id="image"
+                accept=".png, .jpeg, .jpg"
+                multiple
+                onChange={handleFiles}
+              />
             </>
           )}
           {uploadedFileUrl.map((img: string, index: number) => (

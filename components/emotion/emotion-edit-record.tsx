@@ -241,7 +241,14 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
                       <img src="/icon-add.svg" alt="사진 추가" />
                       <span>사진 추가</span>
                     </label>
-                    <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
+                    <input
+                      type="file"
+                      className="hidden"
+                      accept=".png, .jpeg, .jpg"
+                      id="image"
+                      multiple
+                      onChange={handleFiles}
+                    />
                   </>
                 )}
                 {imgUrl.map((img: string, index: number) => (
@@ -256,6 +263,9 @@ const EmotionEditRecord = ({ id }: { id: number }): JSX.Element => {
               </div>
 
               <div className="emotion-edit-button">
+                <Button color="primary" handleClick={() => router.push(`/emotion`)}>
+                  뒤로가기
+                </Button>
                 <Button type="submit" color="secondary">
                   수정하기
                 </Button>

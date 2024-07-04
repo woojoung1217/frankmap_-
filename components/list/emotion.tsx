@@ -38,7 +38,8 @@ const Emotion = () => {
         .from("record")
         .select("*")
         .eq("user_id", user)
-        .order("date", { ascending: true });
+        .order("date", { ascending: true })
+        .order("created_at", { ascending: true });
 
       setRecords(record as RecordType[]);
     } catch (error) {
@@ -53,7 +54,6 @@ const Emotion = () => {
   return (
     <>
       {/* <GetUser /> */}
-
 
       {records === undefined ? (
         <Loading />
@@ -71,7 +71,6 @@ const Emotion = () => {
           )}
         </div>
       )}
-
     </>
   );
 };
