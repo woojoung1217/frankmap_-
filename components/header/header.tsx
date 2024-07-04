@@ -62,7 +62,7 @@ const Header = () => {
           <img src="icon-user.svg" onClick={() => openModal(modalData)} alt="프로필" />
         </button>
       </header>
-      {/* ------------모바일에만 보이는 header / 로고 이미지 & 유저 프로필 / pc버전에서 사라져야함-------------- */}
+      {/* ------------모바일에만 보이는 header / 로고 이미지 & 유저 프로필 / pc버전에서 사라져야함--------------- */}
       <header className="header_MO">
         <div className="home_MO">
           <Link href={"/"}>
