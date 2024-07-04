@@ -123,6 +123,7 @@ const EmotionRecord = (): JSX.Element => {
       setDataList([...dataList, data[0]]);
       setIsActBottomSheet(false);
       setIsEmotionAddMarker(false);
+      setAddStep("step1");
       if (window.innerWidth < 1024) setTransform(0);
     } catch (e) {
       console.error(e);

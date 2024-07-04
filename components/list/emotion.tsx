@@ -60,7 +60,7 @@ const Emotion = () => {
       ) : (
         <div className="emotion-list-container">
           <EmotionHeader onMonthChange={handleMonthChange} />
-          {records.length > 0 ? (
+          {records?.length > 0 ? (
             <div>
               {filteredRecords?.map((record) => (
                 <EmotionItem key={record.record_id} record={record} fetchRecords={fetchRecords} />
