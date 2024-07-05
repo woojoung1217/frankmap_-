@@ -12,7 +12,7 @@ import { userState } from "@/atoms/userstate";
 /** 타입 인터페이스 설정 */
 interface EmotionData {
   post_id: number;
-  user_id: number;
+  user_id: string;
   emotion: number;
   date: string;
 }
@@ -27,11 +27,10 @@ const Calendar = () => {
   useEffect(() => {
     const getData = async () => {
       if (loggedInUserId) {
-        console.log("로그인된 uuid :", loggedInUserId);
+        // console.log("로그인된 uuid :", loggedInUserId);
         try {
           const resultData = await fetchData(loggedInUserId);
           setData(resultData);
-          // console.log("결과값", resultData);
         } catch (error) {
           console.error("데이터 가져오기 오류:", error);
           setData([]);
