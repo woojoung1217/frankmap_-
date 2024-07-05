@@ -80,6 +80,8 @@
         &.selected {
           color: var(--color-black);
           transform: scale(1.25);
+          border: 0.2rem solid #ddd;
+          border-radius: 1rem;
         }
       }
     }
@@ -165,6 +167,11 @@
   .emotions_sum {
     display: flex;
     flex-direction: column;
+    padding: var(--layout-padding);
+
+    @media (min-width: 1024px) {
+      padding: var(--layout-padding) calc(var(--layout-padding) * 2);
+    }
 
     .emotion-size {
       width: 3.7rem;
@@ -172,7 +179,6 @@
     }
 
     .emotion-stat {
-      max-width: 30rem;
       display: flex;
       align-items: center;
       margin-bottom: 2rem;
