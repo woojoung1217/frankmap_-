@@ -1,5 +1,5 @@
-.emotion,
-.calendar,
+.emotion_PC,
+.calendar_PC,
 .home_PC {
   // background-color: gray;
   text-align: center;
@@ -14,8 +14,8 @@
 
 .header_PC {
   position: fixed;
-  width: 100%;
-  z-index: 1000; // 필요한 경우 z-index 조정
+  width: 100vw;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -64,9 +64,8 @@
     }
 
     a {
-      text-decoration: none; // 모바일에서 a 태그의 밑줄 제거
-      color: inherit; // a 태그의 색상 변경 없음
-
+      text-decoration: none;
+      color: inherit;
       &:hover,
       &:focus,
       &:active {
@@ -108,7 +107,7 @@
   top: 0;
   left: 0;
   z-index: 999;
-  width: 100%;
+  width: 100vw;
   /* background: red; */
   padding: calc(var(--layout-padding) / 2) var(--layout-padding);
 }

@@ -46,13 +46,13 @@ const Header = () => {
             <h1>홈</h1>
           </Link>
         </div>
-        <div className="calendar">
+        <div className="calendar_PC">
           <Link href={"/calendar"}>
             <img src={pathname === "/calendar" ? "/calendar_black.svg" : "/calendar_gray.svg"} alt="캘린더" />
             <h1>캘린더</h1>
           </Link>
         </div>
-        <div className="emotion">
+        <div className="emotion_PC">
           <Link href={"/emotion"}>
             <img src={pathname === "/emotion" ? "/emotion_black.svg" : "/emotion_gray.svg"} alt="감정기록" />
             <h1>감정기록</h1>
