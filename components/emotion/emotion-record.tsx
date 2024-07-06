@@ -1,6 +1,7 @@
 import {
   addModeState,
   addStepState,
+  bottomSheetStyleState,
   dataState,
   emotionAddMarker,
   emotionState,
@@ -25,7 +26,7 @@ const EmotionRecord = (): JSX.Element => {
   const setAddStep = useSetRecoilState(addStepState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const setIsEmotionAddMarker = useSetRecoilState(emotionAddMarker);
-  const setTransform = useSetRecoilState(transformState);
+  const setBottomSheetStyle = useSetRecoilState(bottomSheetStyleState);
 
   const [dataList, setDataList] = useRecoilState(dataState);
   const latlng = useRecoilValue(latlngState);
@@ -124,7 +125,7 @@ const EmotionRecord = (): JSX.Element => {
       setIsActBottomSheet(false);
       setIsEmotionAddMarker(false);
       setAddStep("step1");
-      if (window.innerWidth < 1024) setTransform(0);
+      if (window.innerWidth < 1024) setBottomSheetStyle({ transform: 0, height: 300 });
     } catch (e) {
       console.error(e);
     }
