@@ -5,7 +5,6 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: -6rem;
 
   .emotionAddWr {
     position: fixed;
@@ -60,12 +59,15 @@
 
   .searchWr {
     position: fixed;
-    top: 7rem;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 20rem;
+    height: 77px;
     z-index: 1;
+    display: flex;
+    align-items: center;
 
     #search {
       background: #fff url(/icon-search.svg) no-repeat center right 0.5rem;
@@ -169,6 +171,8 @@
 
 @media (min-width: 1024px) {
   .map {
+    margin-top: -6rem;
+
     .markerContent {
       font-size: 1.4rem;
       margin-top: -6rem;
