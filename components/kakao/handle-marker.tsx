@@ -2,11 +2,10 @@
 import {
   addModeState,
   addStepState,
+  bottomSheetStyleState,
   emotionAddMarker,
-  heightState,
   isActBottomSheetState,
   latlngState,
-  transformState,
 } from "@/atoms/atoms";
 import { MapMarker, useMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
@@ -30,29 +29,34 @@ const EventMarkerContainer = ({
   const setAddModeStep = useSetRecoilState(addStepState);
   const setLatlng = useSetRecoilState(latlngState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
-  const setTransform = useSetRecoilState(transformState);
-  const setHeight = useSetRecoilState(heightState);
+  const setBottomSheetStyle = useSetRecoilState(bottomSheetStyleState);
   const setIsEmotionAddMarker = useSetRecoilState(emotionAddMarker);
 
   const setBottomSheet = () => {
     const contentElement = document.querySelector(".bottomSheet .contents");
     const sheetHeight = contentElement?.clientHeight ?? 0;
-    setTransform(Math.max(-sheetHeight - 100, -windowHeight * 0.8) + 80);
-    setHeight(Math.min(sheetHeight + 100, windowHeight * 0.8));
+    setBottomSheetStyle({
+      transform: Math.max(-sheetHeight - 100, -windowHeight * 0.8) + 80,
+      height: Math.min(sheetHeight + 100, windowHeight * 0.8),
+    });
   };
 
   const handleClick = (marker: any, type: string) => {
-    setAddMode(false);
     if (type !== "search") {
+      setAddMode(false);
       setIsEmotionAddMarker(false);
       setIsActBottomSheet(true);
       if (windowWidth < 1024) setBottomSheet();
     } else {
       // @ts-ignore
       const { Ma: lat, La: lng } = marker.getPosition();
+      setAddMode(true);
+      setLatlng({ lat, lng });
       map.panTo(marker.getPosition());
       setIsEmotionAddMarker(true);
       if (setCenterMarker) setCenterMarker({ lat, lng });
+      // 검색 마커 첫 클릭 때 바텀 시트 활성화 안됨
+      // 등록 완료시 검색 데이터 삭제
     }
   };
 

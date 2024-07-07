@@ -1,7 +1,7 @@
 "use client";
-import { heightState, isActBottomSheetState, transformState } from "@/atoms/atoms";
+import { bottomSheetStyleState, isActBottomSheetState } from "@/atoms/atoms";
 import "@/components/bottom-sheet/bottom-sheet.scss";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 interface BottomSheetMetrics {
@@ -15,15 +15,14 @@ interface BottomSheetMetrics {
   };
   isContentAreaTouched: boolean;
 }
-const windowHeight = typeof window !== "undefined" ? window.innerHeight : undefined;
+const windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
 
 const BottomSheet = ({ children }: { children: React.ReactNode }) => {
   const [isAct, setIsAct] = useRecoilState(isActBottomSheetState);
-  const [transform, setTransform] = useRecoilState(transformState);
-  const [height, setHeight] = useRecoilState(heightState);
-  const MIN_Y = 60;
-  const MAX_Y = windowHeight - 250;
-  const docHeight = 80;
+  const [bottomSheetStyle, setBottomSheetStyle] = useRecoilState(bottomSheetStyleState);
+  const MIN_Y = 80;
+  const MAX_Y = windowHeight - 160;
+  const docHeight = 60;
   const sheet = useRef<HTMLDivElement>(null);
   const content = useRef<HTMLDivElement>(null);
   const metrics = useRef<BottomSheetMetrics>({
@@ -43,7 +42,10 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
       const { touchMove, isContentAreaTouched } = metrics.current;
       if (!isContentAreaTouched) return true;
       if (sheet.current!.getBoundingClientRect().y !== MIN_Y) return true;
-      if (touchMove.movingDirection === "down") return content.current!.scrollTop <= 0;
+      const contentEl = content.current!;
+      if (touchMove.movingDirection === "down" && contentEl.scrollTop <= 0) return true;
+      if (touchMove.movingDirection === "up" && contentEl.scrollTop + contentEl.clientHeight >= contentEl.scrollHeight)
+        return true;
       return false;
     };
 
@@ -65,14 +67,15 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
       if (touchMove.prevTouchY > currentTouch.clientY) touchMove.movingDirection = "up";
 
       if (canUserMoveBottomSheet()) {
-        e.preventDefault();
-        const touchOffset = currentTouch.clientY - touchStart.touchY;
-        let nextSheetY = touchStart.sheetY + touchOffset;
-        if (nextSheetY <= MIN_Y) nextSheetY = MIN_Y;
-        if (nextSheetY >= MAX_Y) nextSheetY = MAX_Y;
-        setTransform(nextSheetY - MAX_Y);
-        setHeight(height);
-        setIsAct(true);
+        if (height < content.current!.clientHeight) {
+          e.preventDefault();
+          const touchOffset = currentTouch.clientY - touchStart.touchY;
+          let nextSheetY = touchStart.sheetY + touchOffset;
+          if (nextSheetY <= MIN_Y) nextSheetY = MIN_Y;
+          if (nextSheetY >= MAX_Y) nextSheetY = MAX_Y;
+          setBottomSheetStyle({ transform: nextSheetY - MAX_Y, height });
+          setIsAct(true);
+        }
       }
     };
 
@@ -80,16 +83,16 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
       const { touchMove } = metrics.current;
       const currentSheetY = sheet.current!.getBoundingClientRect().y;
       const height = content.current!.clientHeight + docHeight + 20;
-
       if (currentSheetY !== MIN_Y) {
-        if (touchMove.movingDirection === "down") {
-          setTransform(0);
-          setHeight(height);
+        if (!sheet.current!.scrollTop && touchMove.movingDirection === "down") {
+          setBottomSheetStyle({ transform: 0, height });
           setIsAct(false);
         }
         if (touchMove.movingDirection === "up") {
-          setTransform(Math.max(-height, -windowHeight * 0.8) + docHeight);
-          setHeight(Math.min(height, windowHeight * 0.8));
+          setBottomSheetStyle({
+            transform: Math.max(-height, -windowHeight * 0.8) + docHeight,
+            height: Math.min(height, windowHeight * 0.8),
+          });
           setIsAct(true);
         }
       }
@@ -129,7 +132,7 @@ const BottomSheet = ({ children }: { children: React.ReactNode }) => {
     <div
       className={`bottomSheet ${isAct ? "is-act" : ""}`}
       ref={sheet}
-      style={{ transform: `translateY(${transform}px)`, height: `${height}px` }}
+      style={{ transform: `translateY(${bottomSheetStyle.transform}px)`, height: `${bottomSheetStyle.height}px` }}
     >
       <div className="handlebar" onClick={(e) => handleClick(e)}>
         <span className="hidden">핸들바</span>
