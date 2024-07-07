@@ -2,24 +2,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   width: 100%;
 
   @media (min-width: 1024px) {
     flex-direction: row;
-    justify-content: space-between;
     align-items: flex-start;
+    margin-top: 5rem;
   }
 }
 
 .calendar-container {
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+
+  max-width: 50rem;
 
   @media (min-width: 1024px) {
     width: 60%;
+    margin-top: 4rem;
+    margin-right: 10rem;
   }
 
   .calendar {
@@ -77,6 +80,8 @@
         &.selected {
           color: var(--color-black);
           transform: scale(1.25);
+          border: 0.2rem solid #ddd;
+          border-radius: 1rem;
         }
       }
     }
@@ -106,6 +111,9 @@
   text-align: center !important;
   font-size: 1.9rem !important;
   border: 0.1rem solid var(--color-gray-50);
+  .NonData-message-bold {
+    font-weight: 800;
+  }
   p {
     font-size: 1.4rem;
   }
@@ -159,6 +167,11 @@
   .emotions_sum {
     display: flex;
     flex-direction: column;
+    padding: var(--layout-padding);
+
+    @media (min-width: 1024px) {
+      padding: var(--layout-padding) calc(var(--layout-padding) * 2);
+    }
 
     .emotion-size {
       width: 3.7rem;
@@ -166,7 +179,6 @@
     }
 
     .emotion-stat {
-      max-width: 30rem;
       display: flex;
       align-items: center;
       margin-bottom: 2rem;

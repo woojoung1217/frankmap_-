@@ -1,13 +1,14 @@
 "use client";
-import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
-import useKakaoLoader from "../../hooks/useKakaoLoader";
-import EventMarkerContainer from "./handle-marker";
-import { useEffect, useRef, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { FilteredData, dataState, emotionAddMarker, isActBottomSheetState, locationState } from "../../atoms/atoms";
-import GetGeolocation from "./get-geolocation";
 import { useModal } from "@/hooks/useModal";
+import { Latlng, RecordType } from "@/types/types";
+import { useEffect, useRef, useState } from "react";
+import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { FilteredData, dataState, emotionAddMarker, isActBottomSheetState, locationState } from "../../atoms/atoms";
+import useKakaoLoader from "../../hooks/useKakaoLoader";
+import GetGeolocation from "./get-geolocation";
 import GetUser from "./get-user";
+import EventMarkerContainer from "./handle-marker";
 
 interface RecordType {
   record_id: number;
@@ -46,9 +47,9 @@ const KakaoMap = () => {
   const [bounds, setBounds] = useState<{ sw: string; ne: string }>({ sw: "", ne: "" });
   const [filteredData, setFilteredData] = useRecoilState(FilteredData);
   const [isEmotionAddMarker, setIsEmotionAddMarker] = useRecoilState(emotionAddMarker);
+  const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
-  const [selectedMarker, setSeleteMarker] = useState();
 
   const { openModal } = useModal();
   const [search, setSearch] = useState("");
@@ -77,6 +78,7 @@ const KakaoMap = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsEmotionAddMarker(false);
+    setIsActBottomSheet(false);
     const ps = new kakao.maps.services.Places();
 
     // 키워드 검색 및 지도 반경 이동
@@ -175,9 +177,6 @@ const KakaoMap = () => {
             {/* 지도 중심 마커가 표시되는 경우 */}
             {isEmotionAddMarker && (
               <>
-                <CustomOverlayMap key={`overlay-center`} position={centerMarker}>
-                  <p className="markerContent">감정 추가</p>
-                </CustomOverlayMap>
                 <EventMarkerContainer type="center" key={`중심마커`} position={centerMarker} />
               </>
             )}
@@ -198,7 +197,7 @@ const KakaoMap = () => {
                       type="search"
                       key={`marker-${marker.latlng.lat}-${marker.latlng.lng}-${idx}`}
                       position={marker.latlng}
-                      idx={idx}
+                      setCenterMarker={setCenterMarker}
                     />
                   </>
                 ))
@@ -214,11 +213,11 @@ const KakaoMap = () => {
                   </>
                 ))}
           </Map>
-          <div className={`emotionAddWr ${isAct ? "dis-no" : ""}`}>
+          <div className={`emotionAddWr ${isAct ? "dis-no" : ""} ${!data.length ? "noData" : ""}`}>
             <button className="emotionAdd" onClick={handleEmotionAdd}>
               <span className="hidden">감정 추가</span>
             </button>
-            {!data && <p className="noData">아직 등록한 감정이 없어요</p>}
+            <p className="noData">아직 등록한 감정이 없어요</p>
           </div>
           <form onSubmit={(e) => handleSearch(e)} className="searchWr">
             <input type="text" id="search" value={search} onChange={(e) => setSearch(e.target.value)} />

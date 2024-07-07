@@ -1,4 +1,5 @@
 import { supabase } from "@/libs/supabase";
+import { RecordType } from "@/types/types";
 
 interface RecordType {
   record_id: number;

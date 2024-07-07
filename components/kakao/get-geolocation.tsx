@@ -1,7 +1,4 @@
-interface Latlng {
-  lat: number;
-  lng: number;
-}
+import { Latlng } from "@/types/types";
 
 const GetGeolocation = (setPosition: (position: Latlng) => void) => {
   navigator.geolocation.getCurrentPosition((position) => {

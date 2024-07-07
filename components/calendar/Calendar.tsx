@@ -11,7 +11,7 @@ import { userState } from "@/atoms/userstate";
 
 /** 타입 인터페이스 설정 */
 interface EmotionData {
-  record_id: number;
+  post_id: number;
   user_id: string;
   emotion: number;
   date: string;
@@ -27,17 +27,16 @@ const Calendar = () => {
   useEffect(() => {
     const getData = async () => {
       if (loggedInUserId) {
-        console.log("로그인된 uuid :", loggedInUserId);
+        // console.log("로그인된 uuid :", loggedInUserId);
         try {
           const resultData = await fetchData(loggedInUserId);
           setData(resultData);
-          console.log("결과값", resultData);
         } catch (error) {
           console.error("데이터 가져오기 오류:", error);
           setData([]);
         }
       } else {
-        // 사용자가 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+        // // 사용자가 로그인되지 않은 경우 로그인 페이지로 리다이렉트
         // alert("캘린더를 사용하려면 로그인 부터 해주세요!");
         // router.replace("/login");
       }
@@ -132,7 +131,7 @@ const Calendar = () => {
         {days.map((day) => {
           const currentDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day + 1);
           const formattedDate = currentDate.toISOString().split("T")[0]; // YYYY-MM-DD 형식으로 변환
-          const dailyData: any = data.find((item: EmotionData) => item.date === formattedDate); // 해당 날짜의 데이터 가져오기
+          const dailyData: EmotionData | undefined = data.find((item: EmotionData) => item.date === formattedDate); // 해당 날짜의 데이터 가져오기
           const emoji = dailyData ? getEmojiByEmotion(dailyData.emotion) : ""; // 해당 날짜의 이모지 가져오기
           const noneEmoji = "/nonEmotion.svg";
 
@@ -144,7 +143,13 @@ const Calendar = () => {
             >
               {day}
               {emoji ? (
-                <Image src={emoji} alt="emoji" width={30} height={30}></Image>
+                <button
+                  onClick={() => {
+                    router.push("/emotion");
+                  }}
+                >
+                  <Image src={emoji} alt="emoji" width={30} height={30}></Image>
+                </button>
               ) : (
                 <Image src={noneEmoji} alt="non-emoji" width={30} height={30}></Image>
               )}
@@ -189,11 +194,11 @@ const Calendar = () => {
           <div className="calendar">
             <div className="calendarHeader">
               <button onClick={goToPreviousMonth}>
-                <Image src={"/icon-arrow.svg"} width={15} height={20} alt="x"></Image>
+                <Image src={"/icon-arrow.svg"} className="icon-arrowSize" width={20} height={20} alt="x"></Image>
               </button>
               <span>{getCurrentMonthYear()}</span>
               <button onClick={goToNextMonth}>
-                <Image src={"/icon-arrow.svg"} width={15} height={20} alt="y" className="icon-reverse"></Image>
+                <Image src={"/icon-arrow.svg"} width={20} height={20} alt="y" className="icon-reverse"></Image>
               </button>
             </div>
             {renderCalendarGrid()}
@@ -204,8 +209,7 @@ const Calendar = () => {
             <AboutMyEmotion monthlyStats={monthlyStats} getCurrentMonthYear={getCurrentMonthYear} />
           ) : (
             <div className="NonData-message">
-              <p>나는 요즘 어떤 기분일까?</p>
-              <h2>감정을 기록하고 한달 통계를 확인 해 보세요!</h2>
+              <p className="NonData-message-bold">나는 요즘 어떤 기분일까?</p>
               <p>최소 3개 이상 입력 된 후 통계가 나옵니다.</p>
             </div>
           )}

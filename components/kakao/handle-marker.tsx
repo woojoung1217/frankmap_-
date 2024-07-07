@@ -2,69 +2,64 @@
 import {
   addModeState,
   addStepState,
+  bottomSheetStyleState,
   emotionAddMarker,
-  heightState,
   isActBottomSheetState,
   latlngState,
-  transformState,
 } from "@/atoms/atoms";
-import { useEffect, useState } from "react";
-import { MapMarker } from "react-kakao-maps-sdk";
+import { MapMarker, useMap } from "react-kakao-maps-sdk";
 import { useSetRecoilState } from "recoil";
+import { Latlng } from "@/types/types";
 
-interface Latlng {
-  lat: number;
-  lng: number;
-}
-
-const windowWidth = typeof window !== "undefined" ? window.innerWidth : undefined;
-const windowHeight = typeof window !== "undefined" ? window.innerHeight : undefined;
+const windowWidth = typeof window !== "undefined" ? window.innerWidth : 0;
+const windowHeight = typeof window !== "undefined" ? window.innerHeight : 0;
 
 const EventMarkerContainer = ({
   type,
   position,
   emotion,
-  idx,
-  children,
+  setCenterMarker,
 }: {
   type: string;
   position: Latlng;
   emotion?: number;
-  idx?: number;
-  children?: Element;
+  setCenterMarker?: React.Dispatch<React.SetStateAction<Latlng>>;
 }) => {
+  const map = useMap();
   const setAddMode = useSetRecoilState(addModeState);
   const setAddModeStep = useSetRecoilState(addStepState);
   const setLatlng = useSetRecoilState(latlngState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
-  const setTransform = useSetRecoilState(transformState);
-  const setHeight = useSetRecoilState(heightState);
+  const setBottomSheetStyle = useSetRecoilState(bottomSheetStyleState);
   const setIsEmotionAddMarker = useSetRecoilState(emotionAddMarker);
-  const [selectedMarker, setSeleteMarker] = useState<number>();
 
   const setBottomSheet = () => {
     const contentElement = document.querySelector(".bottomSheet .contents");
     const sheetHeight = contentElement?.clientHeight ?? 0;
-    setTransform(Math.max(-sheetHeight - 100, -windowHeight * 0.8) + 80);
-    setHeight(Math.min(sheetHeight + 100, windowHeight * 0.8));
+    setBottomSheetStyle({
+      transform: Math.max(-sheetHeight - 100, -windowHeight * 0.8) + 80,
+      height: Math.min(sheetHeight + 100, windowHeight * 0.8),
+    });
   };
 
-  const handleClick = (e, idx: number, type: string) => {
-    setAddMode(false);
+  const handleClick = (marker: any, type: string) => {
     if (type !== "search") {
+      setAddMode(false);
       setIsEmotionAddMarker(false);
       setIsActBottomSheet(true);
+      if (windowWidth < 1024) setBottomSheet();
     } else {
-      setSeleteMarker(undefined);
-      if (!selectedMarker) setSeleteMarker(idx);
-      // 클릭한 애 말고 전체 마커의 색상 변경 필요
+      // @ts-ignore
+      const { Ma: lat, La: lng } = marker.getPosition();
+      setAddMode(true);
+      setLatlng({ lat, lng });
+      map.panTo(marker.getPosition());
+      setIsEmotionAddMarker(true);
+      if (setCenterMarker) setCenterMarker({ lat, lng });
+      // 검색 마커 첫 클릭 때 바텀 시트 활성화 안됨
+      // 등록 완료시 검색 데이터 삭제
     }
-    if (windowWidth < 1024) setBottomSheet();
   };
-
-  useEffect(() => {
-    // 상태가 변경될 때마다 재랜더링하여 마커 이미지를 업데이트
-  }, [selectedMarker]);
 
   const handleAdd = (position: Latlng) => {
     setAddMode(true);
@@ -83,7 +78,7 @@ const EventMarkerContainer = ({
           position={position} // 마커를 표시할 위치
           onClick={() => handleAdd(position)}
           image={{
-            src: `/icon-marker.svg`,
+            src: `/icon-marker-act.svg`,
             size: {
               width: 28,
               height: 40,
@@ -100,14 +95,9 @@ const EventMarkerContainer = ({
         // 기본, 검색 시 마커
         <MapMarker
           position={position} // 마커를 표시할 위치
-          onClick={(e) => handleClick(e, idx, type)}
+          onClick={(marker) => handleClick(marker, type)}
           image={{
-            src:
-              type === "default"
-                ? `/emotion${emotion}.svg`
-                : selectedMarker === idx
-                  ? `/icon-marker-act.svg`
-                  : `/icon-marker.svg`,
+            src: type === "default" ? `/emotion${emotion}.svg` : `/icon-marker.svg`,
             size: {
               width: type === "default" ? 50 : 28,
               height: type === "default" ? 50 : 40,

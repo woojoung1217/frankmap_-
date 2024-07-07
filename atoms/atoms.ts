@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { RecordType } from "@/types/types";
 
 interface RecordType {
   record_id: number;
@@ -79,16 +80,13 @@ export const isActBottomSheetState = atom({
   default: false,
 });
 
-export const transformState = atom({
-  key: "transformState",
-  default: 0,
+export const bottomSheetStyleState = atom({
+  key: "bottomSheetStyleState",
+  default: {
+    transform: 0,
+    height: 0,
+  },
 });
-
-export const heightState = atom({
-  key: "heightState",
-  default: 0,
-});
-
 export const emotionAddMarker = atom({
   key: "emotionAddMarker",
   default: false,

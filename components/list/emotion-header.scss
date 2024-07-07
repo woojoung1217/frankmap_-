@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 600px;
+  max-width: 900px;
   width: 100%;
   flex-wrap: nowrap;
 }
@@ -20,6 +20,7 @@
 
 .Button-userInfo {
   background-image: url(/icon-user.svg);
+  background-color: red;
 }
 
 .button-back,

@@ -2,8 +2,8 @@
 
 import { editStepState } from "@/atoms/atoms";
 import { useRecoilValue } from "recoil";
-import EmotionEditRecord from "./emotion-edit-record";
-import EmotionEditSelect from "./emotion-edit-select";
+import EmotionEditRecord from "@/components/emotion/emotion-edit-record";
+import EmotionEditSelect from "@/components/emotion/emotion-edit-select";
 
 const EmotionEditCont = ({ id }: { id: number }): JSX.Element => {
   const editState = useRecoilValue(editStepState);

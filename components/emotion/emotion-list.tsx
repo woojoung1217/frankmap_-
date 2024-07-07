@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
 import { useModal } from "@/hooks/useModal";
 import { useRouter } from "next/navigation";
+import { RecordType } from "@/types/types";
 
 interface RecordType {
   record_id: number;
@@ -34,7 +35,7 @@ const EmotionList = () => {
         </div>
       `,
       button: "상세보기",
-      callback: () => router.push(`/emotion`),
+      callBack: () => router.push(`/emotion`),
     };
     openModal(modalData);
   };

@@ -1,24 +1,25 @@
 import {
   addModeState,
   addStepState,
+  bottomSheetStyleState,
   dataState,
   emotionAddMarker,
   emotionState,
   isActBottomSheetState,
   latlngState,
-  transformState,
 } from "@/atoms/atoms";
 import { userState } from "@/atoms/userstate";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-record.scss";
+import { useModal } from "@/hooks/useModal";
 import { supabase } from "@/libs/supabase";
+import { RecordType } from "@/types/types";
 import { format } from "date-fns";
 import { ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
-import Input from "../input/input";
-import { useModal } from "@/hooks/useModal";
+import Input from "@/components/input/input";
 
 interface RecordType {
   record_id: number;
@@ -40,7 +41,7 @@ const EmotionRecord = (): JSX.Element => {
   const setAddStep = useSetRecoilState(addStepState);
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const setIsEmotionAddMarker = useSetRecoilState(emotionAddMarker);
-  const setTransform = useSetRecoilState(transformState);
+  const setBottomSheetStyle = useSetRecoilState(bottomSheetStyleState);
 
   const [dataList, setDataList] = useRecoilState(dataState);
   const latlng = useRecoilValue(latlngState);
@@ -138,7 +139,8 @@ const EmotionRecord = (): JSX.Element => {
       setDataList([...dataList, data[0]]);
       setIsActBottomSheet(false);
       setIsEmotionAddMarker(false);
-      if (window.innerWidth < 1024) setTransform(0);
+      setAddStep("step1");
+      if (window.innerWidth < 1024) setBottomSheetStyle({ transform: 0, height: 300 });
     } catch (e) {
       console.error(e);
     }
@@ -189,7 +191,14 @@ const EmotionRecord = (): JSX.Element => {
                 <img src="/icon-add.svg" alt="사진 추가" />
                 <span>사진 추가</span>
               </label>
-              <input type="file" className="hidden" id="image" multiple onChange={handleFiles} />
+              <input
+                type="file"
+                className="hidden"
+                id="image"
+                accept=".png, .jpeg, .jpg"
+                multiple
+                onChange={handleFiles}
+              />
             </>
           )}
           {uploadedFileUrl.map((img: string, index: number) => (

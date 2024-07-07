@@ -1,6 +1,6 @@
 .bottomSheet {
   position: fixed;
-  top: calc(100% - 80px);
+  top: calc(100% - 125px);
   left: 0;
   z-index: 1;
   width: 100%;
@@ -18,14 +18,14 @@
   transition: all 0.5s;
 
   .handlebar {
-    height: 60px;
+    height: 50px;
     position: relative;
     display: flex;
     background: linear-gradient(to bottom, #fff 50%, transparent);
     position: sticky;
     inset: var(--layout-padding);
     top: 0;
-    padding-bottom: 4rem;
+    flex-shrink: 0;
     cursor: pointer;
 
     &::after {
@@ -42,13 +42,13 @@
 @media (min-width: 1024px) {
   .bottomSheet {
     inset: unset;
-    top: 11rem;
+    top: 6rem;
     right: 0;
     width: 50%;
     max-width: 50rem;
     max-height: none;
     overflow-y: auto;
-    height: calc(100% - 11rem) !important;
+    height: calc(100% - 6rem) !important;
     border-radius: 0;
 
     box-shadow: none;
