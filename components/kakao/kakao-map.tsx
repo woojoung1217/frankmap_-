@@ -10,6 +10,26 @@ import GetGeolocation from "./get-geolocation";
 import GetUser from "./get-user";
 import EventMarkerContainer from "./handle-marker";
 
+interface RecordType {
+  record_id: number;
+  emotion: number;
+  content: string;
+  latlng: {
+    lat: number;
+    lng: number;
+  };
+  date: string;
+  location: string;
+  image: string[];
+  user_id: string;
+  created_at: string;
+}
+
+interface Latlng {
+  lat: number;
+  lng: number;
+}
+
 function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout>;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
