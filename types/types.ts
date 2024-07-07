@@ -1,6 +1,5 @@
 export interface RecordType {
   record_id: number;
-  post_id: number;
   emotion: number;
   content: string;
   latlng: {

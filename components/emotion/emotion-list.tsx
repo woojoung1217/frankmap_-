@@ -5,21 +5,6 @@ import { useModal } from "@/hooks/useModal";
 import { useRouter } from "next/navigation";
 import { RecordType } from "@/types/types";
 
-interface RecordType {
-  record_id: number;
-  emotion: number;
-  content: string;
-  latlng: {
-    lat: number;
-    lng: number;
-  };
-  date: string;
-  location: string;
-  image: string[];
-  user_id: string;
-  created_at: string;
-}
-
 const EmotionList = () => {
   const { openModal } = useModal();
   const router = useRouter();
