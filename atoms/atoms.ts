@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { RecordType } from "@/types/types";
 
 interface ModalType {
   isOpen: Boolean;

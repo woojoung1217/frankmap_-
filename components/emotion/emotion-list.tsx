@@ -3,6 +3,7 @@ import { useRecoilValue } from "recoil";
 import { FilteredData } from "../../atoms/atoms";
 import { useModal } from "@/hooks/useModal";
 import { useRouter } from "next/navigation";
+import { RecordType } from "@/types/types";
 
 const EmotionList = () => {
   const { openModal } = useModal();
