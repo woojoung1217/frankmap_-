@@ -2,16 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 10rem;
+  height: var(--header-height-mo);
 }
 
 .header-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  max-width: 900px;
-  width: 100%;
-  flex-wrap: nowrap;
 }
 
 .button-back {

@@ -1,135 +1,169 @@
-.emotion_PC,
-.calendar_PC,
-.home_PC {
-  // background-color: gray;
-  text-align: center;
-  min-width: 7rem;
-  max-width: 7rem;
-
-  img {
-    min-height: 3rem;
-    max-height: 3rem;
-  }
-}
-
-.header_PC {
-  position: fixed;
-  width: 100vw;
-  z-index: 1000;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 2rem;
-  box-shadow: 0 0.2rem rgba(228, 228, 228, 0.5);
-  background-color: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(0.5rem);
-
-  @media (min-width: 1024px) {
-    top: 0;
-    bottom: auto;
-    flex-direction: row;
-
-    .home_PC {
-      margin-right: auto;
-    }
-
-    .calendar,
-    .emotion,
-    .profile_PC {
-      margin-left: 1rem;
-    }
-
-    a h1 {
-      display: none;
-    }
-  }
-
-  @media (max-width: 1023px) {
-    background-color: #fff;
-    height: 8rem;
-    max-height: 8rem;
-    border-radius: 2rem 2rem 0 0;
-    box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
-    top: auto;
-    bottom: 0;
+.header {
+  .header_PC {
+    position: fixed;
+    width: 100vw;
+    z-index: 1000;
     display: flex;
-    justify-content: center; // 중앙 정렬
-    gap: 2rem; // 요소 간 간격 설정
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    box-shadow: 0 0.2rem rgba(228, 228, 228, 0.5);
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(0.5rem);
 
-    .home_PC,
-    .calendar,
-    .emotion,
-    .profile_PC {
-      margin: 0;
+    & > div {
+      min-width: 5rem;
     }
 
-    img {
-      min-width: 3rem;
-      max-width: 3rem;
-    }
+    .emotion_PC,
+    .calendar_PC,
+    .home_PC {
+      text-align: center;
 
-    a {
-      text-decoration: none;
-      color: inherit;
-      &:hover,
-      &:focus,
-      &:active {
-        text-decoration: none; // 상호작용 시에도 밑줄 제거
-        color: inherit; // 상호작용 시에도 색상 변경 없음
+      img {
+        height: 2.6rem;
+        aspect-ratio: 1/1;
+        object-fit: scale-down;
       }
     }
 
-    .link-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 4rem; // 아이콘과 h1의 범위 고정
-      text-align: center;
+    @media (min-width: 1024px) {
+      top: 0;
+      bottom: auto;
+      flex-direction: row;
+      height: 6rem;
 
-      h1 {
-        margin: 0.5rem 0 0; // 아이콘과 h1 사이 간격 조절
+      .home_PC {
+        margin-right: auto;
+        order: -1;
+
+        img {
+          height: 5rem;
+        }
+      }
+
+      .emotion_PC,
+      .calendar_PC,
+      .home_PC,
+      .profile_PC {
+        img {
+          height: 3rem;
+        }
+      }
+
+      .calendar,
+      .emotion,
+      .profile_PC {
+        margin-left: 1rem;
+      }
+
+      a h1 {
+        display: none;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      background-color: #fff;
+      height: 7.5rem;
+      border-radius: 2rem 2rem 0 0;
+      box-shadow: 0 0.2rem 1rem rgba(0, 0, 0, 0.3);
+      top: auto;
+      bottom: 0;
+      display: flex;
+      justify-content: center; // 중앙 정렬
+      gap: 2rem; // 요소 간 간격 설정
+
+      .home_PC,
+      .calendar,
+      .emotion,
+      .profile_PC {
+        margin: 0;
       }
 
       img {
-        margin-bottom: 0.5rem; // 아이콘과 h1 사이 간격 조절
         min-width: 3rem;
         max-width: 3rem;
       }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+        &:hover,
+        &:focus,
+        &:active {
+          text-decoration: none; // 상호작용 시에도 밑줄 제거
+          color: inherit; // 상호작용 시에도 색상 변경 없음
+        }
+      }
+
+      .link-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 4rem; // 아이콘과 h1의 범위 고정
+        text-align: center;
+
+        h1 {
+          margin: 0.5rem 0 0; // 아이콘과 h1 사이 간격 조절
+        }
+
+        img {
+          margin-bottom: 0.5rem; // 아이콘과 h1 사이 간격 조절
+          min-width: 3rem;
+          max-width: 3rem;
+        }
+      }
+    }
+
+    .home_PC img {
+      @media (min-width: 1024px) {
+        content: url("/emotion1-folded.svg");
+        height: 4.5rem;
+      }
     }
   }
-}
 
-.home_PC img {
-  @media (min-width: 1024px) {
-    content: url("/emotion1-folded.svg");
+  .header_MO {
+    // display: flex;
+    // justify-content: space-between;
+    // top: 1rem;
+    // left: 0;
+    // z-index: 999;
+    // width: 100vw;
+    // /* background: red; */
+    // padding: calc(var(--layout-padding) / 2) var(--layout-padding);
   }
-}
 
-.header_MO {
-  position: fixed;
-  display: flex;
-  justify-content: space-between;
-  top: 1rem;
-  left: 0;
-  z-index: 999;
-  width: 100vw;
-  /* background: red; */
-  padding: calc(var(--layout-padding) / 2) var(--layout-padding);
-}
+  .home_MO,
+  .profile_MO {
+    position: fixed;
+    top: 0;
+    height: var(--header-height-mo);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
 
-.home_MO,
-.profile_MO {
-  // 기본값, 작은 화면에서 보이게 함
+    &.home_MO {
+      left: var(--layout-padding);
 
-  @media (min-width: 1024px) {
-    display: none; // 1024px 이상일 때 숨기기
+      img {
+        width: 5rem;
+      }
+    }
+    &.profile_MO {
+      right: var(--layout-padding);
+    }
+
+    @media (min-width: 1024px) {
+      display: none; // 1024px 이상일 때 숨기기
+    }
   }
-}
 
-.profile_PC {
-  display: block; // 기본값, 큰 화면에서 보이게 함
+  .profile_PC {
+    display: block; // 기본값, 큰 화면에서 보이게 함
 
-  @media (max-width: 1023px) {
-    display: none; // 1023px 이하일 때 숨기기
+    @media (max-width: 1023px) {
+      display: none; // 1023px 이하일 때 숨기기
+    }
   }
 }

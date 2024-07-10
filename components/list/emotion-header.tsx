@@ -33,9 +33,9 @@ const EmotionHeader: React.FC<EmotionHeaderProp> = ({ onMonthChange }) => {
   return (
     <div className="emotion-header">
       <div className="header-content">
-        <button onClick={handleBack} className="button-back">
+        {/* <button onClick={handleBack} className="button-back">
           <span className="hidden">뒤로가기</span>
-        </button>
+        </button> */}
         {pathname === "/emotion" && (
           <input
             type="month"
@@ -44,9 +44,9 @@ const EmotionHeader: React.FC<EmotionHeaderProp> = ({ onMonthChange }) => {
             onChange={(e) => onMonthChange(e.target.value)}
           />
         )}
-        <button onClick={() => openModal(modalData)} className="Button-userInfo">
+        {/* <button onClick={() => openModal(modalData)} className="Button-userInfo">
           <span className="hidden">회원정보</span>
-        </button>
+        </button> */}
       </div>
     </div>
   );
