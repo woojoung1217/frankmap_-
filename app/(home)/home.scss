@@ -64,7 +64,7 @@
     transform: translateX(-50%);
     width: 100%;
     max-width: 20rem;
-    height: 7rem;
+    height: var(--header-height-mo);
     z-index: 1;
     display: flex;
     align-items: center;
