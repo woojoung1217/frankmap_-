@@ -9,6 +9,7 @@ import { supabase } from "@/libs/supabase";
 import { useEffect, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import "@/components/list/emotion.scss";
+import { RecordType } from "@/types/types";
 
 const Emotion = () => {
   const user = useRecoilValue(userState);

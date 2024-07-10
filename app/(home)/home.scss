@@ -1,16 +1,15 @@
 .map {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  margin-top: -6rem;
 
   .emotionAddWr {
     position: fixed;
     right: var(--layout-padding);
-    bottom: calc(6rem + 2rem + var(--layout-padding));
+    bottom: calc(11.5rem + var(--layout-padding));
     z-index: 9;
     transition: all var(--transition-duration);
 
@@ -60,12 +59,15 @@
 
   .searchWr {
     position: fixed;
-    top: 7rem;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 20rem;
+    height: 7rem;
     z-index: 1;
+    display: flex;
+    align-items: center;
 
     #search {
       background: #fff url(/icon-search.svg) no-repeat center right 0.5rem;
@@ -169,6 +171,8 @@
 
 @media (min-width: 1024px) {
   .map {
+    margin-top: -6rem;
+
     .markerContent {
       font-size: 1.4rem;
       margin-top: -6rem;

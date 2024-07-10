@@ -63,6 +63,11 @@
       margin: 0;
     }
 
+    img {
+      min-width: 3rem;
+      max-width: 3rem;
+    }
+
     a {
       text-decoration: none;
       color: inherit;
@@ -87,16 +92,16 @@
 
       img {
         margin-bottom: 0.5rem; // 아이콘과 h1 사이 간격 조절
+        min-width: 3rem;
+        max-width: 3rem;
       }
     }
   }
 }
 
 .home_PC img {
-  // content: url("/home_yellow.svg"); // 기본 이미지
-
   @media (min-width: 1024px) {
-    content: url("/emotion1-folded.svg"); // 1024px 이상일 때 이미지 변경
+    content: url("/emotion1-folded.svg");
   }
 }
 
@@ -104,7 +109,7 @@
   position: fixed;
   display: flex;
   justify-content: space-between;
-  top: 0;
+  top: 1rem;
   left: 0;
   z-index: 999;
   width: 100vw;

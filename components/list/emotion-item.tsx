@@ -1,12 +1,12 @@
 import "@/components/list/emotion-item.scss";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { useModal } from "@/hooks/useModal";
+import { supabase } from "@/libs/supabase";
+import { RecordType } from "@/types/types";
+import { useRouter } from "next/navigation";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "@/components/list/emotion-item.scss";
-import { useRouter } from "next/navigation";
-import { supabase } from "@/libs/supabase";
-import { useModal } from "@/hooks/useModal";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 interface EmotionItemProps {
   record: RecordType;

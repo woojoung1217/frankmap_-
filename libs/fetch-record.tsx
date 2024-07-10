@@ -1,4 +1,5 @@
 import { supabase } from "@/libs/supabase";
+import { RecordType } from "@/types/types";
 
 const fetchData = async (userId: string): Promise<RecordType[]> => {
   try {

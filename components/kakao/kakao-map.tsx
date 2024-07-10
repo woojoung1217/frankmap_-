@@ -1,13 +1,14 @@
 "use client";
-import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
-import useKakaoLoader from "../../hooks/useKakaoLoader";
-import EventMarkerContainer from "./handle-marker";
+import { useModal } from "@/hooks/useModal";
+import { Latlng, RecordType } from "@/types/types";
 import { useEffect, useRef, useState } from "react";
+import { CustomOverlayMap, Map } from "react-kakao-maps-sdk";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { FilteredData, dataState, emotionAddMarker, isActBottomSheetState, locationState } from "../../atoms/atoms";
+import useKakaoLoader from "../../hooks/useKakaoLoader";
 import GetGeolocation from "./get-geolocation";
-import { useModal } from "@/hooks/useModal";
 import GetUser from "./get-user";
+import EventMarkerContainer from "./handle-marker";
 
 function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500): (...args: Parameters<T>) => void {
   let timeout: ReturnType<typeof setTimeout>;
@@ -17,7 +18,13 @@ function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500):
   };
 }
 
-const KakaoMap = () => {
+const KakaoMap = ({
+  search,
+  setSearch,
+}: {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   useKakaoLoader();
   const data = useRecoilValue(dataState);
   const mapRef = useRef<kakao.maps.Map>(null);
@@ -29,9 +36,7 @@ const KakaoMap = () => {
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
-
   const { openModal } = useModal();
-  const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState<{ content: string; latlng: Latlng }[]>([]);
 
   const filterDataFn = () => {

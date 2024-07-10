@@ -1,4 +1,4 @@
-import { addModeState, addStepState, editStepState, emotionState } from "@/atoms/atoms";
+import { editStepState, emotionState } from "@/atoms/atoms";
 import Button from "@/components/button/button";
 import "@/components/emotion/emotion-select.scss";
 import { useModal } from "@/hooks/useModal";
