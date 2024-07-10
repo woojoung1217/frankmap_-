@@ -5,6 +5,9 @@
   height: 100svh;
   box-sizing: border-box;
 }
+.containerLayout > div:not(.map) {
+  padding-bottom: 10rem;
+}
 
 .hidden {
   position: absolute !important;
