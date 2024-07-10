@@ -1,6 +1,6 @@
 .map {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   position: relative;
   left: 50%;
@@ -9,7 +9,7 @@
   .emotionAddWr {
     position: fixed;
     right: var(--layout-padding);
-    bottom: calc(6rem + 2rem + var(--layout-padding));
+    bottom: calc(11.5rem + var(--layout-padding));
     z-index: 9;
     transition: all var(--transition-duration);
 
@@ -64,7 +64,7 @@
     transform: translateX(-50%);
     width: 100%;
     max-width: 20rem;
-    height: 77px;
+    height: 7rem;
     z-index: 1;
     display: flex;
     align-items: center;

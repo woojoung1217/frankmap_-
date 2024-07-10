@@ -42,7 +42,7 @@ const EventMarkerContainer = ({
     });
   };
 
-  const handleClick = (marker: any, type: string) => {
+  const handleClick = (marker: kakao.maps.Marker, type: string) => {
     if (type !== "search") {
       setAddMode(false);
       setIsEmotionAddMarker(false);
@@ -56,8 +56,6 @@ const EventMarkerContainer = ({
       map.panTo(marker.getPosition());
       setIsEmotionAddMarker(true);
       if (setCenterMarker) setCenterMarker({ lat, lng });
-      // 검색 마커 첫 클릭 때 바텀 시트 활성화 안됨
-      // 등록 완료시 검색 데이터 삭제
     }
   };
 

@@ -18,7 +18,13 @@ function debounce<T extends (...args: any[]) => void>(callback: T, limit = 500):
   };
 }
 
-const KakaoMap = () => {
+const KakaoMap = ({
+  search,
+  setSearch,
+}: {
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+}) => {
   useKakaoLoader();
   const data = useRecoilValue(dataState);
   const mapRef = useRef<kakao.maps.Map>(null);
@@ -30,9 +36,7 @@ const KakaoMap = () => {
   const setIsActBottomSheet = useSetRecoilState(isActBottomSheetState);
   const [centerMarker, setCenterMarker] = useState<Latlng>(position);
   const isAct = useRecoilValue(isActBottomSheetState);
-
   const { openModal } = useModal();
-  const [search, setSearch] = useState("");
   const [searchedData, setSearchedData] = useState<{ content: string; latlng: Latlng }[]>([]);
 
   const filterDataFn = () => {
