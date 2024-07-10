@@ -2,7 +2,7 @@
   max-width: var(--layout-pc);
   padding: 60px var(--layout-padding) 0 var(--layout-padding); /* 기본 padding-top을 60px로 설정 */
   margin: 0 auto;
-  height: 100vh;
+  height: 100svh;
   box-sizing: border-box;
 }
 
