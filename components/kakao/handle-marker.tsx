@@ -42,7 +42,7 @@ const EventMarkerContainer = ({
     });
   };
 
-  const handleClick = (marker: any, type: string) => {
+  const handleClick = (marker: kakao.maps.Marker, type: string) => {
     if (type !== "search") {
       setAddMode(false);
       setIsEmotionAddMarker(false);
